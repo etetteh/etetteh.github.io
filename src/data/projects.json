@@ -1,0 +1,328 @@
+{
+    "name": "Projects",
+    "postTitle": "Comprehensive AI and Data Projects",
+    "description": "A collection of diverse AI and data-related projects.",
+    "imageURL": "item2.jpeg",
+    "postURL": "projects",
+    "children": [
+      {
+        "name": "Healthcare",
+        "postTitle": "AI-Powered Healing: The New Frontier in Medical Innovation",
+        "heroTitle": "Revolutionizing Patient Care: AI Meets Medicine",
+        "heroSubtitle": "Transforming patient care and medical research with cutting-edge artificial intelligence.",  
+        "description": "AI-Powered Healing: The New Frontier in Medical Innovation",
+        "imageURL": "item1.jpeg",
+        "postURL": "/projects/healthcare/healthcare",
+        "shadowColor": "red",
+        "children": [
+            {
+              "name": "Medical Image Analysis",
+              "postTitle": "AI in Medical Imaging",
+              "description": "Enhancing diagnostic accuracy in radiology and pathology with AI.",
+              "icon": "fa-x-ray",
+              "imageURL": "item1.jpeg",
+              "postURL": "/projects/healthcare/medical-image-analysis",
+              "shadowColor": "from-blue-500 to-purple-500"
+            },
+            {
+              "name": "Virtual Assistants",
+              "postTitle": "AI-Powered Virtual Health Assistants",
+              "description": "Helping patients and medical professionals with AI-driven virtual assistants.",
+              "icon": "fa-robot",
+              "imageURL": "item1.jpeg",
+              "postURL": "/projects/healthcare/virtual-assistants",
+              "shadowColor": "from-green-500 to-teal-500"
+            },
+            {
+              "name": "Predictive Analytics",
+              "postTitle": "Predictive Analytics in Healthcare",
+              "description": "Using AI to predict outcomes and optimize treatment plans.",
+              "icon": "fa-chart-line",
+              "imageURL": "item1.jpeg",
+              "postURL": "/projects/healthcare/predictive-analytics",
+              "shadowColor": "from-red-500 to-pink-500"
+            },
+            {
+              "name": "Drug Discovery",
+              "postTitle": "AI-Accelerated Drug Discovery",
+              "description": "Expediting drug discovery with AI-powered data analysis.",
+              "icon": "fa-capsules",
+              "imageURL": "item1.jpeg",
+              "postURL": "/projects/healthcare/drug-discovery",
+              "shadowColor": "from-yellow-500 to-orange-500"
+            },
+            {
+              "name": "Personalized Medicine",
+              "postTitle": "Personalized Medicine with AI",
+              "description": "Tailoring medical treatment to individual characteristics using AI.",
+              "icon": "fa-dna",
+              "imageURL": "item1.jpeg",
+              "postURL": "/projects/healthcare/personalized-medicine",
+              "shadowColor": "from-indigo-500 to-purple-500"
+            },
+            {
+              "name": "Automated Administrative Tasks",
+              "postTitle": "AI in Healthcare Administration",
+              "description": "Improving efficiency with AI-automated workflows in hospitals.",
+              "icon": "fa-tasks",
+              "imageURL": "item1.jpeg",
+              "postURL": "/projects/healthcare/automated-administrative-tasks",
+              "shadowColor": "from-cyan-500 to-blue-500"
+            }          
+        ]
+      },
+      {
+        "name": "Finance",
+        "postTitle": "FinTech Revolution: AI-Driven Solutions Reshaping the Financial Landscape",
+        "heroTitle": "Smart Money: AI Empowering Financial Decisions",
+        "heroSubtitle": "Empowering financial institutions with cutting-edge artificial intelligence for smarter decisions and enhanced customer experiences.",  
+        "description": "FinTech Revolution: AI-Driven Solutions Reshaping the Financial Landscape.",
+        "imageURL": "item1.jpeg",
+        "postURL": "/projects/finance/finance",
+        "shadowColor": "yellow",
+        "children": [
+            {
+              "name": "Fraud Detection",
+              "postTitle": "AI in Fraud Detection",
+              "description": "Detecting fraudulent activities in financial transactions using AI.",
+              "icon": "fa-shield-alt",
+              "imageURL": "item1.jpeg",
+              "postURL": "/projects/finance/fraud-detection",
+              "shadowColor": "from-red-500 to-orange-500"
+            },
+            {
+              "name": "Risk Assessment",
+              "postTitle": "AI for Risk Assessment",
+              "description": "AI-based risk assessment for loans, investments, and insurance.",
+              "icon": "fa-chart-line",
+              "imageURL": "item1.jpeg",
+              "postURL": "/projects/finance/risk-assessment",
+              "shadowColor": "from-blue-500 to-indigo-500"
+            },
+            {
+              "name": "Customer Segmentation",
+              "postTitle": "AI in Customer Segmentation",
+              "description": "Segmenting customers based on behavior and preferences using AI.",
+              "icon": "fa-users",
+              "imageURL": "item1.jpeg",
+              "postURL": "/projects/finance/customer-segmentation",
+              "shadowColor": "from-green-500 to-teal-500"
+            },
+            {
+              "name": "Market Forecasting",
+              "postTitle": "AI for Market Forecasting",
+              "description": "Predicting market trends and stock prices with AI.",
+              "icon": "fa-chart-bar",
+              "imageURL": "item1.jpeg",
+              "postURL": "/projects/finance/market-forecasting",
+              "shadowColor": "from-purple-500 to-pink-500"
+            },
+            {
+              "name": "Automated Trading",
+              "postTitle": "AI in Automated Trading",
+              "description": "AI-driven trading systems that execute trades automatically.",
+              "icon": "fa-robot",
+              "imageURL": "item1.jpeg",
+              "postURL": "/projects/finance/automated-trading",
+              "shadowColor": "from-yellow-500 to-amber-500"
+            },
+            {
+              "name": "Credit Scoring",
+              "postTitle": "AI-Powered Credit Scoring",
+              "description": "Enhancing credit scoring accuracy with machine learning algorithms.",
+              "icon": "fa-credit-card",
+              "imageURL": "item1.jpeg",
+              "postURL": "/projects/finance/credit-scoring",
+              "shadowColor": "from-cyan-500 to-blue-500"
+            },
+            {
+              "name": "Algorithmic Trading",
+              "postTitle": "AI in Algorithmic Trading",
+              "description": "Developing sophisticated trading algorithms using AI and machine learning.",
+              "icon": "fa-microchip",
+              "imageURL": "item1.jpeg",
+              "postURL": "/projects/finance/algorithmic-trading",
+              "shadowColor": "from-emerald-500 to-green-500"
+            },
+            {
+              "name": "Chatbots for Customer Service",
+              "postTitle": "AI Chatbots in Finance",
+              "description": "Implementing AI-powered chatbots for efficient customer service in banking and finance.",
+              "icon": "fa-comments",
+              "imageURL": "item1.jpeg",
+              "postURL": "/projects/finance/chatbots",
+              "shadowColor": "from-violet-500 to-purple-500"
+            }                   
+        ]
+      },
+      {
+        "name": "Agriculture",
+        "postTitle": "Cultivating Tomorrow: AI-Enabled Smart Farming Solutions",
+        "heroTitle": "From Soil to Harvest: AI Optimizing Agriculture",
+        "heroSubtitle": "Empowering farmers with cutting-edge artificial intelligence for smarter, more sustainable farming practices.",
+        "description": "Cultivating Tomorrow: AI-Enabled Smart Farming Solutions.",
+        "imageURL": "item1.jpeg",
+        "postURL": "/projects/agriculture/agriculture",
+        "shadowColor": "green",
+        "children": [
+            {
+              "name": "Crop Monitoring",
+              "postTitle": "AI in Crop Monitoring",
+              "description": "Monitoring crop health and growth using AI and IoT.",
+              "icon": "fa-seedling",
+              "imageURL": "item1.jpeg",
+              "postURL": "/projects/agriculture/crop-monitoring",
+              "shadowColor": "from-green-500 to-emerald-500"
+            },
+            {
+              "name": "Soil Analysis",
+              "postTitle": "AI for Soil Analysis",
+              "description": "Analyzing soil properties for better crop yield using AI.",
+              "icon": "fa-microscope",
+              "imageURL": "item1.jpeg",
+              "postURL": "/projects/agriculture/soil-analysis",
+              "shadowColor": "from-brown-500 to-yellow-700"
+            },
+            {
+              "name": "Yield Prediction",
+              "postTitle": "AI in Yield Prediction",
+              "description": "Predicting crop yield using AI models.",
+              "icon": "fa-chart-line",
+              "imageURL": "item1.jpeg",
+              "postURL": "/projects/agriculture/yield-prediction",
+              "shadowColor": "from-blue-500 to-indigo-500"
+            },
+            {
+              "name": "Pest and Disease Management",
+              "postTitle": "AI for Pest and Disease Management",
+              "description": "AI solutions for managing pests and diseases in agriculture.",
+              "icon": "fa-bug",
+              "imageURL": "item1.jpeg",
+              "postURL": "/projects/agriculture/pest-disease-management",
+              "shadowColor": "from-red-500 to-pink-500"
+            },
+            {
+              "name": "Precision Agriculture",
+              "postTitle": "AI in Precision Agriculture",
+              "description": "Optimizing agricultural practices with AI for better resource management.",
+              "icon": "fa-tractor",
+              "imageURL": "item1.jpeg",
+              "postURL": "/projects/agriculture/precision-agriculture",
+              "shadowColor": "from-yellow-500 to-amber-500"
+            },
+            {
+              "name": "Smart Irrigation",
+              "postTitle": "AI-Powered Smart Irrigation",
+              "description": "Optimizing water usage in agriculture with AI-driven irrigation systems.",
+              "icon": "fa-faucet",
+              "imageURL": "item1.jpeg",
+              "postURL": "/projects/agriculture/smart-irrigation",
+              "shadowColor": "from-cyan-500 to-blue-500"
+            },
+            {
+              "name": "Drone-based Monitoring",
+              "postTitle": "AI and Drones in Agriculture",
+              "description": "Using AI-powered drones for aerial monitoring and analysis of farmlands.",
+              "icon": "fa-plane",
+              "imageURL": "item1.jpeg",
+              "postURL": "/projects/agriculture/drone-monitoring",
+              "shadowColor": "from-purple-500 to-violet-500"
+            },
+            {
+              "name": "Livestock Management",
+              "postTitle": "AI in Livestock Management",
+              "description": "Implementing AI for better health monitoring and management of livestock.",
+              "icon": "fa-cow",
+              "imageURL": "item1.jpeg",
+              "postURL": "/projects/agriculture/livestock-management",
+              "shadowColor": "from-orange-500 to-red-500"
+            }
+          ]          
+      },
+      {
+        "name": "Insurance",
+        "postTitle": "Risk Redefined: AI-Powered Insurance for the Digital Age",
+        "heroTitle": "Predicting Protection: AI Transforming Insurance",
+        "heroSubtitle": "Empowering insurance companies with cutting-edge artificial intelligence for smarter risk assessment and enhanced customer experiences.",
+        "description": "Risk Redefined: AI-Powered Insurance for the Digital Age.",
+        "imageURL": "item1.jpeg",
+        "postURL": "/projects/insurance/insurance",
+        "sourceCodeLink": "https://github.com/example/insurance",
+        "shadowColor": "blue",
+        "children": [
+            {
+              "name": "Claims Processing",
+              "postTitle": "AI in Claims Processing",
+              "description": "Automating the claims processing workflow using AI.",
+              "icon": "fa-file-invoice-dollar",
+              "imageURL": "item1.jpeg",
+              "postURL": "/projects/insurance/claims-processing",
+              "shadowColor": "from-blue-500 to-indigo-500"
+            },
+            {
+              "name": "Risk Modeling",
+              "postTitle": "AI for Risk Modeling",
+              "description": "AI-driven models to assess insurance risk.",
+              "icon": "fa-chart-line",
+              "imageURL": "item1.jpeg",
+              "postURL": "/projects/insurance/risk-modeling",
+              "shadowColor": "from-red-500 to-pink-500"
+            },
+            {
+              "name": "Customer Behavior Analysis",
+              "postTitle": "AI in Customer Behavior Analysis",
+              "description": "Analyzing customer behavior and preferences using AI.",
+              "icon": "fa-users-cog",
+              "imageURL": "item1.jpeg",
+              "postURL": "/projects/insurance/customer-behavior-analysis",
+              "shadowColor": "from-green-500 to-teal-500"
+            },
+            {
+              "name": "Insurance Fraud Detection",
+              "postTitle": "AI in Insurance Fraud Detection",
+              "description": "Detecting fraudulent insurance claims using AI.",
+              "icon": "fa-shield-alt",
+              "imageURL": "item1.jpeg",
+              "postURL": "/projects/insurance/insurance-fraud-detection",
+              "shadowColor": "from-yellow-500 to-amber-500"
+            },
+            {
+              "name": "Policy Underwriting",
+              "postTitle": "AI in Policy Underwriting",
+              "description": "Automating policy underwriting processes with AI.",
+              "icon": "fa-file-signature",
+              "imageURL": "item1.jpeg",
+              "postURL": "/projects/insurance/policy-underwriting",
+              "shadowColor": "from-purple-500 to-violet-500"
+            },
+            {
+              "name": "Personalized Insurance",
+              "postTitle": "AI for Personalized Insurance",
+              "description": "Tailoring insurance products to individual needs using AI.",
+              "icon": "fa-user-cog",
+              "imageURL": "item1.jpeg",
+              "postURL": "/projects/insurance/personalized-insurance",
+              "shadowColor": "from-cyan-500 to-blue-500"
+            },
+            {
+              "name": "Chatbots for Customer Service",
+              "postTitle": "AI Chatbots in Insurance",
+              "description": "Implementing AI-powered chatbots for efficient customer service in insurance.",
+              "icon": "fa-comments",
+              "imageURL": "item1.jpeg",
+              "postURL": "/projects/insurance/chatbots",
+              "shadowColor": "from-emerald-500 to-green-500"
+            },
+            {
+              "name": "Predictive Maintenance",
+              "postTitle": "AI in Predictive Maintenance",
+              "description": "Using AI to predict and prevent potential insurance claims through maintenance recommendations.",
+              "icon": "fa-tools",
+              "imageURL": "item1.jpeg",
+              "postURL": "/projects/insurance/predictive-maintenance",
+              "shadowColor": "from-orange-500 to-red-500"
+            }          
+        ]
+      }
+    ]
+  }

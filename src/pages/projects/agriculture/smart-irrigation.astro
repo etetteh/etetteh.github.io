@@ -1,0 +1,46 @@
+---
+import IndividualSolutionPage from '../../../components/IndividualSolutionPage.astro';
+
+const solutionData = {
+  title: "AI-Powered Smart Irrigation",
+  description: "Optimizing water usage in agriculture with AI-driven irrigation systems.",
+  icon: "fa-faucet",
+  heroImage: "/images/smart_irrigation.jpg",
+  benefits: [
+    "Reduced water consumption",
+    "Improved crop health and yield",
+    "Lower energy costs for irrigation",
+    "Minimized water runoff and soil erosion"
+  ],
+  useCases: [
+    {
+      title: "Precision Watering",
+      description: "AI-controlled irrigation systems that deliver water precisely where and when it's needed."
+    },
+    {
+      title: "Drought Stress Prevention",
+      description: "Predictive irrigation scheduling to prevent crop water stress during dry periods."
+    }
+  ],
+  caseStudies: [
+    {
+      title: "Transforming Almond Orchards",
+      description: "How our smart irrigation AI improved water efficiency in California almond orchards.",
+      results: "40% reduction in water usage and 20% increase in almond yield",
+      imageUrl: "/images/almond_irrigation_case_study.jpg"
+    }
+  ],
+  technicalDetails: [
+    "Uses machine learning algorithms to analyze soil moisture data",
+    "Integrates real-time weather forecasts for predictive irrigation",
+    "Employs IoT sensors for continuous monitoring of crop water needs",
+    "Utilizes cloud computing for scalable data processing and analysis"
+  ]
+};
+---
+
+<IndividualSolutionPage
+  {...solutionData}
+  currentSolutionName="Smart Irrigation"
+  currentIndustry="Agriculture"
+/>

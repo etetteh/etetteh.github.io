@@ -1,0 +1,44 @@
+---
+import IndividualSolutionPage from '../../../components/IndividualSolutionPage.astro';
+
+const solutionData = {
+  title: "AI-Accelerated Drug Discovery",
+  description: "Expediting drug discovery with AI-powered data analysis.",
+  icon: "fa-capsules",
+  heroImage: "/images/drug_discovery_hero.jpg",
+  benefits: [
+    "Faster identification of potential drug candidates",
+    "Reduced costs in drug development process",
+    "Improved success rates in clinical trials",
+    "Discovery of novel therapeutic approaches"
+  ],
+  useCases: [
+    {
+      title: "Molecular Structure Analysis",
+      description: "AI algorithms analyze molecular structures to predict potential drug efficacy and side effects."
+    },
+    {
+      title: "Repurposing Existing Drugs",
+      description: "AI identifies new therapeutic uses for existing approved drugs."
+    }
+  ],
+  caseStudies: [
+    {
+      title: "Breakthrough in Antibiotic Discovery",
+      description: "How our AI platform helped discover a novel antibiotic effective against drug-resistant bacteria.",
+      results: "Identification of a new class of antibiotics in 18 months",
+      imageUrl: "/images/antibiotic_discovery_case_study.jpg"
+    }
+  ],
+  technicalDetails: [
+    "Our drug discovery AI utilizes deep learning models and molecular dynamics simulations to analyze vast chemical spaces.",
+    "Designed to enhance the efficiency of the drug discovery process."
+  ]
+};
+---
+
+<IndividualSolutionPage
+  {...solutionData}
+  currentSolutionName="Drug Discovery"
+  currentIndustry="Healthcare"
+/>

@@ -1,0 +1,44 @@
+---
+import IndividualSolutionPage from '../../../components/IndividualSolutionPage.astro';
+
+const solutionData = {
+  title: "AI in Predictive Maintenance",
+  description: "Using AI to predict and prevent potential insurance claims through maintenance recommendations.",
+  icon: "fa-tools",
+  heroImage: "/images/predictive_maintenance.jpg",
+  benefits: [
+    "Reduced frequency and severity of insurance claims",
+    "Lower maintenance costs for insured assets",
+    "Improved safety and risk management",
+    "Enhanced customer relationships through proactive service"
+  ],
+  useCases: [
+    {
+      title: "Equipment Failure Prediction",
+      description: "AI analyzes sensor data to predict potential equipment failures before they occur."
+    },
+    {
+      title: "Maintenance Schedule Optimization",
+      description: "AI optimizes maintenance schedules based on equipment condition and usage patterns."
+    }
+  ],
+  caseStudies: [
+    {
+      title: "Reducing Claims in Industrial Insurance",
+      description: "How our predictive maintenance AI helped a major industrial insurer reduce claims and improve client relationships.",
+      results: "35% reduction in equipment-related claims and 25% decrease in maintenance costs for insured clients",
+      imageUrl: "/images/predictive_maintenance_case_study.jpg"
+    }
+  ],
+  technicalDetails: [
+    "Our predictive maintenance AI uses machine learning algorithms, including time series analysis and anomaly detection.",
+    "Designed to provide actionable insights for maintenance planning."
+  ]
+};
+---
+
+<IndividualSolutionPage
+  {...solutionData}
+  currentSolutionName="Predictive Maintenance"
+  currentIndustry="Insurance"
+/>

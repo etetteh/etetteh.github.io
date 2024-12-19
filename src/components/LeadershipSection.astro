@@ -1,0 +1,63 @@
+---
+export interface Props {
+  positions: {
+    title: string;
+    company: string;
+    period: string;
+  }[];
+}
+
+const { positions } = Astro.props;
+
+// Function to generate a unique gradient for each position
+function getGradient(index: number) {
+  const gradients = [
+    'from-blue-400 to-indigo-500',
+    'from-green-400 to-teal-500',
+    'from-purple-400 to-pink-500',
+    'from-yellow-400 to-orange-500',
+    'from-red-400 to-rose-500'
+  ];
+  return gradients[index % gradients.length];
+}
+---
+
+<section class="mx-9 mb-1 p-6 rounded-lg shadow-xl transition-all duration-300 bg-white dark:bg-gray-800">
+  <h2 class="text-3xl font-semibold mb-6 bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">Leadership</h2>
+  
+  <div class="flex flex-col space-y-6">
+    {positions.map((pos, index) => (
+      <div class={`relative overflow-hidden bg-gradient-to-r ${getGradient(index)} p-0.5 rounded-lg shadow-lg transition-all duration-300 hover:scale-102 hover:shadow-xl group`}>
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-white dark:bg-gray-800 p-6 rounded-lg h-full">
+          <div class="flex flex-col">
+            <h3 class="text-xl font-semibold text-gray-800 dark:text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-500 group-hover:to-purple-500 transition-all duration-300">
+              {pos.title}
+            </h3>
+            <p class="text-gray-700 dark:text-gray-300 mt-1">{pos.company}</p>
+          </div>
+          
+          <p class="text-sm text-gray-600 dark:text-gray-400 mt-4 sm:mt-0 bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-full">
+            {pos.period}
+          </p>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .bg-gradient-to-r {
+    background-size: 200% 200%;
+    animation: gradientShift 5s ease infinite;
+  }
+
+  .hover\:scale-102:hover {
+    transform: scale(1.02);
+  }
+</style>

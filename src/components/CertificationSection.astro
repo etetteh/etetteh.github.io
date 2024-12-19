@@ -1,0 +1,72 @@
+---
+export interface Props {
+  certifications: {
+    platform: string;
+    url: string;
+    skills: string[];
+  }[];
+}
+
+const { certifications } = Astro.props;
+
+// Platform-specific icons and gradients
+const platformStyles: {
+  [key: string]: { icon: string; gradient: string };
+} = {
+  "Google Cloud": {
+    icon: "☁️",
+    gradient: "from-blue-400 to-green-400"
+  },
+  "Microsoft Learn": {
+    icon: "💻",
+    gradient: "from-blue-500 to-cyan-500"
+  },
+  "Others": {
+    icon: "📜",
+    gradient: "from-purple-400 to-pink-400"
+  }
+};
+---
+
+<section class="mx-9 mb-1 p-6 rounded-lg shadow-xl transition-all duration-300 bg-white dark:bg-gray-800">
+  <h2 class="text-3xl font-semibold mb-6 bg-gradient-to-br from-blue-500 to-purple-500 bg-clip-text text-transparent">Certifications</h2>
+  
+  <div class="grid gap-8 justify-center sm:grid-cols-1 md:grid-cols-2">
+    {certifications.map((cert) => {
+      // const style = platformStyles[cert.platform] || platformStyles["Others"];
+      const style = platformStyles[cert.platform as keyof typeof platformStyles] || platformStyles["Others"];
+      return (
+        <div class={`p-0.5 rounded-lg shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl bg-gradient-to-br ${style.gradient}`}>
+          <div class="h-full p-6 bg-white dark:bg-gray-800 rounded-lg flex flex-col justify-between">
+            <a href={cert.url} target="_blank" rel="noopener noreferrer"
+               class="flex items-center space-x-2 text-xl font-semibold text-gray-800 dark:text-white hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 rounded">
+              <span class="text-2xl">{style.icon}</span>
+              <span>{cert.platform}</span>
+            </a>
+
+            <ul class="flex flex-wrap gap-2 mt-4">
+              {cert.skills.map((skill) => (
+                <li class="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-3 py-1 rounded-full text-sm font-medium transition-all duration-200 hover:scale-105 hover:shadow-md">
+                  {skill}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</section>
+
+<style>
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .bg-gradient-to-br {
+    background-size: 200% 200%;
+    animation: gradientShift 5s ease infinite;
+  }
+</style>

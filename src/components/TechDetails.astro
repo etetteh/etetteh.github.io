@@ -1,0 +1,32 @@
+---
+interface Props {
+  details: string | string[];
+}
+
+const { details } = Astro.props;
+
+const detailsArray = Array.isArray(details) ? details : [details];
+---
+
+<div class="bg-white rounded-lg shadow-md overflow-hidden">
+  <details class="group">
+    <summary class="flex justify-between items-center p-6 cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors duration-300">
+      <h3 class="text-xl font-semibold">Technical Specifications</h3>
+      <span class="text-blue-500 group-open:rotate-180 transition-transform duration-300">
+        <i class="fas fa-chevron-down"></i>
+      </span>
+    </summary>
+    <div class="p-6 bg-white">
+      <ul class="space-y-4">
+        {detailsArray.map((detail, index) => (
+          <li class="flex items-start">
+            <span class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-blue-100 text-blue-500 mr-3">
+              {index + 1}
+            </span>
+            <p class="text-gray-700">{detail}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </details>
+</div>

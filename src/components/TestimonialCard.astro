@@ -1,0 +1,20 @@
+---
+export interface Props {
+  quote: string;
+  author: string;
+  role: string;
+  company: string;
+}
+
+const { quote, author, role, company } = Astro.props;
+---
+
+<div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+  <p class="text-gray-600 dark:text-gray-300 italic mb-4">"{quote}"</p>
+  <div class="flex items-center">
+    <div>
+      <p class="font-semibold">{author}</p>
+      <p class="text-sm text-gray-500 dark:text-gray-400">{role}, {company}</p>
+    </div>
+  </div>
+</div>

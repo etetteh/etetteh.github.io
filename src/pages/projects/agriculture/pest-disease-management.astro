@@ -1,0 +1,44 @@
+---
+import IndividualSolutionPage from '../../../components/IndividualSolutionPage.astro';
+
+const solutionData = {
+  title: "AI for Pest and Disease Management",
+  description: "AI solutions for managing pests and diseases in agriculture.",
+  icon: "fa-bug",
+  heroImage: "/images/pest_disease_management.jpg",
+  benefits: [
+    "Early detection of pest infestations and diseases",
+    "Targeted and reduced pesticide use",
+    "Minimized crop losses",
+    "Improved crop quality"
+  ],
+  useCases: [
+    {
+      title: "Automated Pest Identification",
+      description: "AI-powered image recognition to identify and classify agricultural pests."
+    },
+    {
+      title: "Disease Spread Prediction",
+      description: "Predictive modeling of disease spread for proactive management."
+    }
+  ],
+  caseStudies: [
+    {
+      title: "Protecting Apple Orchards",
+      description: "How our AI pest management system safeguarded apple crops from codling moth infestations.",
+      results: "40% reduction in pesticide use and 25% decrease in crop losses due to pests",
+      imageUrl: "/images/apple_pest_case_study.jpg"
+    }
+  ],
+  technicalDetails: [
+    "Our pest and disease management AI combines computer vision, weather data analysis, and predictive modeling.",
+    "Utilizes machine learning algorithms to analyze images and predict pest behavior."
+  ]
+};
+---
+
+<IndividualSolutionPage
+  {...solutionData}
+  currentSolutionName="Pest and Disease Management"
+  currentIndustry="Agriculture"
+/>

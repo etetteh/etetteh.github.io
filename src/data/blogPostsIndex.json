@@ -1,0 +1,34 @@
+[
+    {
+      "title": "AI in Healthcare: The Next Frontier",
+      "description": "Explore how AI is revolutionizing healthcare with predictive analytics, personalized medicine, and beyond. Discover the market opportunities for investors.",
+      "link": "/blog/ai-healthcare",
+      "shadowColor": "yellow",
+      "fromColor": "pink",
+      "toColor": "orange"
+    },
+    {
+      "title": "Smart Agriculture: Feeding the Future",
+      "description": "Delve into the role of AI in boosting agricultural productivity and sustainability. Learn about the investment potential in this growing sector.",
+      "link": "/blog/smart-agriculture",
+      "shadowColor": "red",
+      "fromColor": "pink",
+      "toColor": "orange"
+    },
+    {
+      "title": "AI in Healthcare: The Next Frontier",
+      "description": "Explore how AI is revolutionizing healthcare with predictive analytics, personalized medicine, and beyond. Discover the market opportunities for investors.",
+      "link": "/blog/ai-healthcare",
+      "shadowColor": "yellow",
+      "fromColor": "pink",
+      "toColor": "orange"
+    },
+    {
+      "title": "Smart Agriculture: Feeding the Future",
+      "description": "Delve into the role of AI in boosting agricultural productivity and sustainability. Learn about the investment potential in this growing sector.",
+      "link": "/blog/smart-agriculture",
+      "shadowColor": "red",
+      "fromColor": "pink",
+      "toColor": "orange"
+    }
+  ]

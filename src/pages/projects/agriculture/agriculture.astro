@@ -1,0 +1,49 @@
+---
+import fs from 'node:fs/promises';
+import IndustryLandingPage from '../../../components/IndustryLandingPage.astro';
+
+const url = new URL('../../../data/projects.json', import.meta.url);
+const json = await fs.readFile(url, 'utf-8');
+const data = JSON.parse(json);
+
+// Find the Agriculture object in the children array
+const agricultureData = data.children.find((child: { name: string; }) => child.name === "Agriculture");
+
+// Extract the features from the children of the Agriculture object
+const features = agricultureData ? agricultureData.children : [];
+
+// Add error handling
+if (!features.length) {
+  console.error("No Agriculture data found or it's empty");
+}
+
+const researchHighlights = [
+  {
+    title: "AI-Driven Crop Yield Improvement",
+    description: "Our AI system increased crop yields by 30% through optimized resource allocation and precision farming techniques.",
+    imageUrl: "item1.jpeg",
+    imageAlt: "AI-enhanced crop field",
+    shadowColor: "from-green-500 to-emerald-600",
+    contentLink: "/research/ai-crop-yield-improvement",
+  },
+  {
+    title: "Sustainable Pest Management",
+    description: "Using AI-powered image recognition, we reduced pesticide use by 50% while maintaining crop health, promoting sustainable farming practices.",
+    imageUrl: "item2.jpeg",
+    imageAlt: "AI pest detection system",
+    shadowColor: "from-blue-500 to-indigo-600",
+    contentLink: "/research/sustainable-pest-management",
+  },
+];
+---
+
+<IndustryLandingPage
+  title={agricultureData.postTitle}
+  heroTitle={agricultureData.heroTitle}
+  heroSubtitle={agricultureData.heroSubtitle}
+  features={features}
+  researchHighlights={researchHighlights}
+  gradientStart="yellow-500"
+  gradientMiddle="amber-500"
+  gradientEnd="orange-500"
+/>

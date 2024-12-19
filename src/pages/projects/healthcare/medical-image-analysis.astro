@@ -1,0 +1,42 @@
+---
+import IndividualSolutionPage from '../../../components/IndividualSolutionPage.astro';
+
+const solutionData = {
+  title: "AI in Medical Imaging",
+  description: "Enhancing diagnostic accuracy in radiology and pathology with AI.",
+  icon: "fa-x-ray",
+  heroImage: "/images/medical_imaging_hero.jpg",
+  benefits: [
+    "Improved diagnostic accuracy",
+    "Faster image analysis",
+    "Early detection of diseases",
+    "Reduced workload for radiologists"
+  ],
+  useCases: [
+    {
+      title: "Lung Cancer Detection",
+      description: "AI algorithms analyze chest CT scans to detect early signs of lung cancer."
+    },
+    // ... more use cases can be added here
+  ],
+  caseStudies: [
+    {
+      title: "Implementing AI in City Hospital",
+      description: "How City Hospital improved their diagnostic accuracy with our AI solution.",
+      results: "30% increase in early cancer detection rates",
+      imageUrl: "/images/city_hospital_case_study.jpg"
+    },
+    // ... more case studies can be added here
+  ],
+  technicalDetails: [
+    "Our medical imaging AI uses deep learning convolutional neural networks to enhance image analysis.",
+    "Designed to assist radiologists in making more accurate diagnoses."
+  ]
+};
+---
+
+<IndividualSolutionPage
+  {...solutionData}
+  currentSolutionName="Medical Imaging"
+  currentIndustry="Healthcare"
+/>

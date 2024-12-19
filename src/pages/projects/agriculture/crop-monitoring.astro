@@ -1,0 +1,44 @@
+---
+import IndividualSolutionPage from '../../../components/IndividualSolutionPage.astro';
+
+const solutionData = {
+  title: "AI in Crop Monitoring",
+  description: "Monitoring crop health and growth using AI and IoT.",
+  icon: "fa-seedling",
+  heroImage: "/images/crop_monitoring.jpg",
+  benefits: [
+    "Early detection of crop health issues",
+    "Optimized resource allocation",
+    "Increased crop yields",
+    "Reduced crop losses"
+  ],
+  useCases: [
+    {
+      title: "Disease Detection",
+      description: "AI-powered image analysis to identify early signs of crop diseases."
+    },
+    {
+      title: "Growth Tracking",
+      description: "Continuous monitoring of crop growth stages for optimal interventions."
+    }
+  ],
+  caseStudies: [
+    {
+      title: "Revolutionizing Wheat Farming",
+      description: "How our AI crop monitoring system improved wheat yields for a large-scale farm.",
+      results: "20% increase in wheat yield and 30% reduction in pesticide use",
+      imageUrl: "/images/wheat_farming_case_study.jpg"
+    }
+  ],
+  technicalDetails: [
+    "Our crop monitoring AI uses computer vision and IoT sensor data analysis to provide real-time insights.",
+    "Integrates data from various sources to enhance decision-making for farmers."
+  ]
+};
+---
+
+<IndividualSolutionPage
+  {...solutionData}
+  currentSolutionName="Crop Monitoring"
+  currentIndustry="Agriculture"
+/>

@@ -1,0 +1,44 @@
+---
+import IndividualSolutionPage from '../../../components/IndividualSolutionPage.astro';
+
+const solutionData = {
+  title: "AI in Customer Behavior Analysis",
+  description: "Analyzing customer behavior and preferences using AI.",
+  icon: "fa-users-cog",
+  heroImage: "/images/customer_behavior.jpg",
+  benefits: [
+    "Personalized financial product recommendations",
+    "Improved customer retention strategies",
+    "Enhanced cross-selling and upselling opportunities",
+    "Better understanding of customer needs and preferences"
+  ],
+  useCases: [
+    {
+      title: "Churn Prediction",
+      description: "AI identifies customers at risk of leaving and suggests retention strategies."
+    },
+    {
+      title: "Personalized Marketing Campaigns",
+      description: "AI tailors marketing messages based on individual customer behavior and preferences."
+    }
+  ],
+  caseStudies: [
+    {
+      title: "Boosting Customer Engagement at National Bank",
+      description: "How our AI-driven customer behavior analysis improved customer satisfaction and retention.",
+      results: "25% increase in customer engagement and 15% reduction in churn rate",
+      imageUrl: "/images/customer_behavior_case_study.jpg"
+    }
+  ],
+  technicalDetails: [
+    "Our customer behavior analysis AI uses machine learning algorithms, including clustering and collaborative filtering.",
+    "Designed to enhance marketing strategies through data-driven insights."
+  ]
+};
+---
+
+<IndividualSolutionPage
+  {...solutionData}
+  currentSolutionName="Customer Behavior Analysis"
+  currentIndustry="Finance"
+/>

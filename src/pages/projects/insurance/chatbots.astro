@@ -1,0 +1,44 @@
+---
+import IndividualSolutionPage from '../../../components/IndividualSolutionPage.astro';
+
+const solutionData = {
+  title: "AI Chatbots in Insurance",
+  description: "Implementing AI-powered chatbots for efficient customer service in insurance.",
+  icon: "fa-comments",
+  heroImage: "/images/insurance_chatbots.jpg",
+  benefits: [
+    "24/7 customer support availability",
+    "Reduced wait times for customer inquiries",
+    "Consistent and accurate information delivery",
+    "Cost savings in customer service operations"
+  ],
+  useCases: [
+    {
+      title: "Policy Information and Quotes",
+      description: "AI chatbots provide instant policy information and generate quick quotes for customers."
+    },
+    {
+      title: "Claims Status Updates",
+      description: "Chatbots offer real-time updates on claim status and processing."
+    }
+  ],
+  caseStudies: [
+    {
+      title: "Enhancing Customer Service at Global Insurer",
+      description: "How our AI chatbot solution improved customer satisfaction and operational efficiency for a global insurance company.",
+      results: "50% reduction in call center volume and 40% improvement in customer inquiry resolution time",
+      imageUrl: "/images/chatbot_case_study.jpg"
+    }
+  ],
+  technicalDetails: [
+    "Our insurance chatbots use natural language processing and machine learning to understand and respond to customer queries.",
+    "Designed to provide accurate information quickly, enhancing customer experience."
+  ]
+};
+---
+
+<IndividualSolutionPage
+  {...solutionData}
+  currentSolutionName="Chatbots in Insurance"
+  currentIndustry="Insurance"
+/>

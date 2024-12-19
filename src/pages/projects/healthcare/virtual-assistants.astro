@@ -1,0 +1,44 @@
+---
+import IndividualSolutionPage from '../../../components/IndividualSolutionPage.astro';
+
+const solutionData = {
+  title: "AI-Powered Virtual Health Assistants",
+  description: "Helping patients and medical professionals with AI-driven virtual assistants.",
+  icon: "fa-robot",
+  heroImage: "/images/virtual_assistant_hero.jpg",
+  benefits: [
+    "24/7 availability for patient inquiries",
+    "Reduced workload for healthcare professionals",
+    "Improved patient engagement and satisfaction",
+    "Efficient triage and appointment scheduling"
+  ],
+  useCases: [
+    {
+      title: "Patient Support",
+      description: "Virtual assistants provide immediate responses to common health questions and concerns."
+    },
+    {
+      title: "Medication Management",
+      description: "AI assistants help patients adhere to medication schedules and provide reminders."
+    }
+  ],
+  caseStudies: [
+    {
+      title: "HealthBot Implementation at City Hospital",
+      description: "How City Hospital improved patient satisfaction with our AI-powered virtual assistant.",
+      results: "40% reduction in non-emergency calls to nursing staff",
+      imageUrl: "/images/healthbot_case_study.jpg"
+    }
+  ],
+  technicalDetails: [
+    "Our virtual health assistants use natural language processing and machine learning to understand and respond to patient queries.",
+    "Designed to learn from interactions to improve response accuracy."
+  ]
+};
+---
+
+<IndividualSolutionPage
+  {...solutionData}
+  currentSolutionName="Virtual Health Assistants"
+  currentIndustry="Healthcare"
+/>

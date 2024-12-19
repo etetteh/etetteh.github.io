@@ -1,0 +1,44 @@
+---
+import IndividualSolutionPage from '../../../components/IndividualSolutionPage.astro';
+
+const solutionData = {
+  title: "AI for Soil Analysis",
+  description: "Analyzing soil properties for better crop yield using AI.",
+  icon: "fa-microscope",
+  heroImage: "/images/soil_analysis.jpg",
+  benefits: [
+    "Precise nutrient management",
+    "Optimized fertilizer application",
+    "Improved soil health",
+    "Increased crop productivity"
+  ],
+  useCases: [
+    {
+      title: "Nutrient Mapping",
+      description: "AI-driven analysis of soil samples to create detailed nutrient maps."
+    },
+    {
+      title: "pH Optimization",
+      description: "Recommendations for soil pH adjustments based on AI analysis."
+    }
+  ],
+  caseStudies: [
+    {
+      title: "Transforming Vineyard Management",
+      description: "How our AI soil analysis improved wine grape quality for a premium vineyard.",
+      results: "15% improvement in grape quality and 25% reduction in fertilizer costs",
+      imageUrl: "/images/vineyard_soil_case_study.jpg"
+    }
+  ],
+  technicalDetails: [
+    "Our soil analysis AI utilizes spectral analysis and machine learning algorithms to provide detailed soil composition insights.",
+    "Integrates various data inputs such as weather patterns, soil conditions, and historical yield data for accurate predictions."
+  ]
+};
+---
+
+<IndividualSolutionPage
+  {...solutionData}
+  currentSolutionName="Soil Analysis"
+  currentIndustry="Agriculture"
+/>

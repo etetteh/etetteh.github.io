@@ -1,0 +1,106 @@
+---
+// Header.astro
+---
+
+<style>
+  /* Gradient colors for the changing word and keywords */
+  .gradient-text {
+      background: linear-gradient(90deg, #38bdf8, #3b82f6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      transition: background 0.5s ease, transform 0.2s ease;
+  }
+
+  /* Styling for animated changing word */
+  .changing-word {
+      font-size: 3rem;
+      transition: opacity 0.5s ease-in-out, transform 0.3s ease;
+      opacity: 1;
+      display: inline-block;
+  }
+  .changing-word.fade-out {
+      opacity: 0;
+      transform: scale(1.1);
+  }
+
+  /* Keyword animations */
+  .keyword:hover {
+      color: #FF6F61;
+      transform: scale(1.1);
+  }
+
+  /* Container styling for centering and spacing */
+  .header-container {
+      margin-top: 20px;
+  }
+  h1, h3 {
+      font-family: 'Helvetica Neue', sans-serif;
+      font-weight: 700;
+  }
+  h3 {
+      font-size: 1.25rem;
+  }
+</style>
+
+<!-- HTML structure with improved layout and styles -->
+<div class="header-container">
+  <h1 class="text-5xl font-bold text-[#FF6F61] dark:text-[#FF6F61]">
+    <span id="changing-word" class="changing-word gradient-text mx-auto">Innovate</span>
+  </h1>
+  <h1 class="text-5xl font-semibold tracking-wider text-gray-900 dark:text-white mt-2">
+    for tomorrow
+  </h1>
+  <h3 class="text-xl text-gray-700 dark:text-gray-300 mt-4">
+    <span class="keyword gradient-text">Click</span> on <span class="keyword gradient-text">ball</span> to explore my 
+    <span class="keyword gradient-text">innovative AI projects</span> and ideas!
+  </h3>
+</div>
+
+<script>
+    const words = ["Innovate", "Analyze", "Visualize", "Understand"];
+    const wordColors: { [key: string]: string } = {
+        'Innovate': '#38bdf8',
+        'Analyze': '#6B5B95',
+        'Visualize': '#88B04B',
+        'Understand': '#20808D'
+    };
+    let currentIndex = 0;
+
+    function changeWord() {
+        const wordElement = document.getElementById('changing-word');
+        if (!wordElement) return; // Early return if element is not found
+
+        currentIndex = (currentIndex + 1) % words.length;
+        const currentWord = words[currentIndex];
+        
+        // Apply gradient color and animation to the current word
+        wordElement.textContent = currentWord;
+        wordElement.style.backgroundImage = `linear-gradient(90deg, ${wordColors[currentWord as keyof typeof wordColors]}, #FF6F61)`;
+        wordElement.classList.toggle('fade-out');
+        
+        // Remove the fade-out class after the animation completes
+        setTimeout(() => {
+            wordElement.classList.toggle('fade-out');
+        }, 500);
+    }
+
+    // function changeWord() {
+    //     const wordElement = document.getElementById('changing-word');
+    //     currentIndex = (currentIndex + 1) % words.length;
+    //     const currentWord = words[currentIndex];
+        
+    //     // Apply gradient color and animation to the current word
+    //     wordElement.textContent = currentWord;
+    //     wordElement.style.backgroundImage = `linear-gradient(90deg, ${wordColors[currentWord]}, #FF6F61)`;
+    //     wordElement.classList.toggle('fade-out');
+        
+    //     // Remove the fade-out class after the animation completes
+    //     setTimeout(() => {
+    //         wordElement.classList.toggle('fade-out');
+    //     }, 500);
+    // }
+
+    // Change word every 5 seconds
+    setInterval(changeWord, 5000);
+</script>

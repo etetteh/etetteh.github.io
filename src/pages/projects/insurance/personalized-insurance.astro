@@ -1,0 +1,44 @@
+---
+import IndividualSolutionPage from '../../../components/IndividualSolutionPage.astro';
+
+const solutionData = {
+  title: "AI for Personalized Insurance",
+  description: "Tailoring insurance products to individual needs using AI.",
+  icon: "fa-user-cog",
+  heroImage: "/images/personalized_insurance.jpg",
+  benefits: [
+    "Customized insurance products for individual needs",
+    "Improved customer satisfaction and loyalty",
+    "More accurate risk assessment and pricing",
+    "Increased policy uptake and retention rates"
+  ],
+  useCases: [
+    {
+      title: "Personalized Policy Recommendations",
+      description: "AI analyzes customer data to suggest the most suitable insurance products."
+    },
+    {
+      title: "Usage-Based Insurance",
+      description: "AI processes real-time data to offer dynamic, behavior-based insurance pricing."
+    }
+  ],
+  caseStudies: [
+    {
+      title: "Transforming Customer Experience at Auto Insurer",
+      description: "How our personalized insurance AI improved customer satisfaction and retention for a leading auto insurer.",
+      results: "30% increase in customer satisfaction scores and 20% improvement in policy renewal rates",
+      imageUrl: "/images/personalized_insurance_case_study.jpg"
+    }
+  ],
+  technicalDetails: [
+    "Our personalized insurance AI utilizes machine learning algorithms, including collaborative filtering and decision trees.",
+    "Designed to enhance product recommendations based on individual customer profiles."
+  ]
+};
+---
+
+<IndividualSolutionPage
+  {...solutionData}
+  currentSolutionName="Personalized Insurance"
+  currentIndustry="Insurance"
+/>

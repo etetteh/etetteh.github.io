@@ -1,0 +1,43 @@
+[
+    {
+      "imageUrl": "item1.jpeg",
+      "imageAlt": "A description of your custom image",
+      "shadowColor": "red",
+      "contentLink": "https://your-target-link.com",
+      "title": "AI in Medical Imaging",
+      "description": "Breakthroughs in AI-driven diagnostic tools for early disease detection."
+    },
+    {
+      "imageUrl": "item2.jpeg",
+      "imageAlt": "A description of your custom image",
+      "shadowColor": "blue",
+      "contentLink": "https://your-target-link.com",
+      "title": "Enterprise Generative AI",
+      "description": "Exploring the boundaries of creativity through advanced generative models."
+    },
+    {
+      "imageUrl": "item3.jpeg",
+      "imageAlt": "A description of your custom image",
+      "shadowColor": "yellow",
+      "contentLink": "https://your-target-link.com",
+      "title": "Ethical AI Frameworks",
+      "description": "Developing frameworks for ethical AI that prioritize fairness and accountability."
+    },
+    {
+      "imageUrl": "item4.jpeg",
+      "imageAlt": "A description of your custom image",
+      "shadowColor": "green",
+      "contentLink": "https://your-target-link.com",
+      "title": "AI for Climate Change",
+      "description": "Leveraging AI to tackle environmental challenges and combat climate change."
+    },
+    {
+      "imageUrl": "item5.jpeg",
+      "imageAlt": "A description of your custom image",
+      "shadowColor": "green",
+      "contentLink": "https://your-target-link.com",
+      "title": "AI for Climate Change",
+      "description": "Leveraging AI to tackle environmental challenges and combat climate change."
+    }
+  ]
+  

@@ -1,0 +1,124 @@
+---
+import BlogPostCard from '../components/BlogCard.astro';
+
+// Define the type for categoryPostsMap explicitly
+const categoryPostsMap: Record<string, any[]> = {};
+
+// List of categories
+const categories = ['insurance', 'finance', 'agriculture', 'healthcare'];
+
+// Use import.meta.glob to import all markdown files
+const allPosts = import.meta.glob('../pages/projects/**/*.md');
+
+for (const category of categories) {
+  const categoryPosts = Object.entries(allPosts)
+    .filter(([key]) => key.includes(`/projects/${category}/`))
+    .map(([, importFunc]) => importFunc());
+
+  if (categoryPosts.length > 0) {
+    categoryPostsMap[category] = await Promise.all(categoryPosts);
+  }
+}
+
+// Pre-load images for each post
+const images = import.meta.glob('../assets/blog/*.{jpeg,jpg,png,gif}', { eager: true });
+
+function loadImage(imageURL: string) {
+  const imageName = imageURL.split('/').pop();
+  return images[`../assets/blog/${imageName}`] || null;
+}
+
+// Load images for all categories
+for (const category in categoryPostsMap) {
+  categoryPostsMap[category] = categoryPostsMap[category].map((post: any) => ({
+    ...post,
+    imageURL: loadImage(post.frontmatter.imageURL)
+  }));
+}
+
+// Helper function to get the first 5 posts of each category
+const getFirstPosts = (posts: any[], count = 5) => posts.slice(0, count);
+
+interface CategoryInfo {
+  [key: string]: { title: string; url: string; fromColor: string; toColor: string };
+}
+
+const categoryInfo: CategoryInfo = {
+  finance: { title: 'Finance', url: '/finance-index', fromColor: 'cyan', toColor: 'blue' },
+  healthcare: { title: 'Healthcare', url: '/healthcare-index', fromColor: 'red', toColor: 'pink' },
+  agriculture: { title: 'Agriculture', url: '/agriculture-index', fromColor: 'pink', toColor: 'pink' },
+  insurance: { title: 'Insurance', url: '/insurance-index', fromColor: 'red', toColor: 'green' },
+};
+---
+
+
+<section class="overflow-hidden p-7 leading-tight">
+  <div class="container mx-auto">
+      <h2 class="text-4xl font-extrabold mb-7 mx-auto text-center text-gray-900 dark:text-white">Driving AI-Powered Transformation</h2>
+      <p class="text-2xl font-light mb-7 max-w-4xl mx-auto text-center text-gray-700 dark:text-gray-300">
+        A Glimpse Into Innovations Across 
+        <span class="bg-gradient-to-r from-red-400 via-teal-400 to-green-700 bg-clip-text text-transparent gradient-animated">Finance</span>, 
+        <span class="bg-gradient-to-r from-blue-500 via-cyan-600 to-blue-700 bg-clip-text text-transparent gradient-animated">Healthcare</span>, 
+        <span class="bg-gradient-to-r from-pink-400 via-red-400 to-pink-700 bg-clip-text text-transparent gradient-animated">Agriculture</span>, and 
+        <span class="bg-gradient-to-r from-pink-500 via-red-600 to-pink-700 bg-clip-text text-transparent gradient-animated">Insurance</span>
+      </p>    
+
+    {Object.keys(categoryPostsMap).map((category) => (
+      <div class="mb-9">
+        <div class="flex items-center justify-between">
+            <h2 class="text-2xl font-bold mb-4 dark:text-white">{categoryInfo[category].title}</h2>
+
+            <div class="pr-10">
+              <a href={categoryInfo[category].url} 
+                class={`flex items-center space-x-2 bg-gradient-to-r from-${categoryInfo[category].fromColor}-400 to-${categoryInfo[category].toColor}-700 bg-clip-text text-transparent hover:underline overflow-visible`}>
+                  <span class="dark:text-white">Explore The {categoryInfo[category].title} Page</span>
+                  <span class="dark:text-white">&rarr;</span>
+              </a>
+            </div>
+
+
+        </div>
+
+        <div class="overflow-x-auto whitespace-nowrap flex focus:outline-none focus:ring-2 focus:ring-blue-600 dark:focus:ring-gray-300">
+          {Array.isArray(categoryPostsMap[category]) && getFirstPosts(categoryPostsMap[category], 5).map((post) => (
+            <div class="flex-grow min-w-[270px] max-w-[calc(100%-1rem)] focus:outline-none focus:ring-2 focus:ring-blue-600 dark:focus:ring-gray-300">
+              <BlogPostCard
+                postTitle={post.frontmatter.postTitle}
+                postExcerpt={post.frontmatter.postExcerpt}
+                postURL={post.frontmatter.postURL}
+                imageURL={post.imageURL}
+                imageAlt={post.frontmatter.imageAlt || 'Blog Post Image'}
+                postDate={post.frontmatter.postDate}
+                categoryName={post.frontmatter.categoryName}
+                authorName={post.frontmatter.authorName}
+                tags={post.frontmatter.tags}
+                shadowColor={post.frontmatter.shadowColor}
+                showTags={false}
+                showExcerpt={false}
+                aspect="auto"
+                fromColor={categoryInfo[category].fromColor}
+                toColor={categoryInfo[category].toColor}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .flex-grow {
+    flex: 1 1 auto;
+  }
+
+  .gradient-animated {
+      background-size: 200% 200%;
+      animation: gradientAnimation 3s ease infinite;
+  }
+  @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+  }
+</style>

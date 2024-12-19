@@ -1,0 +1,44 @@
+---
+import IndividualSolutionPage from '../../../components/IndividualSolutionPage.astro';
+
+const solutionData = {
+  title: "AI in Insurance Fraud Detection",
+  description: "Detecting fraudulent insurance claims using AI.",
+  icon: "fa-shield-alt",
+  heroImage: "/images/insurance_fraud_detection.jpg",
+  benefits: [
+    "Reduced financial losses due to fraud",
+    "Faster identification of potentially fraudulent claims",
+    "Improved accuracy in fraud detection",
+    "Enhanced regulatory compliance"
+  ],
+  useCases: [
+    {
+      title: "Anomaly Detection in Claims",
+      description: "AI identifies unusual patterns or discrepancies in claim data that may indicate fraud."
+    },
+    {
+      title: "Network Analysis for Fraud Rings",
+      description: "AI uncovers connections between claims and claimants to detect organized fraud rings."
+    }
+  ],
+  caseStudies: [
+    {
+      title: "Combating Fraud at Regional Insurance Provider",
+      description: "How our AI fraud detection system significantly reduced fraudulent claim payouts.",
+      results: "40% increase in fraud detection rate and $10 million saved in prevented fraudulent claims",
+      imageUrl: "/images/fraud_detection_case_study.jpg"
+    }
+  ],
+  technicalDetails: [
+    "Our insurance fraud detection AI utilizes advanced machine learning algorithms, including deep learning and graph neural networks.",
+    "Designed to enhance the efficiency of fraud detection processes."
+  ]
+};
+---
+
+<IndividualSolutionPage
+  {...solutionData}
+  currentSolutionName="Insurance Fraud Detection"
+  currentIndustry="Insurance"
+/>

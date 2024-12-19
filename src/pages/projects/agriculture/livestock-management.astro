@@ -1,0 +1,44 @@
+---
+import IndividualSolutionPage from '../../../components/IndividualSolutionPage.astro';
+
+const solutionData = {
+  title: "AI in Livestock Management",
+  description: "Implementing AI for better health monitoring and management of livestock.",
+  icon: "fa-cow",
+  heroImage: "/images/livestock_management.jpg",
+  benefits: [
+    "Early detection of health issues in animals",
+    "Optimized feeding strategies",
+    "Improved breeding programs",
+    "Enhanced overall herd management"
+  ],
+  useCases: [
+    {
+      title: "Individual Animal Monitoring",
+      description: "AI-powered systems for tracking health and behavior of individual animals."
+    },
+    {
+      title: "Automated Milking Systems",
+      description: "AI-driven robotic milking systems for dairy farms."
+    }
+  ],
+  caseStudies: [
+    {
+      title: "Transforming Dairy Farming",
+      description: "How our AI livestock management system improved milk production and animal welfare on a large dairy farm.",
+      results: "15% increase in milk yield and 30% reduction in animal health issues",
+      imageUrl: "/images/dairy_farm_case_study.jpg"
+    }
+  ],
+  technicalDetails: [
+    "Our livestock management AI uses machine learning algorithms to analyze data from wearable sensors, cameras, and other monitoring devices.",
+    "Integrates various data inputs to provide insights into animal health and behavior."
+  ]
+};
+---
+
+<IndividualSolutionPage
+  {...solutionData}
+  currentSolutionName="Livestock Management"
+  currentIndustry="Agriculture"
+/>
