@@ -1,0 +1,22 @@
+---
+export interface Props {
+    contentLink?: string;
+    text?: string;
+    fromColor?: string;
+    toColor?: string;
+    class?: string;
+}
+
+const { 
+    contentLink = "",
+    text = "Read More",
+    fromColor = "green",
+    toColor = "blue",
+    class: className 
+ } = Astro.props;
+---
+
+<a href={contentLink} 
+    class={`inline-block px-6 py-3 text-white transition duration-300 bg-gradient-to-br from-${fromColor}-500 to-${toColor}-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-${fromColor}-200 dark:focus:ring-${fromColor}-800 font-medium rounded-full text-2xl px-5 py-5 text-center me-2 mb-2 ${className}`}
+    >{text}
+</a>

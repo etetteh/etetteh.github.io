@@ -1,0 +1,142 @@
+---
+// BlogCard.astro
+import { Picture } from 'astro:assets';
+import { slugify } from "../utils/utils.js";
+import ReadMore from "../components/ReadMore.astro";
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+    categoryName?: string; 
+    authorName?: string; 
+    postURL?: string;
+    postDate?: string; 
+    postTitle?: string; 
+    postExcerpt?: string; 
+    tags?: string[];
+    imageURL: ImageMetadata | undefined;
+    imageAlt?: string; 
+    shadowColor?: string; 
+    showTags?: boolean;     
+    showExcerpt?: boolean;  
+    aspect?: string;  
+    fromColor?: string;
+    toColor?: string; 
+    readMoreText?: string;
+}
+
+const {
+    categoryName = "AI & Healthcare",
+    postURL = '/path/to/post',
+    postDate = "October 3, 2024",
+    postTitle = "AI in Healthcare: The Future of Medicine",
+    postExcerpt = "Explore how artificial intelligence is transforming healthcare with predictive analytics, personalized treatments, and more...",
+    tags = ["AI", "Healthcare", "Innovation"],
+    imageURL,
+    imageAlt = "AI in Healthcare",
+    shadowColor = "yellow",
+    showTags = true,
+    showExcerpt = true,
+    fromColor = "green",
+    toColor = "blue",
+    readMoreText = "Read More"
+} = Astro.props;
+
+// Generate URLs
+const categoryUrl = `/category/${slugify(categoryName)}`;
+---
+
+<!-- Blog Post Card -->
+<div class="flex justify-center items-center text-left w-full">
+	<div class="w-full m-1 max-w-md xl:max-w-full">
+	  <!-- Card Container -->
+	  <div class={`overflow-hidden border rounded-2xl hover:border-${shadowColor}-500 hover:shadow-lg hover:shadow-${shadowColor}-500 transition-shadow duration-300`}>
+		<div class="bg-white overflow-hidden shadow-md transform transition-transform duration-300">
+		  <!-- Blog Image and Content Container -->
+		  <div class={`relative overflow-hidden`}>
+			<Picture
+				formats={['avif', 'webp']}
+				src={imageURL as ImageMetadata}
+				widths={[
+				375, 430, 437, 460, 820, 834, 1024, 1130, 1280, 1366, 1440, 1680, 1920, 2560
+				]}
+				sizes={`
+				(max-width: 375px) 375px,   /* iPhone 15, iPhone 14, iPhone 15 Pro */
+				(max-width: 430px) 430px,   /* iPhone 15 Pro Max, Samsung Galaxy A15 4G/5G */
+				(max-width: 437px) 437px,   /* Samsung Galaxy A55 5G, Xiaomi Redmi 13C 4G */
+				(max-width: 460px) 460px,   /* Samsung Galaxy S24 Ultra */
+				(max-width: 820px) 820px,   /* Apple iPad, iPad Air */
+				(max-width: 834px) 834px,   /* iPad Pro 11" */
+				(max-width: 1024px) 1024px, /* Apple iPad Pro 12.9", Google Pixel Tablet */
+				(max-width: 1130px) 1130px, /* Microsoft Surface Pro 9, Lenovo tablets */
+				(max-width: 1280px) 1280px, /* MacBook Air M3, Samsung Galaxy Tab A9+ */
+				(max-width: 1366px) 1366px, /* Dell XPS 13, Samsung Galaxy Tab S9 series */
+				(max-width: 1440px) 1440px, /* iMac 24", HP Pavilion Plus 14 */
+				(max-width: 1680px) 1680px, /* Alienware Aurora R16, NZXT Player: One */
+				(max-width: 1920px) 1920px, /* HP Envy 34, Mac Mini (M2 Pro), Corsair One i500 */
+				(max-width: 2560px) 2560px, /* Mac Studio, 32-inch 4K displays */
+				(max-width: 3840px) 3840px, /* 32-inch 4K display */
+				auto         /* Default for larger */
+				`}
+				alt={imageAlt}
+				decoding="async"
+				loading="lazy"
+				style={{
+					height: '320px',  // Fixed height for all screen sizes
+					objectFit: 'cover'
+				}}
+				width="1600"
+    			height="900"
+			/>
+		  
+			<!-- Blog Content -->
+			<div class="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/90 to-transparent p-4 sm:p-6">
+				<!-- Blog Category -->
+				<div class="mb-2">
+					<a href={categoryUrl} class="inline-block px-2 py-1 text-xs font-semibold text-gray-900 dark:text-white bg-gray-200 rounded-full hover:text-gray-700 dark:hover:text-gray-300 focus:ring-2 focus:ring-blue-500">
+						{categoryName}
+					</a>
+				</div>
+			  
+				<!-- Blog Title -->
+				<h2 class="text-white dark:text-gray-200 text-wrap text-base font-bold sm:text-lg md:text-xl mb-2">
+					{postTitle}
+				</h2>
+			  
+				<!-- Conditionally render the Blog Excerpt -->
+				{showExcerpt && (
+					<div class="text-gray-300 dark:text-gray-400 text-xs sm:text-sm md:text-base leading-snug mb-3 text-pretty line-clamp-3"> <!-- Set explicit max-height for the clamp -->
+						{postExcerpt}
+					</div>
+				)}
+			  
+				<!-- Conditionally render the Blog Tags -->
+				{showTags && tags && tags.length > 0 && (
+					<div class="mb-1">
+						<div class="flex flex-wrap gap-1">
+							{tags.map(tag => (
+								<a href={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`} class="inline-block px-2 py-1 text-xs text-gray-900 dark:text-white bg-gray-200 rounded-full hover:text-gray-700 dark:hover:text-gray-300 focus:ring-2 focus:ring-teal-500">
+									#{tag}
+								</a>
+							))}
+						</div>
+					</div>
+				)}
+			
+				<!-- Flexbox container for Date and Read More Button -->
+				<div class="flex justify-between items-center w-full gap-3 mb-0">
+					<!-- Blog Date -->
+					<div class="text-xs sm:text-sm text-gray-300 dark:text-gray-400">
+						<p>{new Date(postDate).toLocaleDateString('en-US', {timeZone: "UTC", year: 'numeric', month: 'short', day: 'numeric' })}</p>
+					</div>
+					
+					<!-- Read More Button -->
+					<div>
+						<ReadMore contentLink={postURL} text={readMoreText} fromColor={fromColor} toColor={toColor}/>
+					</div>
+				</div>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+</div>

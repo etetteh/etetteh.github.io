@@ -1,0 +1,133 @@
+---
+import ReadMore from "../components/ReadMore.astro";
+
+interface Props {
+  shadowColor?: string;
+  contentLink?: string;
+  readMoreText?: string;
+  fromColor?: string;
+  toColor?: string;
+}
+
+const {
+  contentLink = "#",
+  readMoreText = "Read More",
+  fromColor = "green",
+  toColor = "blue"
+
+} = Astro.props;
+---
+
+<div class="flex justify-center items-center w-full">
+  <div class="w-full group">
+    <card-skew 
+      class={`relative inline-flex overflow-hidden rounded-2xl border border-transparent bg-gradient-to-br from-${fromColor}-400 to-${toColor}-600 p-[0.5px] transition-all duration-300 transform hover:shadow-xl hover:shadow-${toColor}-500`}
+      data-perspective="700">
+
+      <!-- Inner card content with white background -->
+      <div class="bg-white rounded-[inherit] overflow-hidden transform transition-transform duration-300">
+        <div class="p-4 h-[230px]">
+          <div class="m-3 text-left leading-none">
+            <slot class="block text-pretty text-sm sm:text-base md:text-lg lg:text-xl leading-none" />
+          </div>
+        </div>
+        <div class="m-4 mb-2">
+          <ReadMore contentLink={contentLink} text={readMoreText} fromColor={fromColor} toColor={toColor}/>
+        </div>
+      </div>
+    </card-skew>
+  </div>
+</div>
+
+<style>
+  card-skew {
+    display: block;
+    transition: transform 0.07s ease-in-out;
+    transform-style: preserve-3d;
+  }
+
+  /* Border gradient that displays on page load */
+  .border-gradient {
+    border-image: linear-gradient(45deg, #38bdf8, #3b82f6) 1;
+  }
+
+  /* Responsive behavior for card content width */
+  .card-content {
+    width: 100%;
+    max-width: 500px;
+  }
+
+  @media (max-width: 1280px) {
+    .card-content {
+      width: 80vw;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .card-content {
+      width: 90vw;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .card-content {
+      max-width: 1208px;
+    }
+  }
+
+  /* Responsive text sizes */
+  slot {
+    font-size: 1rem; /* Default for small screens */
+  }
+
+  @media (min-width: 640px) {
+    slot {
+      font-size: 1.125rem; /* sm screens */
+    }
+  }
+
+  @media (min-width: 768px) {
+    slot {
+      font-size: 1.25rem; /* md screens */
+    }
+  }
+
+  @media (min-width: 1024px) {
+    slot {
+      font-size: 1.5rem; /* lg screens */
+    }
+  }
+
+  @media (min-width: 1280px) {
+    slot {
+      font-size: 1.75rem; /* xl screens */
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('card-skew');
+    const perspective = 700;
+    const maxRotation = 3;
+
+    cards.forEach(card => {
+      const handleMouseMove = (e: MouseEvent) => {
+        const cardElement = card as HTMLElement;
+        const rect = cardElement.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+
+        const rotateX = y / (rect.height / 2) * maxRotation;
+        const rotateY = -x / (rect.width / 2) * maxRotation;
+
+        cardElement.style.transform = `perspective(${perspective}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      };
+
+      (card as HTMLElement).addEventListener('mousemove', handleMouseMove);
+      (card as HTMLElement).addEventListener('mouseleave', () => {
+        (card as HTMLElement).style.transform = `perspective(${perspective}px) rotateX(0) rotateY(0)`;
+      });
+    });
+  });
+</script>

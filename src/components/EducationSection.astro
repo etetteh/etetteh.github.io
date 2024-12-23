@@ -1,0 +1,92 @@
+---
+export interface Props {
+  education: {
+    degree: string;
+    institution: string;
+    year: number;
+    url: string;
+    thesis: string;
+  }[];
+}
+
+const { education } = Astro.props;
+
+// Updated degree highlight configuration with gradients
+const degreeHighlight: {
+  [key: string]: { gradient: string; icon: string };
+} = {
+  "Bachelor's Degree": {
+    gradient: "from-blue-400 to-cyan-500",
+    icon: "📘",
+  },
+  "Master's Degree": {
+    gradient: "from-green-400 to-emerald-500",
+    icon: "🎓",
+  },
+  "PhD": {
+    gradient: "from-purple-400 to-pink-500",
+    icon: "🔬",
+  },
+};
+
+// Function to get a fallback gradient
+function getFallbackGradient(index: number) {
+  const gradients = [
+    "from-yellow-400 to-orange-500",
+    "from-red-400 to-rose-500",
+    "from-indigo-400 to-blue-500"
+  ];
+  return gradients[index % gradients.length];
+}
+---
+
+<section class="mx-9 mb-1 p-6 rounded-lg shadow-xl transition-all duration-300 bg-white dark:bg-gray-800">
+  <h2 class="text-3xl font-semibold mb-6 bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">Education</h2>
+  <div class="grid gap-8 sm:grid-cols-1 md:grid-cols-2">
+    {education.map((edu, index) => {
+      const highlight = degreeHighlight[edu.degree.trim() as keyof typeof degreeHighlight] || {};
+      const gradient = highlight.gradient || getFallbackGradient(index);
+      return (
+        <div class={`p-0.5 rounded-lg shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl bg-gradient-to-br ${gradient}`}>
+          <div class="bg-white dark:bg-gray-800 p-6 rounded-lg h-full flex flex-col justify-between">
+            <div>
+              <h3 class="flex items-center text-xl font-semibold mb-2 bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+                <span class="mr-2 text-2xl">{highlight.icon || "🎓"}</span>
+                {edu.degree}
+              </h3>
+              
+              <a href={edu.url} target="_blank" rel="noopener noreferrer" aria-label={`Visit ${edu.institution}`}
+                 class="inline-block text-lg text-blue-600 dark:text-blue-400 hover:underline font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 rounded transition-colors duration-300">
+                {edu.institution}
+              </a>
+              
+              <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">{edu.year}</p>
+            </div>
+            
+            <div class="mt-3 p-3 bg-gray-100 dark:bg-gray-700 rounded-lg transition-all duration-300 hover:shadow-md">
+              <p class="text-sm text-gray-700 dark:text-gray-300 italic">
+                <span class="font-medium bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">Thesis:</span> 
+                <span class="ml-1 font-semibold text-gray-800 dark:text-gray-200">
+                  {edu.thesis}
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</section>
+
+<style>
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .bg-gradient-to-r, .bg-gradient-to-br {
+    background-size: 200% 200%;
+    animation: gradientShift 5s ease infinite;
+  }
+</style>

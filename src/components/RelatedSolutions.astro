@@ -1,0 +1,70 @@
+---
+import { promises as fs } from 'fs';
+import NoImageCardSkew from './NoImageCardSkew.astro';
+
+interface Props {
+  currentSolutionName: string;
+  currentIndustry: string;
+  title: string;
+}
+
+const { currentSolutionName, currentIndustry, title } = Astro.props;
+
+// Load the entire data
+const url = new URL('../data/projects.json', import.meta.url);
+const json = await fs.readFile(url, 'utf-8');
+const data = JSON.parse(json);
+
+// Find the current industry section
+const industrySection = data.children.find((child: { name: string; }) => child.name === currentIndustry);
+
+// Get all solutions in the current industry except the current solution
+const allIndustrySolutions = industrySection.children.filter((child: { name: string; }) => child.name !== currentSolutionName);
+
+// Randomly select 2-3 related solutions
+const relatedSolutions = allIndustrySolutions
+  .sort(() => 0.5 - Math.random())
+  .slice(0, Math.floor(Math.random() * 2) + 2)
+  .map((solution: { name: any; postURL: any; postTitle: any; description: any; icon: any; shadowColor: any; }) => ({
+    name: solution.name,
+    url: solution.postURL,
+    postTitle: solution.postTitle,
+    description: solution.description,
+    icon: solution.icon,
+    shadowColor: solution.shadowColor
+  }));
+---
+
+<section id="related-solutions" class="overflow-hidden py-12 sm:py-16 md:py-20 mb-8 sm:mb-12 md:mb-16">
+  <div class="container mx-auto">
+    <h2 class="text-3xl sm:text-4xl md:text-5xl mb-8 sm:mb-12 md:mb-16 text-center text-gray-900 dark:text-white">
+      {title}
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mx-6 xl:mx-10 2xl:mx-28">
+      {relatedSolutions.map((solution: { shadowColor: string | undefined; url: string | undefined; icon: any; name: unknown; postTitle: unknown; description: unknown; }) => (
+        <div class="relative">
+          <NoImageCardSkew
+            shadowColor={solution.shadowColor}
+            contentLink={solution.url}
+            readMoreText="Learn More"
+          >
+            <div class="bg-gray-0 transition duration-300 h-full flex flex-col min-h-[120px]">
+              <div class="flex items-center mb-3 sm:mb-4">
+                <i class={`fas ${solution.icon} text-2xl sm:text-3xl text-blue-500 mr-3`} />
+                <h4 class="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 dark:text-white">
+                  {solution.name}
+                </h4>
+              </div>
+              <p class="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 mb-2">
+                {solution.postTitle}
+              </p>
+              <p class="text-sm sm:text-base md:text-lg mb-4 sm:mb-6 text-gray-700 dark:text-gray-300">
+                {solution.description}
+              </p>
+            </div>
+          </NoImageCardSkew>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

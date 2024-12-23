@@ -1,0 +1,100 @@
+---
+import BlogPostCard from '../components/BlogCard.astro';
+import type { ImageMetadata } from 'astro';
+
+interface BlogPost {
+  frontmatter: {
+    imageURL?: string;
+    imageAlt?: string;
+    categoryName: string;
+    postTitle: string;
+    postExcerpt?: string;
+    postURL?: string;
+    postDate?: string;
+    authorName?: string;
+    tags?: string[];
+    shadowColor?: string;
+  };
+}
+
+interface Props {
+  currentCategory: string;
+  currentPostTitle: string;
+  postName?: string;
+}
+
+const {
+  currentCategory,
+  currentPostTitle,
+  postName = "Discover Related Insights:",
+} = Astro.props;
+
+// Import blog posts
+const blogPosts = Object.values(import.meta.glob('../pages/blog/*.md', { eager: true })) as BlogPost[];
+
+// Import all images in the blog directory
+const blogImages = import.meta.glob<{ default: ImageMetadata }>('../assets/blog/*.{png,jpg,jpeg,webp,avif}', { eager: true });
+
+// Map images for quick lookup
+const imageMap = Object.entries(blogImages).reduce((map, [path, module]) => {
+  const filename = path.split('/').pop();
+  if (filename) {
+    map[filename] = module.default;
+  }
+  return map;
+}, {} as Record<string, ImageMetadata>);
+
+// Combine all posts into one array with correctly imported images
+const allPosts = blogPosts.map((post) => {
+  if (!post.frontmatter.postTitle || !post.frontmatter.categoryName) {
+    console.warn("Missing required frontmatter fields:", post);
+  }
+  const imageName = post.frontmatter.imageURL?.split('/').pop();
+  return {
+    ...post,
+    imageURL: imageName ? imageMap[imageName] : undefined,
+  };
+});
+
+// Filter posts by matching the category and excluding the current post
+const relatedPosts = allPosts.filter((post) =>
+  post.frontmatter.categoryName === currentCategory &&
+  post.frontmatter.postTitle !== currentPostTitle
+);
+
+// Limit related posts
+const limitedRelatedPosts = relatedPosts.slice(0, 4);
+
+---
+
+<section class="mt-8">
+  <h2 class="text-2xl font-bold mb-2 ml-auto">{postName}</h2>
+
+  {limitedRelatedPosts.length > 0 ? (
+    <div class="overflow-x-auto whitespace-nowrap space-x-1 flex">
+      {limitedRelatedPosts.map((post) => (
+        <div class="inline-block min-w-[250px]">
+          {post.imageURL && (
+            <BlogPostCard
+              postTitle={post.frontmatter.postTitle}
+              postExcerpt={post.frontmatter.postExcerpt}
+              postURL={post.frontmatter.postURL}
+              imageURL={post.imageURL}
+              imageAlt={post.frontmatter.imageAlt || 'Blog Post Image'}
+              postDate={post.frontmatter.postDate}
+              categoryName={post.frontmatter.categoryName}
+              authorName={post.frontmatter.authorName}
+              tags={post.frontmatter.tags}
+              shadowColor={post.frontmatter.shadowColor}
+              showTags={false}
+              showExcerpt={false}
+              aspect="auto"
+            />
+          )}
+        </div>
+      ))}
+    </div>
+  ) : (
+    <p class="ml-auto">No related posts found in this category.</p>
+  )}
+</section>

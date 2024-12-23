@@ -1,0 +1,81 @@
+---
+// Header.astro
+---
+
+<style>
+    .gradient-text {
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+  
+    .changing-word {
+      font-size: 3.5rem;
+      transition: opacity 0.5s ease-in-out, transform 0.3s ease;
+      opacity: 1;
+      display: inline-block;
+    }
+    .changing-word.fade-out {
+      opacity: 0;
+      transform: scale(1.1);
+    }
+  
+    .header-container {
+      margin-top: 2rem;
+    }
+    h1, h3 {
+      font-family: 'Inter', 'Helvetica Neue', sans-serif;
+      font-weight: 800;
+    }
+    h3 {
+      font-size: 1.25rem;
+      line-height: 1.75;
+    }
+  </style>
+  
+  <div class="header-container">
+    <h1 class="text-6xl font-extrabold text-gray-900 dark:text-white">
+      <span id="changing-word" class="changing-word gradient-text mx-auto">Innovate</span>
+    </h1>
+    <h1 class="text-5xl font-bold tracking-tight text-gray-700 dark:text-gray-300 mt-2">
+      for tomorrow
+    </h1>
+    <h3 class="text-xl text-gray-700 dark:text-gray-300 mt-4">
+      <span class="gradient-text" style="background-image: linear-gradient(135deg, #6366F1, #8B5CF6, #D946EF);">Click</span> on 
+      <span class="gradient-text" style="background-image: linear-gradient(135deg, #14B8A6, #0EA5E9, #6366F1);">ball</span> to explore my 
+      <span class="gradient-text" style="background-image: linear-gradient(135deg, #22C55E, #10B981, #14B8A6);">innovative AI projects</span> and ideas!
+    </h3>
+  </div>
+  
+  <script>
+    const words = ["Innovate", "Analyze", "Visualize", "Understand"];
+    const wordGradients: { [key: string]: string } = {
+      'Innovate': 'linear-gradient(135deg, #6366F1, #8B5CF6, #D946EF)',
+      'Analyze': 'linear-gradient(135deg, #14B8A6, #0EA5E9, #6366F1)',
+      'Visualize': 'linear-gradient(135deg, #22C55E, #10B981, #14B8A6)',
+      'Understand': 'linear-gradient(135deg, #F59E0B, #EF4444, #EC4899)'
+    };
+    let currentIndex = Math.floor(Math.random() * words.length);
+  
+    function changeWord() {
+      const wordElement = document.getElementById('changing-word');
+      if (!wordElement) return;
+  
+      const currentWord = words[currentIndex];
+      wordElement.textContent = currentWord;
+      wordElement.style.backgroundImage = wordGradients[currentWord];
+      wordElement.classList.add('fade-out');
+      
+      setTimeout(() => {
+        wordElement.classList.remove('fade-out');
+      }, 500);
+  
+      currentIndex = (currentIndex + 1) % words.length;
+    }
+  
+    // Initial word change on page load
+    changeWord();
+  
+    setInterval(changeWord, 3000);
+  </script>
+  

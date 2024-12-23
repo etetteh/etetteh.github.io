@@ -1,0 +1,119 @@
+---
+import Layout from "../layouts/Layout.astro";
+import CaseStudy from "./CaseStudy.astro";
+import TechDetails from "./TechDetails.astro";
+import RelatedSolutions from "./RelatedSolutions.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  icon: string;
+  heroImage: string;
+  benefits: string[];
+  useCases: { title: string; description: string }[];
+  caseStudies: {
+    title: string;
+    description: string;
+    results: string;
+    imageUrl: string;
+  }[];
+  technicalDetails: string[];
+  currentSolutionName: string;
+  currentIndustry: string;
+}
+
+const {
+  title,
+  description,
+  icon,
+  benefits,
+  useCases,
+  caseStudies,
+  technicalDetails,
+  currentSolutionName,
+  currentIndustry,
+} = Astro.props;
+
+
+---
+
+<Layout title={`${title} | EnterpriseAI Solutions`}>
+  <section class="relative text-gray-900 py-20">
+    <div class="container mx-auto px-6">
+      <div class="flex flex-col items-center text-center">
+        <i class={`fas ${icon} text-5xl text-blue-500 mb-4`}></i>
+        <h1 class="text-4xl md:text-5xl font-bold mb-6">{title}</h1>
+        <p class="text-xl mb-8 max-w-3xl">{description}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl font-bold mb-8 text-center">Key Benefits</h2>
+      <ul class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        {benefits.map((benefit) => (
+          <li class="flex items-center justify-center text-center">
+            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+            <span>{benefit}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="py-16 bg-gradient-to-b from-gray-50 to-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-gray-800">
+        Innovative Use Cases
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        {useCases.map((useCase, index) => (
+          <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
+            <div class="flex items-center mb-6">
+              <div class={`w-12 h-12 flex items-center justify-center rounded-full text-white text-2xl font-bold ${index % 2 === 0 ? 'bg-blue-500' : 'bg-green-500'}`}>
+                {index + 1}
+              </div>
+              <h3 class="text-xl font-semibold ml-4 text-gray-800">{useCase.title}</h3>
+            </div>
+            <p class="text-gray-600 leading-relaxed">{useCase.description}</p>
+            <a href="#" class="inline-block mt-6 text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300 ease-in-out">
+              {/* Learn more &rarr; */}
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl font-bold mb-8 text-center">Case Studies</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        {caseStudies.map((caseStudy) => (
+          <CaseStudy
+            title={caseStudy.title}
+            description={caseStudy.description}
+            results={caseStudy.results}
+            imageUrl={caseStudy.imageUrl}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl font-bold mb-8 text-center">Technical Details</h2>
+      <div class="max-w-4xl mx-auto">
+        <TechDetails details={technicalDetails} />
+      </div>
+    </div>
+  </section>
+
+  <RelatedSolutions 
+    currentSolutionName={currentSolutionName}
+    currentIndustry={currentIndustry}
+    title="Related Solutions"
+  />
+</Layout>
