@@ -1,0 +1,44 @@
+---
+import IndividualSolutionPage from '../../../components/IndividualSolutionPage.astro';
+
+const solutionData = {
+  title: "AI in Healthcare Administration",
+  description: "Improving efficiency with AI-automated workflows in hospitals.",
+  icon: "fa-tasks",
+  heroImage: "/images/automated_tasks_hero.jpg",
+  benefits: [
+    "Reduced administrative burden on healthcare staff",
+    "Improved accuracy in documentation and billing",
+    "Faster patient check-in and discharge processes",
+    "Enhanced compliance with regulatory requirements"
+  ],
+  useCases: [
+    {
+      title: "Automated Appointment Scheduling",
+      description: "AI optimizes appointment scheduling based on patient needs and provider availability."
+    },
+    {
+      title: "Intelligent Medical Coding",
+      description: "AI assists in accurate medical coding for improved billing and reimbursement processes."
+    }
+  ],
+  caseStudies: [
+    {
+      title: "Streamlining Operations at Metro Hospital",
+      description: "How our AI administration solution reduced operational costs and improved efficiency at Metro Hospital.",
+      results: "25% reduction in administrative costs and 40% faster patient processing times",
+      imageUrl: "/images/hospital_admin_case_study.jpg"
+    }
+  ],
+  technicalDetails: [
+    "Our healthcare administration AI uses natural language processing, robotic process automation, and machine learning algorithms.",
+    "Designed to streamline workflows and enhance operational efficiency."
+  ]
+};
+---
+
+<IndividualSolutionPage
+  {...solutionData}
+  currentSolutionName="Healthcare Administration"
+  currentIndustry="Healthcare"
+/>

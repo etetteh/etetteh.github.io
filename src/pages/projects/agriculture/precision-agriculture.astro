@@ -1,0 +1,44 @@
+---
+import IndividualSolutionPage from '../../../components/IndividualSolutionPage.astro';
+
+const solutionData = {
+  title: "AI in Precision Agriculture",
+  description: "Optimizing agricultural practices with AI for better resource management.",
+  icon: "fa-tractor",
+  heroImage: "/images/precision_agriculture.jpg",
+  benefits: [
+    "Optimized use of water, fertilizers, and pesticides",
+    "Increased crop yields",
+    "Reduced environmental impact",
+    "Improved farm profitability"
+  ],
+  useCases: [
+    {
+      title: "Variable Rate Application",
+      description: "AI-driven precision application of inputs based on field variability."
+    },
+    {
+      title: "Automated Machinery Guidance",
+      description: "AI-powered guidance systems for precise planting, spraying, and harvesting."
+    }
+  ],
+  caseStudies: [
+    {
+      title: "Revolutionizing Soybean Farming",
+      description: "How our precision agriculture AI transformed soybean production for a large-scale farm.",
+      results: "15% increase in soybean yield and 30% reduction in input costs",
+      imageUrl: "/images/soybean_precision_case_study.jpg"
+    }
+  ],
+  technicalDetails: [
+    "Our precision agriculture AI integrates data from various sources, including satellite imagery, IoT sensors, and farm machinery.",
+    "Utilizes machine learning algorithms to analyze data for optimizing resource allocation."
+  ]
+};
+---
+
+<IndividualSolutionPage
+  {...solutionData}
+  currentSolutionName="Precision Agriculture"
+  currentIndustry="Agriculture"
+/>

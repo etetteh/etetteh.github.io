@@ -1,0 +1,44 @@
+---
+import IndividualSolutionPage from '../../../components/IndividualSolutionPage.astro';
+
+const solutionData = {
+  title: "AI for Market Forecasting",
+  description: "Predicting market trends and stock prices with AI.",
+  icon: "fa-chart-bar",
+  heroImage: "/images/market_forecasting.jpg",
+  benefits: [
+    "More accurate market predictions",
+    "Real-time analysis of market factors",
+    "Improved investment strategies",
+    "Early detection of market shifts"
+  ],
+  useCases: [
+    {
+      title: "Stock Price Prediction",
+      description: "AI analyzes historical data and current market conditions to forecast stock prices."
+    },
+    {
+      title: "Economic Trend Analysis",
+      description: "AI models predict broader economic trends to inform business strategies."
+    }
+  ],
+  caseStudies: [
+    {
+      title: "Enhancing Trading Strategies at Hedge Fund",
+      description: "How our AI market forecasting improved investment returns for a leading hedge fund.",
+      results: "12% increase in annual returns and 30% reduction in forecast error rates",
+      imageUrl: "/images/market_forecasting_case_study.jpg"
+    }
+  ],
+  technicalDetails: [
+    "Our market forecasting AI utilizes time series analysis, natural language processing of news data, and deep learning models.",
+    "Integrates data from various sources to enhance prediction accuracy."
+  ]
+};
+---
+
+<IndividualSolutionPage
+  {...solutionData}
+  currentSolutionName="Market Forecasting"
+  currentIndustry="Finance"
+/>

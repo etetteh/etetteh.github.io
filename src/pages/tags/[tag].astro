@@ -1,0 +1,129 @@
+---
+//[tag].astro
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import BlogPostCard from '../../components/BlogCard.astro';
+import { slugify } from '../../utils/utils.js';
+import type { ImageMetadata } from 'astro';
+
+// Extract the tag name from the URL dynamically
+const { tag } = Astro.params;
+
+const blogPosts = await getCollection("blog")
+const images = import.meta.glob<{ default: ImageMetadata }>('../../assets/blog/*.{jpeg,jpg,png,gif,webp}', { eager: true });
+
+const allPosts = Object.values(blogPosts)
+  .filter(post => post.data.postDate && !isNaN(new Date(post.data.postDate).getTime()))
+  .sort((a, b) => new Date(b.data.postDate).getTime() - new Date(a.data.postDate).getTime())
+  .map(post => {
+    const imageName = post.data.imageURL.split('/').pop();
+    const imageImport = imageName ? images[`../../assets/blog/${imageName}`] : undefined;
+    return {
+      ...post,
+      imageURL: imageImport ? imageImport.default : undefined
+    };
+  });
+
+// Filter the posts by matching the tag name (using slugify for comparison)
+const filteredPosts = allPosts.filter(post => {
+  return post.data.tags && post.data.tags.some((postTag: any) => slugify(postTag) === slugify(tag));
+});
+
+// Define pagination variables
+const postsPerPage = 6;  // Number of posts to show per page
+const currentPage = Astro.url.searchParams.get('page') ? parseInt(Astro.url.searchParams.get('page') || '1', 10) : 1;
+const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+const startIndex = (currentPage - 1) * postsPerPage;
+const endIndex = startIndex + postsPerPage;
+---
+
+<Layout>
+  <section class="container mx-auto px-4 py-10">
+    <!-- tag Header with Gradient and Animation -->
+    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 md:mb-8 animate-fade-in">
+      Posts by: 
+      <span class="capitalize text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-red-600 to-pink-700 animate-gradient-slide">
+        {tag}
+      </span>
+    </h1>
+    
+    <!-- Blog Posts Grid -->
+    {filteredPosts.length > 0 ? (
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {filteredPosts.slice(startIndex, endIndex).map((post) => (
+          <BlogPostCard
+            postTitle={post.data.postTitle}
+            postExcerpt={post.data.postExcerpt}
+            postURL={post.data.postURL}
+            imageURL={post.imageURL}
+            imageAlt={post.data.imageAlt || 'Blog Post Image'}
+            postDate={post.data.postDate}
+            categoryName={post.data.categoryName}
+            authorName={post.data.authorName}
+            tags={post.data.tags}
+            shadowColor={post.data.shadowColor || 'yellow'}
+            fromColor="yellow"
+            toColor="pink"
+          />
+        ))}
+      </div>
+    ) : (
+      <p class="text-lg text-gray-600 dark:text-gray-400">No posts found with tag "<span class="capitalize">{tag}</span>".</p>
+    )}
+
+    <!-- Pagination Controls with Enhanced Styling -->
+    {totalPages > 1 && (
+      <div class="flex justify-center mt-12 space-x-4">
+        <!-- Previous Page Button -->
+        {currentPage > 1 ? (
+          <a href={`?page=${currentPage - 1}`} class="px-6 py-2 bg-gradient-to-r from-yellow-400 via-red-600 to-pink-700 text-white rounded-full hover:shadow-lg transform transition-all duration-300 hover:scale-105 focus:ring-2 focus:ring-pink-300">
+            Previous
+          </a>
+        ) : (
+          <span class="px-6 py-2 bg-gray-300 text-gray-500 rounded-full cursor-not-allowed">
+            Previous
+          </span>
+        )}
+
+        <span class="px-4 py-2 text-gray-700 dark:text-gray-300 font-semibold">
+          Page {currentPage} of {totalPages}
+        </span>
+
+        <!-- Next Page Button -->
+        {currentPage < totalPages ? (
+          <a href={`?page=${currentPage + 1}`} class="px-6 py-2 bg-gradient-to-r from-yellow-400 via-red-600 to-pink-700 text-white rounded-full hover:shadow-lg transform transition-all duration-300 hover:scale-105 focus:ring-2 focus:ring-pink-300">
+            Next
+          </a>
+        ) : (
+          <span class="px-6 py-2 bg-gray-300 text-gray-500 rounded-full cursor-not-allowed">
+            Next
+          </span>
+        )}
+      </div>
+    )}
+  </section>
+</Layout>
+
+<style>
+  /* Gradient Animation */
+  @keyframes gradient-slide {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .animate-gradient-slide {
+    background-size: 200% 200%;
+    animation: gradient-slide 5s ease infinite;
+  }
+
+  /* Fade-in Animation */
+  .animate-fade-in {
+    animation: fadeIn 1s ease forwards;
+    opacity: 0;
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+</style>

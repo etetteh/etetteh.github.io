@@ -1,0 +1,44 @@
+---
+import IndividualSolutionPage from '../../../components/IndividualSolutionPage.astro';
+
+const solutionData = {
+  title: "AI for Risk Assessment",
+  description: "AI-based risk assessment for loans, investments, and insurance.",
+  icon: "fa-chart-line",
+  heroImage: "/images/risk_assessment.jpg",
+  benefits: [
+    "More accurate risk evaluation",
+    "Faster decision-making process",
+    "Reduced human bias in assessments",
+    "Dynamic risk monitoring"
+  ],
+  useCases: [
+    {
+      title: "Loan Approval Process",
+      description: "AI assesses loan applications by analyzing multiple data points to determine creditworthiness."
+    },
+    {
+      title: "Investment Portfolio Risk",
+      description: "AI evaluates and monitors risk levels in investment portfolios, suggesting rebalancing when necessary."
+    }
+  ],
+  caseStudies: [
+    {
+      title: "Revolutionizing Lending at FinTech Startup",
+      description: "How our AI risk assessment improved loan approval rates while reducing defaults for a growing fintech company.",
+      results: "30% increase in loan approvals with a 25% decrease in default rates",
+      imageUrl: "/images/risk_assessment_case_study.jpg"
+    }
+  ],
+  technicalDetails: [
+    "Our risk assessment AI employs machine learning models, including gradient boosting and neural networks.",
+    "Integrates various data inputs to enhance accuracy in risk evaluation."
+  ]
+};
+---
+
+<IndividualSolutionPage
+  {...solutionData}
+  currentSolutionName="Risk Assessment"
+  currentIndustry="Finance"
+/>

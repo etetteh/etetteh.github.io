@@ -1,0 +1,44 @@
+---
+import IndividualSolutionPage from '../../../components/IndividualSolutionPage.astro';
+
+const solutionData = {
+  title: "Personalized Medicine with AI",
+  description: "Tailoring medical treatment to individual characteristics using AI.",
+  icon: "fa-dna",
+  heroImage: "/images/personalized_medicine_hero.jpg",
+  benefits: [
+    "Improved treatment efficacy",
+    "Reduced adverse drug reactions",
+    "Optimized dosing regimens",
+    "Early disease intervention based on genetic risk"
+  ],
+  useCases: [
+    {
+      title: "Genomic Analysis for Cancer Treatment",
+      description: "AI analyzes a patient's genetic profile to recommend the most effective cancer treatments."
+    },
+    {
+      title: "Pharmacogenomics",
+      description: "AI predicts how individuals will respond to specific medications based on their genetic makeup."
+    }
+  ],
+  caseStudies: [
+    {
+      title: "Precision Oncology Success",
+      description: "How our AI-driven personalized medicine approach improved outcomes for cancer patients at University Cancer Center.",
+      results: "30% increase in treatment response rates for advanced-stage cancers",
+      imageUrl: "/images/precision_oncology_case_study.jpg"
+    }
+  ],
+  technicalDetails: [
+    "Our personalized medicine AI integrates genomic data analysis, machine learning, and clinical decision support systems.",
+    "Utilizes advanced algorithms to tailor treatments based on individual patient profiles."
+  ]
+};
+---
+
+<IndividualSolutionPage
+  {...solutionData}
+  currentSolutionName="Personalized Medicine"
+  currentIndustry="Healthcare"
+/>

@@ -1,0 +1,44 @@
+---
+import IndividualSolutionPage from '../../../components/IndividualSolutionPage.astro';
+
+const solutionData = {
+  title: "AI in Policy Underwriting",
+  description: "Automating policy underwriting processes with AI.",
+  icon: "fa-file-signature",
+  heroImage: "/images/policy_underwriting.jpg",
+  benefits: [
+    "Faster and more accurate risk assessment",
+    "Consistent underwriting decisions",
+    "Reduced operational costs",
+    "Improved customer experience through quicker policy issuance"
+  ],
+  useCases: [
+    {
+      title: "Automated Risk Assessment",
+      description: "AI analyzes applicant data to quickly assess risk and determine policy terms."
+    },
+    {
+      title: "Dynamic Pricing Models",
+      description: "AI adjusts policy pricing in real-time based on risk factors and market conditions."
+    }
+  ],
+  caseStudies: [
+    {
+      title: "Revolutionizing Underwriting at Life Insurance Co.",
+      description: "How our AI underwriting solution improved efficiency and accuracy for a major life insurer.",
+      results: "70% reduction in underwriting time and 25% improvement in risk assessment accuracy",
+      imageUrl: "/images/underwriting_case_study.jpg"
+    }
+  ],
+  technicalDetails: [
+    "Our policy underwriting AI leverages machine learning models, including gradient boosting and neural networks.",
+    "Designed to enhance the efficiency of underwriting processes."
+  ]
+};
+---
+
+<IndividualSolutionPage
+  {...solutionData}
+  currentSolutionName="Policy Underwriting"
+  currentIndustry="Insurance"
+/>

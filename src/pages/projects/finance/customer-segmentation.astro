@@ -1,0 +1,44 @@
+---
+import IndividualSolutionPage from '../../../components/IndividualSolutionPage.astro';
+
+const solutionData = {
+  title: "AI in Customer Segmentation",
+  description: "Segmenting customers based on behavior and preferences using AI.",
+  icon: "fa-users",
+  heroImage: "/images/customer_segmentation.jpg",
+  benefits: [
+    "Personalized marketing strategies",
+    "Improved customer retention",
+    "Enhanced product recommendations",
+    "Optimized resource allocation"
+  ],
+  useCases: [
+    {
+      title: "Targeted Marketing Campaigns",
+      description: "AI segments customers to create highly targeted and effective marketing campaigns."
+    },
+    {
+      title: "Product Development",
+      description: "Customer segmentation insights guide new product development and improvements."
+    }
+  ],
+  caseStudies: [
+    {
+      title: "Boosting Revenue at Online Retailer",
+      description: "How our AI-driven customer segmentation increased sales and customer loyalty for a major e-commerce platform.",
+      results: "20% increase in customer lifetime value and 15% boost in sales conversion rates",
+      imageUrl: "/images/customer_segmentation_case_study.jpg"
+    }
+  ],
+  technicalDetails: [
+    "Our customer segmentation AI uses clustering algorithms and deep learning to identify patterns in customer behavior.",
+    "Integrates various data sources to enhance targeting accuracy."
+  ]
+};
+---
+
+<IndividualSolutionPage
+  {...solutionData}
+  currentSolutionName="Customer Segmentation"
+  currentIndustry="Finance"
+/>

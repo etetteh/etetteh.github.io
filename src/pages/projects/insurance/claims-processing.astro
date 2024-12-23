@@ -1,0 +1,44 @@
+---
+import IndividualSolutionPage from '../../../components/IndividualSolutionPage.astro';
+
+const solutionData = {
+  title: "AI in Claims Processing",
+  description: "Automating the claims processing workflow using AI.",
+  icon: "fa-file-invoice-dollar",
+  heroImage: "/images/claims_processing.jpg",
+  benefits: [
+    "Faster claims processing and settlement",
+    "Reduced manual errors in claims handling",
+    "Improved customer satisfaction through quicker resolutions",
+    "Cost savings in claims operations"
+  ],
+  useCases: [
+    {
+      title: "Automated Claims Triage",
+      description: "AI categorizes and prioritizes incoming claims for efficient processing."
+    },
+    {
+      title: "Fraud Detection in Claims",
+      description: "AI algorithms identify potentially fraudulent claims for further investigation."
+    }
+  ],
+  caseStudies: [
+    {
+      title: "Streamlining Claims at Global Insurance Co.",
+      description: "How our AI solution reduced claims processing time and improved accuracy for a major insurer.",
+      results: "50% reduction in claims processing time and 30% decrease in processing errors",
+      imageUrl: "/images/claims_processing_case_study.jpg"
+    }
+  ],
+  technicalDetails: [
+    "Our claims processing AI utilizes natural language processing and machine learning to automate document analysis and decision-making.",
+    "Designed to enhance operational efficiency and accuracy."
+  ]
+};
+---
+
+<IndividualSolutionPage
+  {...solutionData}
+  currentSolutionName="Claims Processing"
+  currentIndustry="Insurance"
+/>

@@ -1,7 +1,13 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 
+import node from '@astrojs/node';
+
 // https://astro.build/config
 export default defineConfig({
-    site: 'https://etetteh.github.io'
+  site: 'https://etetteh.github.io',
+
+  adapter: node({
+    mode: 'standalone'
+  })
 });

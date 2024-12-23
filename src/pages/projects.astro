@@ -1,0 +1,349 @@
+---
+import fs from 'node:fs/promises';
+
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+
+
+const url = new URL('../data/projects.json', import.meta.url);
+const json = await fs.readFile(url, 'utf-8');
+const initialData = JSON.parse(json);
+---
+
+<Layout title="Tailored Industry Projects - Enoch Tetteh">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .hovered {
+            transform: scale(1.5);
+            z-index: 10;
+        }
+
+        #hoverInfo {
+            position: fixed;
+            background-color: white;
+            padding: 5px;
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            pointer-events: none;
+            font-size: 12px;
+            line-height: 1.1;
+            z-index: 1000;
+            display: none;
+        }
+
+        .canvas-container {
+            position: relative;
+            margin-top: 0; /* Ensure no margin on top */
+            padding-top: 0; /* Ensure no padding on top */
+        }
+
+        #orbitCanvas {
+            display: block;
+            margin: 0 auto; /* Center the canvas */
+        }
+    </style>
+    
+    <div class="mt-20 ml-6 sm:ml-10 md:ml-16 lg:ml-24 xl:ml-48 2xl:ml-64 ">
+        <Header />
+    </div>
+
+    <div class="max-h-screen mx-auto px-2 sm:px-4 lg:px-8">
+        <div class="flex flex-col-reverse md:flex-row gap-4">
+            <!-- Canvas Container with Hover Tooltip and Responsive Sizing -->
+            <div class="relative w-full md:w-1/2 aspect-cover canvas-container">
+                <!-- <canvas id="orbitCanvas" class="w-full h-[430px] md:h-[500px] lg:h-[600px] xl:h-[700px] bg-gray-0 dark:bg-gray-700"></canvas> -->
+                <canvas id="orbitCanvas" class="w-full h-[430px] md:h-[500px] lg:h-[600px] xl:h-[700px] bg-gray-0 dark:bg-gray-700"></canvas>
+                <div id="hoverInfo" class="absolute hidden"></div>
+            </div>
+            
+            <!-- Ball Details Section with Responsive Padding -->
+            <div class="flex-1 w-full md:w-1/2">
+                <div id="ballDetails" class="p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 bg-white dark:bg-gray-800 rounded-lg" hidden></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"></script>
+    <script is:inline define:vars={{ initialData }}>
+        
+        const canvas = document.getElementById('orbitCanvas');
+        const ctx = canvas.getContext('2d');
+        const hoverInfo = document.getElementById('hoverInfo');
+
+        function resizeCanvas() {
+            // Set canvas width to full parent width
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = canvas.parentElement.clientHeight;
+
+            
+            // Center coordinates based on the new canvas dimensions
+            centerX = canvas.width / 2;
+            centerY = canvas.height / 2;
+        }
+        
+        // Function to get accurate mouse position relative to the canvas
+        function getMousePos(canvas, event) {
+            const rect = canvas.getBoundingClientRect(); // Get canvas position relative to the viewport
+            return {
+                x: (event.clientX - rect.left) * (canvas.width / rect.width), // Scale x-coordinate
+                y: (event.clientY - rect.top) * (canvas.height / rect.height) // Scale y-coordinate
+            };
+        }
+        
+
+        // Initial setup and dynamic resizing
+        let centerX, centerY;
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // const initialData = 
+
+        let currentNode = initialData;
+        let balls = [];
+        let hoveredBall = null;
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            balls = [];
+            drawCentralBall(currentNode);
+            drawOrbit(currentNode.children);
+            requestAnimationFrame(draw);
+        }
+
+        function drawCentralBall(node) {
+            const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            // Use the ballColor from the node directly or fallback to dark green
+            const ballColor = node.ballColor || (isDarkMode ? 'teal' : '#FFD700');
+            const textColor = isDarkMode ? '#E2E8F0' : '#1A202C'; // Text color based on theme
+
+            // Draw the central ball
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 55, 0, Math.PI * 2);
+            ctx.fillStyle = ballColor; // Fill with the corresponding ballColor from node
+            ctx.fill();
+            
+
+            // Add a subtle shadow for depth
+            ctx.shadowColor = isDarkMode ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 0, 0, 0.1)';
+            ctx.shadowBlur = 10;
+            ctx.shadowOffsetX = 2;
+            ctx.shadowOffsetY = 2;
+
+            // Draw text inside the ball
+            ctx.fillStyle = textColor;
+            ctx.textAlign = 'center';
+            ctx.font = "bold 16px Arial";
+            ctx.fillText(node.name, centerX, centerY + 5);
+
+            // Reset shadow to avoid affecting other elements
+            ctx.shadowColor = 'transparent';
+            ctx.shadowBlur = 0;
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 0;
+
+            balls.push({
+            x: centerX,
+            y: centerY,
+            radius: 55,
+
+            name: node.name,
+            postTitle: node.postTitle,
+            description: node.description,
+            imageURL: node.imageURL,
+            postURL: node.postURL,
+            sourceCodeLink: node.sourceCodeLink,
+            isCentral: true,
+            });
+        }
+
+        function drawOrbit(nodes) {
+            if (!nodes) return;
+
+            const orbitRadius = 147;
+            const ballRadius = 37;
+            const angleStep = (Math.PI * 2) / nodes.length;
+
+            // Get the current theme
+            const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            // Set text color based on theme
+            const textColor = isDarkMode ? '#E2E8F0' : '#2D3748';
+
+            for (let i = 0; i < nodes.length; i++) {
+                const angle = i * angleStep;
+                const ballX = centerX + orbitRadius * Math.cos(angle);
+                const ballY = centerY + orbitRadius * Math.sin(angle);
+
+                // Infer ball color from nodes[i].ballColor or use a default color
+                const ballColor = nodes[i].ballColor || (isDarkMode ? '#2C7A7B' : '#4FD1C5'); // Fallback color
+
+                // Draw ball
+                ctx.beginPath();
+                ctx.arc(ballX, ballY, ballRadius, 0, Math.PI * 2);
+                ctx.fillStyle = ballColor;
+                ctx.fill();
+
+                // Add subtle shadow for depth
+                ctx.shadowColor = isDarkMode ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 0, 0, 0.1)';
+                ctx.shadowBlur = 5;
+                ctx.shadowOffsetX = 2;
+                ctx.shadowOffsetY = 2;
+
+                // Draw text
+                ctx.fillStyle = textColor;
+                ctx.textAlign = 'center';
+                ctx.font = "11px Arial";
+                ctx.fillText(nodes[i].name, ballX, ballY + ballRadius + 15);
+
+                // Reset shadow
+                ctx.shadowColor = 'transparent';
+                ctx.shadowBlur = 0;
+                ctx.shadowOffsetX = 0;
+                ctx.shadowOffsetY = 0;
+
+                balls.push({
+                    x: ballX,
+                    y: ballY,
+                    radius: ballRadius,
+                    name: nodes[i].name,
+                    postTitle: nodes[i].postTitle,
+                    description: nodes[i].description,
+                    imageURL: nodes[i].imageURL,
+                    postURL: nodes[i].postURL,
+                    sourceCodeLink: nodes[i].sourceCodeLink,
+                    children: nodes[i].children || [],
+                    isCentral: false
+                });
+            }
+        }
+
+        const offset = 15; // Hover information offset from cursor
+
+        function isInsideBall(pos, ball) {
+            const dist = Math.hypot(pos.x - ball.x, pos.y - ball.y);
+            return dist < ball.radius;
+        }
+
+
+        // Handle ball clicks
+        document.addEventListener('click', function(evt) {
+            const mousePos = getMousePos(canvas, evt);
+
+            // Check if the click is within any ball on the canvas
+            balls.forEach(ball => {
+                if (isInsideBall(mousePos, ball)) {
+                    ballClicked = true;
+
+                    if (ball.isCentral) {
+                        displayBallDetails(ball);
+                    } else if (ball.children && ball.children.length > 0) {
+                        currentNode = ball;
+                        balls = [];
+                        displayBallDetails(currentNode);
+                    } else {
+                        displayBallDetails(ball);
+                    }
+                }
+            });
+        });
+
+        // Debounce hover functionality to prevent excessive event calls
+        let hoverTimeout;
+
+        // Handle mouse movements for hover information
+        canvas.addEventListener('mousemove', function(evt) {
+            clearTimeout(hoverTimeout);
+
+            hoverTimeout = setTimeout(() => {
+                const mousePos = getMousePos(canvas, evt);
+
+                // Check if hovering over a ball
+                const hoveringBall = balls.find(ball => isInsideBall(mousePos, ball));
+
+                if (hoveringBall) {
+                    hoveredBall = hoveringBall;
+                    showHoverInfo(evt, hoveringBall.name, hoveringBall.description);
+                } else if (hoveredBall) {
+                    hideHoverInfo(); // Hide if no longer hovering over a ball
+                    hoveredBall = null;
+                }
+            }, 10); // Adjust debounce delay based on UI performance
+        });
+
+        // Display hover information near the cursor
+        function showHoverInfo(event, name, description) {
+            hoverInfo.style.left = `${event.clientX + offset}px`;
+            hoverInfo.style.top = `${event.clientY + offset}px`;
+            hoverInfo.innerHTML = `
+                <div class="p-2 bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
+                    <strong class="font-semibold text-gray-900 dark:text-white">${name}</strong>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">${description}</p>
+                </div>
+            `;
+            hoverInfo.style.display = 'block';
+        }
+
+        // Hide hover information
+        function hideHoverInfo() {
+            hoverInfo.style.display = 'none';
+        }
+
+
+        function displayBallDetails(ball) {
+            const ballDetails = document.getElementById('ballDetails');
+
+            if (!ball || !ball.imageURL || !ball.name || !ball.description || !ball.postURL) {
+                console.error("Invalid ball data:", ball);
+                ballDetails.innerHTML = "<p>Error: Invalid ball data.</p>";
+                ballDetails.hidden = false;
+                return; // Important: Exit the function early
+            }
+
+            const avifSrcset = `/industries/${ball.imageURL.replace(/\.[^/.]+$/, '.avif')}`;
+            const webpSrcset = `/industries/${ball.imageURL.replace(/\.[^/.]+$/, '.webp')}`;
+            const imgSrc = `/industries/${ball.imageURL}`;
+
+            ballDetails.innerHTML = `
+                <div class="flex justify-center items-center w-full border border-gray-300 rounded-2xl mx-auto my-auto dark:border-gray-700">
+                <div class="relative overflow-hidden w-full rounded-2xl">
+                    <picture>
+                    <source srcset="${avifSrcset}" type="image/avif" media="(feature-detect: format(avif))" />
+                    <source srcset="${webpSrcset}" type="image/webp" media="(feature-detect: format(webp))" />
+                    <img
+                        src="${imgSrc}"
+                        alt="${ball.name}"
+                        width="1600"
+                        height="900"
+                        class="object-cover w-full h-[300px] sm:h-[350px] md:h-[400px] lg:h-[450px] xl:h-[500px] 2xl:h-[550px] 4k:h-[600px]"
+                        decoding="async"
+                        loading="lazy"
+                    />
+                    </picture>
+                    <div class="absolute inset-0 flex flex-col justify-end text-left bg-gradient-to-t from-black/60 to-transparent">
+                    <div class="relative flex-col p4">
+                        <h3 class="text-2xl font-bold text-w-hite ml-3">${ball.name}</h3>
+                        <p class="text-sm text-gray-300 line-clamp-3 mb-2 ml-3 dark:text-gray-200">${ball.description}</p>
+                        <a href="${ball.postURL}" class="inline-block text-white px-2 py-1 transition-colors duration-300 bg-[#20808D] rounded-r-full border border-[#20808D] hover:bg-black hover:text-[#20808D] relative group">
+                        Explore more
+                        <span class="inline-block transition-transform duration-300 group-hover:hidden">&rang;</span>
+                        <span class="transition-transform duration-300 hidden group-hover:inline-block">&rarr;</span>
+                        </a>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            `;
+
+            ballDetails.hidden = false;
+            }
+            
+        draw();
+        displayBallDetails(currentNode);
+    </script>
+</Layout>

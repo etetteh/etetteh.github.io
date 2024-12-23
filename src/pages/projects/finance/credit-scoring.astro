@@ -1,0 +1,44 @@
+---
+import IndividualSolutionPage from '../../../components/IndividualSolutionPage.astro';
+
+const solutionData = {
+  title: "AI-Powered Credit Scoring",
+  description: "Enhancing credit scoring accuracy with machine learning algorithms.",
+  icon: "fa-credit-card",
+  heroImage: "/images/credit_scoring.jpg",
+  benefits: [
+    "More accurate credit risk assessment",
+    "Inclusion of non-traditional data sources",
+    "Faster credit decisions",
+    "Reduced bias in credit scoring"
+  ],
+  useCases: [
+    {
+      title: "Alternative Data Credit Scoring",
+      description: "AI analyzes alternative data sources to provide credit scores for thin-file or no-file applicants."
+    },
+    {
+      title: "Real-time Credit Monitoring",
+      description: "AI continuously updates credit scores based on real-time financial behavior."
+    }
+  ],
+  caseStudies: [
+    {
+      title: "Expanding Financial Inclusion with AI",
+      description: "How our AI credit scoring system helped a microfinance institution increase lending to underserved populations.",
+      results: "50% increase in loan approvals for thin-file applicants with 20% lower default rates",
+      imageUrl: "/images/credit_scoring_case_study.jpg"
+    }
+  ],
+  technicalDetails: [
+    "Our credit scoring AI employs ensemble learning methods, including random forests and gradient boosting.",
+    "Utilizes various data sources to improve accuracy in credit assessments."
+  ]
+};
+---
+
+<IndividualSolutionPage
+  {...solutionData}
+  currentSolutionName="Credit Scoring"
+  currentIndustry="Finance"
+/>

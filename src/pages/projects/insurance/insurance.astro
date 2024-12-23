@@ -1,0 +1,49 @@
+---
+import fs from 'node:fs/promises';
+import IndustryLandingPage from '../../../components/IndustryLandingPage.astro';
+
+const url = new URL('../../../data/projects.json', import.meta.url);
+const json = await fs.readFile(url, 'utf-8');
+const data = JSON.parse(json);
+
+// Find the insurance object in the children array
+const insuranceData = data.children.find((child: { name: string; }) => child.name === "Insurance");
+
+// Extract the features from the children of the insurance object
+const features = insuranceData ? insuranceData.children : [];
+
+// Add error handling
+if (!features.length) {
+  console.error("No insurance data found or it's empty");
+}
+
+const researchHighlights = [
+  {
+    title: "AI-Powered Fraud Prevention",
+    description: "Our AI system detected 99.5% of fraudulent insurance claims, saving the industry over $1 billion in potential losses.",
+    imageUrl: "item1.jpeg",
+    imageAlt: "AI Fraud Prevention in Insurance",
+    shadowColor: "from-red-500 to-orange-500",
+    contentLink: "/research/ai-insurance-fraud-prevention",
+  },
+  {
+    title: "Personalized Risk Assessment",
+    description: "Using machine learning algorithms, our AI improved risk assessment accuracy by 40%, leading to more precise policy pricing and reduced losses.",
+    imageUrl: "item2.jpeg",
+    imageAlt: "AI Risk Assessment in Insurance",
+    shadowColor: "from-blue-500 to-indigo-500",
+    contentLink: "/research/personalized-risk-assessment",
+  },
+];
+---
+
+<IndustryLandingPage
+    title={insuranceData.postTitle}
+    heroTitle={insuranceData.heroTitle}
+    heroSubtitle={insuranceData.heroSubtitle}
+    features={features}
+    researchHighlights={researchHighlights}
+    gradientStart="red-500"
+    gradientMiddle="teal-500"
+    gradientEnd="green-700"
+/>

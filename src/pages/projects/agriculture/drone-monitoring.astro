@@ -1,0 +1,44 @@
+---
+import IndividualSolutionPage from '../../../components/IndividualSolutionPage.astro';
+
+const solutionData = {
+  title: "AI and Drones in Agriculture",
+  description: "Using AI-powered drones for aerial monitoring and analysis of farmlands.",
+  icon: "fa-drone",
+  heroImage: "/images/drone_monitoring.jpg",
+  benefits: [
+    "Rapid and efficient field surveying",
+    "Early detection of crop issues",
+    "Precise mapping of large areas",
+    "Reduced labor costs for field scouting"
+  ],
+  useCases: [
+    {
+      title: "Crop Health Mapping",
+      description: "AI analysis of drone imagery to create detailed crop health maps."
+    },
+    {
+      title: "Precision Spraying",
+      description: "AI-guided drones for targeted application of pesticides and fertilizers."
+    }
+  ],
+  caseStudies: [
+    {
+      title: "Revolutionizing Sugarcane Farming",
+      description: "How our drone-based AI monitoring improved sugarcane production for a large plantation.",
+      results: "25% reduction in pesticide use and 15% increase in overall sugarcane yield",
+      imageUrl: "/images/sugarcane_drone_case_study.jpg"
+    }
+  ],
+  technicalDetails: [
+    "Our drone-based monitoring AI uses computer vision and multispectral image analysis to provide insights on crop health, pest infestations, and more.",
+    "Integrates data from various sensors to enhance decision-making in agriculture."
+  ]
+};
+---
+
+<IndividualSolutionPage
+  {...solutionData}
+  currentSolutionName="Drones in Agriculture"
+  currentIndustry="Agriculture"
+/>

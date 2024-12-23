@@ -1,0 +1,44 @@
+---
+import IndividualSolutionPage from '../../../components/IndividualSolutionPage.astro';
+
+const solutionData = {
+  title: "AI for Risk Modeling",
+  description: "AI-driven models to assess insurance risk.",
+  icon: "fa-chart-line",
+  heroImage: "/images/risk_modeling.jpg",
+  benefits: [
+    "More accurate risk assessment",
+    "Dynamic pricing models",
+    "Improved underwriting decisions",
+    "Enhanced portfolio management"
+  ],
+  useCases: [
+    {
+      title: "Credit Risk Assessment",
+      description: "AI analyzes multiple data points to assess creditworthiness more accurately."
+    },
+    {
+      title: "Market Risk Prediction",
+      description: "AI models predict market volatility and potential risks to investment portfolios."
+    }
+  ],
+  caseStudies: [
+    {
+      title: "Revolutionizing Risk Assessment at FinTech Startup",
+      description: "How our AI risk modeling improved lending decisions for a growing fintech company.",
+      results: "20% reduction in default rates and 15% increase in approved loans",
+      imageUrl: "/images/risk_modeling_case_study.jpg"
+    }
+  ],
+  technicalDetails: [
+    "Our risk modeling AI employs advanced statistical techniques, machine learning algorithms, and big data analytics.",
+    "Designed to enhance decision-making processes in risk management."
+  ]
+};
+---
+
+<IndividualSolutionPage
+  {...solutionData}
+  currentSolutionName="Risk Modeling"
+  currentIndustry="Finance"
+/>

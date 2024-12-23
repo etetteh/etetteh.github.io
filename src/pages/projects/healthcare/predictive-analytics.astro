@@ -1,0 +1,44 @@
+---
+import IndividualSolutionPage from '../../../components/IndividualSolutionPage.astro';
+
+const solutionData = {
+  title: "Predictive Analytics in Healthcare",
+  description: "Using AI to predict outcomes and optimize treatment plans.",
+  icon: "fa-chart-line",
+  heroImage: "/images/predictive_analytics_hero.jpg",
+  benefits: [
+    "Early disease detection and prevention",
+    "Optimized resource allocation in hospitals",
+    "Personalized treatment recommendations",
+    "Improved patient outcomes"
+  ],
+  useCases: [
+    {
+      title: "Disease Risk Prediction",
+      description: "AI models analyze patient data to predict the likelihood of developing specific diseases."
+    },
+    {
+      title: "Hospital Readmission Prevention",
+      description: "Predictive analytics identify patients at high risk of readmission for targeted interventions."
+    }
+  ],
+  caseStudies: [
+    {
+      title: "Reducing Heart Disease Mortality",
+      description: "How our predictive analytics solution helped Regional Medical Center reduce heart disease mortality rates.",
+      results: "15% reduction in heart disease mortality over 2 years",
+      imageUrl: "/images/heart_disease_prediction_case_study.jpg"
+    }
+  ],
+  technicalDetails: [
+    "Our predictive analytics platform uses advanced machine learning algorithms, including random forests and deep neural networks.",
+    "Designed to improve patient outcomes through data-driven insights."
+  ]
+};
+---
+
+<IndividualSolutionPage
+  {...solutionData}
+  currentSolutionName="Predictive Analytics"
+  currentIndustry="Healthcare"
+/>

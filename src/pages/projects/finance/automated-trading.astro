@@ -1,0 +1,44 @@
+---
+import IndividualSolutionPage from '../../../components/IndividualSolutionPage.astro';
+
+const solutionData = {
+  title: "AI in Automated Trading",
+  description: "AI-driven trading systems that execute trades automatically.",
+  icon: "fa-robot",
+  heroImage: "/images/automated_trading.jpg",
+  benefits: [
+    "Faster trade execution",
+    "Emotion-free trading decisions",
+    "24/7 market monitoring",
+    "Ability to capitalize on small price movements"
+  ],
+  useCases: [
+    {
+      title: "High-Frequency Trading",
+      description: "AI executes large numbers of orders in fractions of a second."
+    },
+    {
+      title: "Arbitrage Opportunities",
+      description: "AI identifies and capitalizes on price discrepancies across different markets."
+    }
+  ],
+  caseStudies: [
+    {
+      title: "Revolutionizing Trading at Boutique Fund",
+      description: "How our AI-driven automated trading system improved trading performance for a boutique investment fund.",
+      results: "40% increase in trading profits and 60% reduction in operational costs",
+      imageUrl: "/images/automated_trading_case_study.jpg"
+    }
+  ],
+  technicalDetails: [
+    "Our automated trading AI uses reinforcement learning, neural networks, and high-speed data processing.",
+    "Designed to adapt to changing market conditions for optimal performance."
+  ]
+};
+---
+
+<IndividualSolutionPage
+  {...solutionData}
+  currentSolutionName="Automated Trading"
+  currentIndustry="Finance"
+/>

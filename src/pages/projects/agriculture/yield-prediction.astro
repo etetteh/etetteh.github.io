@@ -1,0 +1,44 @@
+---
+import IndividualSolutionPage from '../../../components/IndividualSolutionPage.astro';
+
+const solutionData = {
+  title: "AI in Yield Prediction",
+  description: "Predicting crop yield using AI models.",
+  icon: "fa-chart-line",
+  heroImage: "/images/yield_prediction.jpg",
+  benefits: [
+    "Accurate harvest forecasting",
+    "Improved supply chain planning",
+    "Optimized resource allocation",
+    "Better financial planning for farmers"
+  ],
+  useCases: [
+    {
+      title: "Seasonal Yield Forecasting",
+      description: "AI models predict crop yields based on historical data and current conditions."
+    },
+    {
+      title: "Risk Assessment",
+      description: "Evaluating potential risks to crop yield for better decision-making."
+    }
+  ],
+  caseStudies: [
+    {
+      title: "Enhancing Corn Production",
+      description: "How our AI yield prediction improved corn production planning for a major agricultural cooperative.",
+      results: "10% increase in overall corn yield and 20% improvement in supply chain efficiency",
+      imageUrl: "/images/corn_yield_case_study.jpg"
+    }
+  ],
+  technicalDetails: [
+    "Our yield prediction AI uses machine learning algorithms, including random forests and deep neural networks, to analyze multiple data sources.",
+    "Integrates various data inputs such as weather patterns, soil conditions, and historical yield data for accurate predictions."
+  ]
+};
+---
+
+<IndividualSolutionPage
+  {...solutionData}
+  currentSolutionName="Yield Prediction"
+  currentIndustry="Agriculture"
+/>

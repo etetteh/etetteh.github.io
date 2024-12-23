@@ -1,0 +1,44 @@
+---
+import IndividualSolutionPage from '../../../components/IndividualSolutionPage.astro';
+
+const solutionData = {
+  title: "AI in Algorithmic Trading",
+  description: "Developing sophisticated trading algorithms using AI and machine learning.",
+  icon: "fa-microchip",
+  heroImage: "/images/algorithmic_trading.jpg",
+  benefits: [
+    "Complex strategy execution",
+    "Backtesting and optimization of trading strategies",
+    "Adaptation to changing market conditions",
+    "Reduced impact of human emotions on trading"
+  ],
+  useCases: [
+    {
+      title: "Multi-factor Trading Models",
+      description: "AI integrates multiple factors to create sophisticated trading strategies."
+    },
+    {
+      title: "Sentiment Analysis Trading",
+      description: "AI analyzes news and social media sentiment to inform trading decisions."
+    }
+  ],
+  caseStudies: [
+    {
+      title: "AI-Driven Alpha Generation",
+      description: "How our algorithmic trading AI helped a quantitative trading firm generate consistent alpha.",
+      results: "25% improvement in Sharpe ratio and 30% increase in risk-adjusted returns",
+      imageUrl: "/images/algorithmic_trading_case_study.jpg"
+    }
+  ],
+  technicalDetails: [
+    "Our algorithmic trading AI utilizes deep reinforcement learning, natural language processing, and advanced statistical models.",
+    "Designed to adapt to market fluctuations for optimal performance."
+  ]
+};
+---
+
+<IndividualSolutionPage
+  {...solutionData}
+  currentSolutionName="Algorithmic Trading"
+  currentIndustry="Finance"
+/>

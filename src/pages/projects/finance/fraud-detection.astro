@@ -1,0 +1,44 @@
+---
+import IndividualSolutionPage from '../../../components/IndividualSolutionPage.astro';
+
+const solutionData = {
+  title: "AI in Fraud Detection",
+  description: "Detecting fraudulent activities in financial transactions using AI.",
+  icon: "fa-shield-alt",
+  heroImage: "/images/fraud_detection.jpg",
+  benefits: [
+    "Real-time fraud detection",
+    "Reduced financial losses",
+    "Improved customer trust",
+    "Adaptive learning to new fraud patterns"
+  ],
+  useCases: [
+    {
+      title: "Credit Card Fraud Detection",
+      description: "AI analyzes transaction patterns to identify and prevent fraudulent credit card usage."
+    },
+    {
+      title: "Anti-Money Laundering",
+      description: "AI systems detect complex money laundering schemes by analyzing large volumes of financial data."
+    }
+  ],
+  caseStudies: [
+    {
+      title: "Fraud Prevention at Global Bank",
+      description: "How our AI fraud detection system significantly reduced fraudulent transactions for a major international bank.",
+      results: "85% reduction in fraudulent transactions and $50 million saved annually",
+      imageUrl: "/images/fraud_detection_case_study.jpg"
+    }
+  ],
+  technicalDetails: [
+    "Our fraud detection AI utilizes advanced machine learning algorithms, including deep learning and anomaly detection.",
+    "Integrates data from various sources to enhance accuracy in detecting fraudulent activities."
+  ]
+};
+---
+
+<IndividualSolutionPage
+  {...solutionData}
+  currentSolutionName="Fraud Detection"
+  currentIndustry="Finance"
+/>

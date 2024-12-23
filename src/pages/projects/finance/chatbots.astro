@@ -1,0 +1,44 @@
+---
+import IndividualSolutionPage from '../../../components/IndividualSolutionPage.astro';
+
+const solutionData = {
+  title: "AI Chatbots in Finance",
+  description: "Implementing AI-powered chatbots for efficient customer service in banking and finance.",
+  icon: "fa-comments",
+  heroImage: "/images/finance_chatbots.jpg",
+  benefits: [
+    "24/7 customer support",
+    "Instant responses to common queries",
+    "Reduced operational costs",
+    "Improved customer satisfaction"
+  ],
+  useCases: [
+    {
+      title: "Account Inquiries and Transactions",
+      description: "AI chatbots handle routine account inquiries and facilitate simple transactions."
+    },
+    {
+      title: "Financial Advisory",
+      description: "Chatbots provide basic financial advice and product recommendations."
+    }
+  ],
+  caseStudies: [
+    {
+      title: "Transforming Customer Service at Digital Bank",
+      description: "How our AI chatbot solution improved customer satisfaction and operational efficiency for a leading digital bank.",
+      results: "70% reduction in call center volume and 35% improvement in customer satisfaction scores",
+      imageUrl: "/images/finance_chatbot_case_study.jpg"
+    }
+  ],
+  technicalDetails: [
+    "Our finance chatbots use natural language processing, intent recognition, and machine learning for continuous improvement.",
+    "Designed to learn from interactions to enhance user experience."
+  ]
+};
+---
+
+<IndividualSolutionPage
+  {...solutionData}
+  currentSolutionName="Chatbots in Finance"
+  currentIndustry="Finance"
+/>
