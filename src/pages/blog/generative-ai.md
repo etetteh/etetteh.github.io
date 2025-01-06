@@ -2,13 +2,13 @@
 layout: "../../layouts/BlogLayout.astro"
 authorName: "Enoch Tetteh"
 postTitle: "Generative AI"
-postExcerpt: ""
+postExcerpt: "Discover how generative AI is reshaping industries with cutting-edge advancements, from creating realistic content to automating complex tasks."
 postURL: "/blog/generative-ai"
 tags: ["AI", "Generative"]
-imageURL: "item2.jpeg"  # Provide a valid image URL if applicable
-imageAlt: "Generative AI"  # Alt text for the image
-postDate: "2024-12-22"  # ISO format for consistency
-categoryName: "Generative AI"  # Category based on the post topic
+imageURL: "/blog/item2.jpeg"
+imageAlt: "Generative AI"
+postDate: "2024-12-22"
+categoryName: "Generative AI"
 shadowColor: "green"
 ---
 

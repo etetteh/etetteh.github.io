@@ -4,75 +4,67 @@ import NoImageCardSkew from "./NoImageCardSkew.astro";
 import CardSkew from "./CardSkew1.astro";
 import Layout from "../layouts/Layout.astro";
 
-export interface Feature {
-  name: string;
-  postTitle: string;
-  description: string;
-  icon: string;
-  imageURL: string;
-  postURL: string;
-  shadowColor: string;
+import type { ImageMetadata } from 'astro';
+
+interface ResearchHighlight {
+ title: string;
+ description: string;
+ imageUrl: string;
+ imageAlt: string;
+ shadowColor: string;
+ contentLink: string;
 }
 
-export interface ResearchHighlight {
-  title: string;
-  description: string;
-  imageUrl: string;
-  imageAlt: string;
-  shadowColor: string;
-  contentLink: string;
+interface ProjectChild {
+ name: string;
+ postTitle: string;
+ description: string;
+ icon: string;
+ imageURL: string;
+ postURL: string;
+ shadowColor: string;
+ ballColor: string;
+ industry: string;
+}
+
+interface IndustryData {
+ name: string;
+ postTitle: string;
+ heroTitle: string;
+ heroSubtitle: string;
+ description: string;
+ imageURL: string;
+ postURL: string;
+ shadowColor: string;
+ ballColor: string;
+ industry: string;
+ children: ProjectChild[];
 }
 
 interface Props {
-  title: string;
-  heroTitle: string;
-  heroSubtitle: string;
-  features: Feature[];
+  industryData: IndustryData;
   researchHighlights: ResearchHighlight[];
   gradientStart: string;
   gradientMiddle: string;
   gradientEnd: string;
-
 }
 
-const { title, heroTitle, heroSubtitle, features, researchHighlights, 
-    gradientStart = "purple-500",
-    gradientMiddle = "pink-500",
-    gradientEnd = "red-500"
-} = Astro.props;
-
-async function loadImages(data: any[]) {
-  return await Promise.all(
-    data.map(async (item) => {
-      try {
-        const imageModule = await import(/* @vite-ignore */ `../../public/industries/${item.imageUrl}`);
-        return {
-          ...item,
-          imageUrl: imageModule.default,
-        };
-      } catch (error) {
-        console.error(`Error loading image for item: ${item.title}`, error);
-        return item; // Return the original item if image loading fails
-      }
-    })
-  );
-}
-
-
-const researchHighlightsWithImages = await loadImages(researchHighlights);
+const { industryData, researchHighlights, gradientStart, gradientMiddle, gradientEnd } = Astro.props;
+ 
+// const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/**/*.{jpeg,jpg,png,gif}');
 ---
 
-<Layout title={title}>
+<Layout title={industryData.postTitle}>
   <section class="relative text-gray-900 min-h-screen flex items-center justify-center overflow-hidden bg-white">
     <div class="container mx-auto px-6 relative z-10">
       <div class="flex flex-col items-center justify-center text-center">
         <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight max-w-4xl">
             <span class={`block text-transparent bg-clip-text bg-gradient-to-r from-${gradientStart} via-${gradientMiddle} to-${gradientEnd}`}>
-                {heroTitle}
+                {industryData.heroTitle}
             </span>
         </h1>
         <p class="text-xl md:text-2xl mb-10 text-gray-700 max-w-2xl leading-relaxed">
-          {heroSubtitle}
+          {industryData.heroSubtitle}
         </p>
         <div class="flex flex-col mt-7 sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 mb-16">
           <ExploreMore
@@ -88,10 +80,10 @@ const researchHighlightsWithImages = await loadImages(researchHighlights);
   <section id="features" class="overflow-hidden py-12 sm:py-16 md:py-20 mb-8 sm:mb-12 md:mb-16">
     <div class="container mx-auto">
       <h2 class="text-3xl sm:text-4xl md:text-5xl mb-8 sm:mb-12 md:mb-16 text-center text-gray-900 dark:text-white">
-        {title.split('|')[0].trim()}
+        {industryData.postTitle.split('|')[0].trim()}
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mx-6 xl:mx-10 2xl:mx-28">
-        {features.map((feature) => (
+        {industryData.children.map((feature) => (
           <div class="relative">
             <NoImageCardSkew
               shadowColor={feature.shadowColor}
@@ -126,7 +118,7 @@ const researchHighlightsWithImages = await loadImages(researchHighlights);
       </h2>
       <div class="xl:container mt-4 sm:mt-5">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mx-6 xl:mx-10 2xl:mx-28">
-          {researchHighlightsWithImages.map((highlight, index) => (
+          {researchHighlights.map((highlight, index) => (
             <div class={`relative ${index % 2 === 1 ? "sm:top-16 xl:top-36" : ""}`}>
               <a href={highlight.contentLink} class="block">
                 <CardSkew

@@ -1,0 +1,27 @@
+---
+interface Props {
+  currentPage: number;
+  lastPage: number;
+  url: any;
+}
+
+const { currentPage, lastPage, url } = Astro.props;  
+---
+
+<nav aria-label="Blog pagination" class="mt-8 flex justify-center gap-4">
+  {currentPage > 1 && (
+    <a href={url.prev} class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">
+      ← Previous
+    </a>
+  )}
+  
+  <span class="px-4 py-2 text-sm font-medium text-gray-700">
+    Page {currentPage} of {lastPage}
+  </span>
+  
+  {currentPage < lastPage && (
+    <a href={url.next} class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">
+      Next →
+    </a>
+  )}
+</nav>

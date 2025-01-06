@@ -1,0 +1,111 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import BlogPostCard from '../../../components/BlogCard.astro';
+import { getCollection } from "astro:content";
+import type { GetStaticPaths } from 'astro';
+import { slugify } from '../../../utils/utils.js';
+import Pagination from "../../../components/Pagination.astro";
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const POSTS_PER_PAGE = 2;
+  const blogPosts = await getCollection("blog");
+  
+  // Get unique authors
+  const authors = [...new Set(blogPosts.map(post => post.data.authorName))];
+  
+  // Process and sort all posts
+  const allPosts = blogPosts
+    .filter(post => post.data.postDate && !isNaN(new Date(post.data.postDate).getTime()))
+    .sort((a, b) => new Date(b.data.postDate).getTime() - new Date(a.data.postDate).getTime())
+    .map(post => {
+      return {
+        ...post,
+      };
+    });
+
+  // Create paginated paths for each author
+  return authors.flatMap(author => {
+    const filteredPosts = allPosts.filter(
+      post => slugify(post.data.authorName) === slugify(author)
+    );
+    
+    return paginate(filteredPosts, {
+      params: { author: slugify(author) },
+      props: { authorName: author },
+      pageSize: POSTS_PER_PAGE
+    });
+  });
+}) satisfies GetStaticPaths;
+
+const { page, authorName } = Astro.props;
+const { data: posts, currentPage, lastPage, url } = page;
+
+// SEO metadata
+const metadata = {
+  title: `Posts by ${authorName}${currentPage > 1 ? ` - Page ${currentPage}` : ''}`,
+  description: `Browse all articles written by ${authorName}${currentPage > 1 ? ` - Page ${currentPage} of ${lastPage}` : ''}`,
+  canonical: new URL(`/author/${slugify(authorName)}${currentPage > 1 ? `/${currentPage}` : ''}`, Astro.site).href,
+};
+---
+
+<Layout title={metadata.title} description={metadata.description}>
+  <section class="container mx-auto px-4 py-10">
+    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 md:mb-8 animate-fade-in">
+      Posts by: 
+      <span class="capitalize text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-red-600 to-pink-700 animate-gradient-slide">
+        {authorName}
+      </span>
+    </h1>
+    
+    {posts.length > 0 ? (
+      <>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {posts.map((post) => (
+            <BlogPostCard
+              postTitle={post.data.postTitle}
+              postExcerpt={post.data.postExcerpt}
+              postURL={post.data.postURL}
+              imageURL={post.data.imageURL}
+              imageAlt={post.data.imageAlt || 'Blog Post Image'}
+              postDate={post.data.postDate}
+              categoryName={post.data.categoryName}
+              authorName={post.data.authorName}
+              tags={post.data.tags}
+              shadowColor={post.data.shadowColor || 'yellow'}
+              fromColor="yellow"
+              toColor="pink"
+            />
+          ))}
+        </div>
+
+        <Pagination currentPage={currentPage} lastPage={lastPage} url={url} />
+      </>
+    ) : (
+      <p class="text-lg text-gray-600 dark:text-gray-400">
+        No posts found by author "<span class="capitalize">{authorName}</span>".
+      </p>
+    )}
+  </section>
+</Layout>
+
+<style>
+  @keyframes gradient-slide {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .animate-gradient-slide {
+    background-size: 200% 200%;
+    animation: gradient-slide 5s ease infinite;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 1s ease forwards;
+    opacity: 0;
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+</style>

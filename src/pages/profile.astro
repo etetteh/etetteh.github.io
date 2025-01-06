@@ -4,12 +4,15 @@ import BiographySection from '../components/BiographySection.astro';
 import EducationSection from '../components/EducationSection.astro';
 import CertificationSection from '../components/CertificationSection.astro';
 import LeadershipSection from '../components/LeadershipSection.astro';
+import { loadJsonData } from '../utils/loadJsonData';
 
-// Import data from JSON files
-import bios from '../data/bio.json';
-import education from '../data/education.json';
-import certifications from '../data/certifications.json';
-import leadershipPositions from '../data/leadership.json';
+// Load data using the utility function
+const [bios, education, certifications, leadershipPositions] = await Promise.all([
+  loadJsonData('bio'),
+  loadJsonData('education'),
+  loadJsonData('certifications'),
+  loadJsonData('leadership')
+]);
 
 const sections = [
   { id: 'biography', title: 'Biography', component: BiographySection, props: { bios } },
@@ -17,6 +20,11 @@ const sections = [
   { id: 'certifications', title: 'Certifications', component: CertificationSection, props: { certifications } },
   { id: 'leadership', title: 'Leadership', component: LeadershipSection, props: { positions: leadershipPositions } },
 ];
+
+// Add error handling for missing data
+if (!bios || !education || !certifications || !leadershipPositions) {
+  throw new Error('Failed to load required data files');
+}
 ---
 
 <Layout title="Profile - Enoch Tetteh">
@@ -54,12 +62,11 @@ const sections = [
     </nav>
 
     <!-- Content Sections -->
-    <!-- Content Sections -->
-  {sections.map(({ id, component: Component, props }) => (
-    <section id={id} class="mb-16 scroll-mt-16">
-      <Component {...(props as any)} />
-    </section>
-  ))}
+    {sections.map(({ id, component: Component, props }) => (
+      <section id={id} class="mb-16 scroll-mt-16">
+        <Component {...(props as any)} />
+      </section>
+    ))}
   </main>
 </Layout>
 

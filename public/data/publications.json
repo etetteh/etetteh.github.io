@@ -1,0 +1,31 @@
+[
+    {
+      "shadowColor": "red",
+      "contentLink": "/publications/towards-robust-ai",
+      "title": "Towards Robust AI Systems",
+      "publicationInfo": "Published in: Journal of AI Research, 2024",
+      "description": "A comprehensive study on improving the robustness of AI systems in real-world applications."
+    },
+    {
+      "shadowColor": "indigo",
+      "contentLink": "/publications/gans-in-medicine",
+      "title": "Generative Adversarial Networks in Medicine",
+      "publicationInfo": "Published in: Nature Medicine, 2024",
+      "description": "Advancing the use of GANs in generating synthetic medical data for research and diagnosis."
+    },
+    {
+      "shadowColor": "red",
+      "contentLink": "/publications/ai-agriculture",
+      "title": "AI-driven Solutions for Agriculture",
+      "publicationInfo": "Published in: IEEE Transactions on AI, 2023",
+      "description": "Innovative AI techniques for enhancing agricultural productivity and sustainability."
+    },
+    {
+      "shadowColor": "indigo",
+      "contentLink": "/publications/ethical-implications-ai",
+      "title": "Ethical Implications of AI",
+      "publicationInfo": "Published in: AI & Society, 2023",
+      "description": "Discussing the ethical challenges and implications of AI in various societal contexts."
+    }
+  ]
+  

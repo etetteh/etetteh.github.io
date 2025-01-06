@@ -3,15 +3,15 @@ import ReadMore from "../components/ReadMore.astro";
 import { Picture } from 'astro:assets';
 
 interface Props {
-  imageUrl?: any;
-  imageAlt?: string;
+  imageUrl: any;
+  imageAlt: string;
   shadowColor?: string;
   contentLink?: string;
   readMoreText?: string;
 }
 
 const {
-  imageUrl = "/default-image.jpg",
+  imageUrl,
   imageAlt = "Default image description",
   shadowColor = "indigo",
   contentLink = "#",
@@ -27,12 +27,12 @@ const {
       <div class="bg-white overflow-hidden shadow-md transform transition-transform duration-300">
         <div class="relative overflow-hidden">
           <Picture
-            formats={['avif', 'webp']}
-            src={imageUrl}
-            widths={[
+              formats={['avif', 'webp']}
+              src={imageUrl}
+              widths={[
               375, 430, 437, 460, 820, 834, 1024, 1130, 1280, 1366, 1440, 1680, 1920, 2560
-            ]}
-            sizes={`
+              ]}
+              sizes={`
               (max-width: 375px) 375px,   /* iPhone 15, iPhone 14, iPhone 15 Pro */
               (max-width: 430px) 430px,   /* iPhone 15 Pro Max, Samsung Galaxy A15 4G/5G */
               (max-width: 437px) 437px,   /* Samsung Galaxy A55 5G, Xiaomi Redmi 13C 4G */
@@ -49,15 +49,16 @@ const {
               (max-width: 2560px) 2560px, /* Mac Studio, 32-inch 4K displays */
               (max-width: 3840px) 3840px, /* 32-inch 4K display */
               auto         /* Default for larger */
-            `}
-            alt={imageAlt}
-            decoding="async"
-            loading="lazy"
-            style={{
-              height: '220px'  // Fixed height for all screen sizes
-            }}
-            width="1600"
-            height="900"
+              `}
+              
+              width="1600"
+              height="900"
+              alt={imageAlt}
+              decoding="async"
+              loading="lazy"
+              fit="auto"
+              class="object-fit w-full h-[300px] sm:h-[320px] md:h-[350px] lg:h-[370px] xl:h-[370px] 2xl:h-[390px] 4k:h-[400px]"
+              layout="responsive"
           />
         </div>
         <div class="p-1">
@@ -72,9 +73,6 @@ const {
     </card-skew>
   </div>
 </div>
-
-
-
 
 <style>
   card-skew {

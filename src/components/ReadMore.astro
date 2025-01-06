@@ -14,8 +14,8 @@ const {
  } = Astro.props;
 ---
 
-<a href={contentLink} class={`relative inline-flex no-underline items-center justify-center p-0.5 mb-1 me-1 overflow-hidden text-sm font-medium text-gray-900 rounded-full group bg-gradient-to-br from-${fromColor}-400 to-${toColor}-600 group-hover:from-${fromColor}-400 group-hover:to-${toColor}-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-${fromColor}-200 dark:focus:ring-${fromColor}-800`}>
-  <span class="relative px-4 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-full group-hover:bg-opacity-0">
+<a href={contentLink} class={`relative inline-flex no-underline items-center justify-center p-0.5 mt-5 md:mt-5 lg:mt-5 xl:mt-2 2xl:mt-2 mb-2 me-1 overflow-hidden text-sm font-medium text-gray-900 rounded-full group bg-gradient-to-br from-${fromColor}-400 to-${toColor}-600 group-hover:from-${fromColor}-400 group-hover:to-${toColor}-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-${fromColor}-200 dark:focus:ring-${fromColor}-800`}>
+  <span class="relative px-2 py-1.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-full group-hover:bg-opacity-0">
     {text}
   </span>
   <span class="inline-block transition-transform duration-300 group-hover:hidden">&rang;</span>

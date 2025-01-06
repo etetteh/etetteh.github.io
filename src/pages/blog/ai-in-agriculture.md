@@ -2,10 +2,10 @@
 layout: "../../layouts/BlogLayout.astro"
 authorName: "Enoch Tetteh"
 postTitle: "AI in Agriculture"
-postExcerpt: ""
+postExcerpt: "Explore how artificial intelligence is revolutionizing agriculture through smart farming techniques, crop monitoring, and yield optimization."
 postURL: "/blog/ai-in-agriculture"
 tags: ["AI", "Agriculture", "SmartAgric"]
-imageURL: "item2.jpeg"  # Adjust the URL if needed
+imageURL: "/blog/item2.jpeg"  # Adjust the URL if needed
 imageAlt: "AI in Agriculture"  # Provide an appropriate alt text
 postDate: "2024-08-28"
 categoryName: "Agriculture"

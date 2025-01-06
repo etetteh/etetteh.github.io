@@ -1,16 +1,13 @@
 ---
-import fs from 'node:fs/promises';
-
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
+import { loadJsonData } from '../utils/loadJsonData';
 
-
-const url = new URL('../data/projects.json', import.meta.url);
-const json = await fs.readFile(url, 'utf-8');
-const initialData = JSON.parse(json);
+const initialData = await loadJsonData('projects');
 ---
 
 <Layout title="Tailored Industry Projects - Enoch Tetteh">
+    <!-- Global Styles -->
     <style>
         body, html {
             margin: 0;
@@ -36,84 +33,185 @@ const initialData = JSON.parse(json);
             display: none;
         }
 
-        .canvas-container {
-            position: relative;
-            margin-top: 0; /* Ensure no margin on top */
-            padding-top: 0; /* Ensure no padding on top */
-        }
-
         #orbitCanvas {
             display: block;
-            margin: 0 auto; /* Center the canvas */
+            margin: 0 auto;
         }
     </style>
-    
-    <div class="mt-20 ml-6 sm:ml-10 md:ml-16 lg:ml-24 xl:ml-48 2xl:ml-64 ">
+
+    <!-- Header Section with responsive margins -->
+    <div class="mt-20 ml-0 md:ml-1 lg:ml-14 xl:ml-32 2xl:ml-48">
         <Header />
     </div>
-
-    <div class="max-h-screen mx-auto px-2 sm:px-4 lg:px-8">
-        <div class="flex flex-col-reverse md:flex-row gap-4">
-            <!-- Canvas Container with Hover Tooltip and Responsive Sizing -->
-            <div class="relative w-full md:w-1/2 aspect-cover canvas-container">
-                <!-- <canvas id="orbitCanvas" class="w-full h-[430px] md:h-[500px] lg:h-[600px] xl:h-[700px] bg-gray-0 dark:bg-gray-700"></canvas> -->
-                <canvas id="orbitCanvas" class="w-full h-[430px] md:h-[500px] lg:h-[600px] xl:h-[700px] bg-gray-0 dark:bg-gray-700"></canvas>
-                <div id="hoverInfo" class="absolute hidden"></div>
-            </div>
-            
-            <!-- Ball Details Section with Responsive Padding -->
-            <div class="flex-1 w-full md:w-1/2">
-                <div id="ballDetails" class="p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 bg-white dark:bg-gray-800 rounded-lg" hidden></div>
-            </div>
+      
+    <div class="flex flex-col-reverse md:flex-row gap-4 items-center justify-center">
+        <div class="relative w-full md:w-1/2 aspect-cover">
+            <canvas id="orbitCanvas" class="w-full h-[400px] bg-gray-0 dark:bg-gray-700"></canvas>
+            <div id="hoverInfo" class="absolute hidden"></div>
+        </div>
+        
+        <div class="relative w-full md:w-1/2 mt-8">
+            <id id="ballDetails" class="w-full bg-gray-0 dark:bg-gray-700"></id>
         </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"></script>
     <script is:inline define:vars={{ initialData }}>
         
+        // const canvas = document.getElementById('orbitCanvas');
+        // const ctx = canvas.getContext('2d');
+        // const hoverInfo = document.getElementById('hoverInfo');
+
+        // function resizeCanvas() {
+        //     // Set canvas width to full parent width
+        //     canvas.width = canvas.parentElement.clientWidth;
+        //     canvas.height = canvas.parentElement.clientHeight;
+
+            
+        //     // Center coordinates based on the new canvas dimensions
+        //     centerX = canvas.width / 2;
+        //     centerY = canvas.height / 2;
+        // }
+        
+        // // Function to get accurate mouse position relative to the canvas
+        // function getMousePos(canvas, event) {
+        //     const rect = canvas.getBoundingClientRect(); // Get canvas position relative to the viewport
+        //     return {
+        //         x: (event.clientX - rect.left) * (canvas.width / rect.width), // Scale x-coordinate
+        //         y: (event.clientY - rect.top) * (canvas.height / rect.height) // Scale y-coordinate
+        //     };
+        // }
+
+        // // Initial setup and dynamic resizing
+        // let centerX, centerY;
+        // resizeCanvas();
+        // window.addEventListener('resize', resizeCanvas);
+
+        // let currentNode = initialData;
+        // let balls = [];
+        // let hoveredBall = null;
+
+        // function draw() {
+        //     ctx.clearRect(0, 0, canvas.width, canvas.height);
+        //     balls = [];
+        //     drawCentralBall(currentNode);
+        //     drawOrbit(currentNode.children);
+        //     requestAnimationFrame(draw);
+        // }
+
         const canvas = document.getElementById('orbitCanvas');
         const ctx = canvas.getContext('2d');
         const hoverInfo = document.getElementById('hoverInfo');
 
+        // Add state tracking for navigation
+        let navigationStack = [];
+        let currentNode = initialData;
+
         function resizeCanvas() {
-            // Set canvas width to full parent width
             canvas.width = canvas.parentElement.clientWidth;
             canvas.height = canvas.parentElement.clientHeight;
-
-            
-            // Center coordinates based on the new canvas dimensions
             centerX = canvas.width / 2;
             centerY = canvas.height / 2;
         }
-        
-        // Function to get accurate mouse position relative to the canvas
+
         function getMousePos(canvas, event) {
-            const rect = canvas.getBoundingClientRect(); // Get canvas position relative to the viewport
+            const rect = canvas.getBoundingClientRect();
             return {
-                x: (event.clientX - rect.left) * (canvas.width / rect.width), // Scale x-coordinate
-                y: (event.clientY - rect.top) * (canvas.height / rect.height) // Scale y-coordinate
+                x: (event.clientX - rect.left) * (canvas.width / rect.width),
+                y: (event.clientY - rect.top) * (canvas.height / rect.height)
             };
         }
-        
 
         // Initial setup and dynamic resizing
         let centerX, centerY;
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
 
-        // const initialData = 
-
-        let currentNode = initialData;
         let balls = [];
         let hoveredBall = null;
+
+        // Add back button drawing function
+        function drawBackButton() {
+            if (navigationStack.length > 0) {
+                const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const buttonColor = isDarkMode ? '#4A5568' : '#EDF2F7';
+                const textColor = isDarkMode ? '#E2E8F0' : '#2D3748';
+                
+                // Position the back button in the top-left corner
+                const buttonX = 60;
+                const buttonY = 30;
+                const buttonWidth = 80;
+                const buttonHeight = 30;
+                
+                // Draw button background
+                ctx.fillStyle = buttonColor;
+                ctx.beginPath();
+                ctx.roundRect(buttonX - buttonWidth/2, buttonY - buttonHeight/2, buttonWidth, buttonHeight, 15);
+                ctx.fill();
+                
+                // Draw button text
+                ctx.fillStyle = textColor;
+                ctx.font = "14px Arial";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+                ctx.fillText("← Back", buttonX, buttonY);
+                
+                // Add button to balls array for click detection
+                balls.push({
+                    x: buttonX,
+                    y: buttonY,
+                    width: buttonWidth,
+                    height: buttonHeight,
+                    isBackButton: true
+                });
+            }
+        }
+
+        function isInsideButton(pos, button) {
+            return (
+                pos.x >= button.x - button.width/2 &&
+                pos.x <= button.x + button.width/2 &&
+                pos.y >= button.y - button.height/2 &&
+                pos.y <= button.y + button.height/2
+            );
+        }
 
         function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             balls = [];
             drawCentralBall(currentNode);
             drawOrbit(currentNode.children);
+            drawBackButton();
             requestAnimationFrame(draw);
         }
+
+        // Update click handler to include back button functionality
+        document.addEventListener('click', function(evt) {
+            const mousePos = getMousePos(canvas, evt);
+            let ballClicked = false;
+
+            balls.forEach(ball => {
+                if (ball.isBackButton && isInsideButton(mousePos, ball)) {
+                    // Handle back button click
+                    if (navigationStack.length > 0) {
+                        currentNode = navigationStack.pop();
+                        displayBallDetails(currentNode);
+                    }
+                    ballClicked = true;
+                } else if (!ball.isBackButton && isInsideBall(mousePos, ball)) {
+                    ballClicked = true;
+                    if (ball.isCentral) {
+                        displayBallDetails(ball);
+                    } else if (ball.children && ball.children.length > 0) {
+                        navigationStack.push(currentNode);
+                        currentNode = ball;
+                        displayBallDetails(currentNode);
+                    } else {
+                        displayBallDetails(ball);
+                    }
+                }
+            });
+        });
 
         function drawCentralBall(node) {
             const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -124,7 +222,7 @@ const initialData = JSON.parse(json);
 
             // Draw the central ball
             ctx.beginPath();
-            ctx.arc(centerX, centerY, 55, 0, Math.PI * 2);
+            ctx.arc(centerX, centerY, 50, 0, Math.PI * 2);
             ctx.fillStyle = ballColor; // Fill with the corresponding ballColor from node
             ctx.fill();
             
@@ -157,7 +255,8 @@ const initialData = JSON.parse(json);
             description: node.description,
             imageURL: node.imageURL,
             postURL: node.postURL,
-            sourceCodeLink: node.sourceCodeLink,
+            ballColor,
+            industry: node.industry,
             isCentral: true,
             });
         }
@@ -165,7 +264,7 @@ const initialData = JSON.parse(json);
         function drawOrbit(nodes) {
             if (!nodes) return;
 
-            const orbitRadius = 147;
+            const orbitRadius = 135;
             const ballRadius = 37;
             const angleStep = (Math.PI * 2) / nodes.length;
 
@@ -216,7 +315,8 @@ const initialData = JSON.parse(json);
                     description: nodes[i].description,
                     imageURL: nodes[i].imageURL,
                     postURL: nodes[i].postURL,
-                    sourceCodeLink: nodes[i].sourceCodeLink,
+                    ballColor,
+                    industry: nodes[i].industry,
                     children: nodes[i].children || [],
                     isCentral: false
                 });
@@ -294,54 +394,53 @@ const initialData = JSON.parse(json);
             hoverInfo.style.display = 'none';
         }
 
-
         function displayBallDetails(ball) {
             const ballDetails = document.getElementById('ballDetails');
 
-            if (!ball || !ball.imageURL || !ball.name || !ball.description || !ball.postURL) {
+            if (!ball || !ball.imageURL || !ball.name || !ball.description || !ball.postURL || !ball.industry) {
                 console.error("Invalid ball data:", ball);
                 ballDetails.innerHTML = "<p>Error: Invalid ball data.</p>";
                 ballDetails.hidden = false;
                 return; // Important: Exit the function early
             }
 
-            const avifSrcset = `/industries/${ball.imageURL.replace(/\.[^/.]+$/, '.avif')}`;
-            const webpSrcset = `/industries/${ball.imageURL.replace(/\.[^/.]+$/, '.webp')}`;
-            const imgSrc = `/industries/${ball.imageURL}`;
+            // Construct image paths using the new structure
+            const avifSrcset = `${ball.imageURL.replace(/\.[^/.]+$/, '.avif')}`;
+            const webpSrcset = `${ball.imageURL.replace(/\.[^/.]+$/, '.webp')}`;
 
             ballDetails.innerHTML = `
-                <div class="flex justify-center items-center w-full border border-gray-300 rounded-2xl mx-auto my-auto dark:border-gray-700">
-                <div class="relative overflow-hidden w-full rounded-2xl">
-                    <picture>
-                    <source srcset="${avifSrcset}" type="image/avif" media="(feature-detect: format(avif))" />
-                    <source srcset="${webpSrcset}" type="image/webp" media="(feature-detect: format(webp))" />
-                    <img
-                        src="${imgSrc}"
-                        alt="${ball.name}"
-                        width="1600"
-                        height="900"
-                        class="object-cover w-full h-[300px] sm:h-[350px] md:h-[400px] lg:h-[450px] xl:h-[500px] 2xl:h-[550px] 4k:h-[600px]"
-                        decoding="async"
-                        loading="lazy"
-                    />
-                    </picture>
-                    <div class="absolute inset-0 flex flex-col justify-end text-left bg-gradient-to-t from-black/60 to-transparent">
-                    <div class="relative flex-col p4">
-                        <h3 class="text-2xl font-bold text-w-hite ml-3">${ball.name}</h3>
-                        <p class="text-sm text-gray-300 line-clamp-3 mb-2 ml-3 dark:text-gray-200">${ball.description}</p>
-                        <a href="${ball.postURL}" class="inline-block text-white px-2 py-1 transition-colors duration-300 bg-[#20808D] rounded-r-full border border-[#20808D] hover:bg-black hover:text-[#20808D] relative group">
-                        Explore more
-                        <span class="inline-block transition-transform duration-300 group-hover:hidden">&rang;</span>
-                        <span class="transition-transform duration-300 hidden group-hover:inline-block">&rarr;</span>
-                        </a>
+                <div class="rounded-2xl">
+                    <div class="relative overflow-hidden w-full rounded-2xl">
+                        <picture>
+                            <source srcset="${avifSrcset}" type="image/avif" media="(feature-detect: format(avif))" />
+                            <source srcset="${webpSrcset}" type="image/webp" media="(feature-detect: format(webp))" />
+                            <img
+                                src="${ball.imageURL}"
+                                alt="${ball.name}"
+                                width="1600"
+                                height="900"
+                                class="object-fit w-full h-[300px] sm:h-[320px] md:h-[350px] lg:h-[370px] xl:h-[370px] 2xl:h-[390px] 4k:h-[400px]"
+                                decoding="async"
+                                loading="lazy"
+                            />
+                        </picture>
+                        <div class="absolute inset-0 flex flex-col justify-end text-left bg-gradient-to-t from-black/60 to-transparent">
+                            <div class="relative flex-col p4">
+                                <h3 class="text-2xl font-bold text-white ml-2">${ball.name}</h3>
+                                <p class="text-sm text-gray-300 line-clamp-3 mb-2 ml-2 dark:text-gray-200">${ball.description}</p>
+                                <a href="${ball.postURL}" class="inline-block ml-2 mb-2 text-white px-2 py-1 transition-colors duration-300 bg-[#20808D] rounded-bl-full rounded-r-full border border-[#20808D] hover:bg-black hover:text-[#20808D] relative group">
+                                    Explore more
+                                    <span class="inline-block transition-transform duration-300 group-hover:hidden">&rang;</span>
+                                    <span class="transition-transform duration-300 hidden group-hover:inline-block">&rarr;</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    </div>
-                </div>
                 </div>
             `;
 
             ballDetails.hidden = false;
-            }
+        }
             
         draw();
         displayBallDetails(currentNode);

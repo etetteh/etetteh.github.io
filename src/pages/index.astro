@@ -1,54 +1,32 @@
 ---
-import fs from 'node:fs/promises';
 import Layout from "../layouts/Layout.astro";
 import ExploreMore from "../components/ExploreMore.astro";
 import CardSkew from '../components/CardSkew.astro';
-import NoImageCardSkew from '../components/NoImageCardSkew.astro';
+import BlogPostCard from '../components/BlogCard.astro';
 import ProjectCards from '../components/ProjectCards.astro';
+import { loadJsonData } from '../utils/loadJsonData';
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 
-import type { ImageMetadata } from 'astro';
+const data = await loadJsonData('projects');
 
-// Load all images using import.meta.glob
-const images = import.meta.glob<{ default: ImageMetadata }>('../assets/blog/*.{jpeg,jpg,png,gif,webp}', { eager: true });
+// Process, sort, and get the latest 4 posts
+const blogPosts = await getCollection("blog");
 
-// Function to preload images
-function loadImages(projects: any[]) {
-  return projects.map((project) => {
-    if (project.imageURL) {
-      const imageName = project.imageURL.split('/').pop();
-      const imageImport = imageName ? images[`../assets/blog/${imageName}`] : undefined;
-      return {
-        ...project,
-        imageURL: imageImport ? imageImport.default : '/path/to/default_image.jpg'
-      };
-    } else {
-      console.warn(`Image URL missing for project: ${project.name}`);
-      return { ...project, imageURL: '/path/to/default_image.jpg' };
-    }
-  });
-}
+// Process, sort, and get the latest 4 posts
+const latestPosts = blogPosts
+  .filter((post): post is CollectionEntry<"blog"> => {
+    // Ensure valid dates for filtering
+    return post.data.postDate !== undefined && !isNaN(new Date(post.data.postDate).getTime());
+  })
+  .sort((a, b) => new Date(b.data.postDate).getTime() - new Date(a.data.postDate).getTime()) // Sort by newest first
+  .slice(0, 4); // Take the top 4 posts
 
-async function loadJsonData(filePath: string | URL) {
-    try {
-        const url = new URL(filePath, import.meta.url);
-        const json = await fs.readFile(url, 'utf-8');
-        return JSON.parse(json);
-    } catch (error) {
-        console.error("Error loading JSON data:", error);
-        throw error;
-    }
-}
-
-// Usage
-const data = await loadJsonData('../data/projects.json');
-const blogPostsData = await loadJsonData('../data/blogPostsIndex.json');
 
 const industries = ["Agriculture", "Finance", "Insurance", "Healthcare"];
 const industryData = industries
     .map(industryName => data.children.find((child: { name: string; }) => child.name === industryName))
     .filter(Boolean); // Filter out any undefined results
-
-const projectsWithLoadedImages = loadImages(industryData);
 
 ---
 
@@ -87,9 +65,7 @@ const projectsWithLoadedImages = loadImages(industryData);
     
     <!-- Hero Section -->
     <section class="relative flex flex-col justify-center items-center h-screen bg-cover bg-center text-center">
-      <!-- Background Video with Fallback Poster -->
-      <video class="video-bg" autoplay loop muted playsinline src="/path-to-video1.mp4" poster="/path-to-fallback-image.jpg"></video>
-
+      
       <!-- Overlay for Enhanced Text Contrast -->
       <div class="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black opacity-70"></div>
 
@@ -138,21 +114,21 @@ const projectsWithLoadedImages = loadImages(industryData);
         </p>
         <div class="xl:container mx-auto">
           <div class="flex flex-col md:flex-row flex-wrap">
-            {projectsWithLoadedImages.map((project, index) => (
-              <div class={`w-full md:w-1/2 flex ${index % 2 === 0 ? 'relative z-10' : ''}`}>
+            {industryData.map((industry) => (
+              <div class="w-full md:w-1/2 flex relative z-10">
                 <CardSkew 
-                  imageUrl={project.imageURL} 
-                  imageAlt={project.postTitle}
-                  shadowColor={project.shadowColor}
-                  contentLink={project.postURL}
+                  imageUrl={industry.imageURL} 
+                  imageAlt={industry.postTitle}
+                  shadowColor={industry.shadowColor}
+                  contentLink={industry.postURL}
                   readMoreText="See the Impact"
                 >
-                  <div class={`transition duration-300 bg-white dark:bg-gray-800 focus:ring-4 focus:ring-${project.shadowColor}-500 dark:focus:ring-${project.shadowColor}-700`}>
-                    <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">
-                      {project.heroTitle}
+                  <div class={`transition duration-300 bg-white dark:bg-gray-800 focus:ring-4 focus:ring-${industry.shadowColor}-500 dark:focus:ring-${industry.shadowColor}-700`}>
+                    <h3 class="text-lg lg:text-xl font-bold mb-2 text-gray-900 dark:text-white">
+                      {industry.heroTitle}
                     </h3>
-                    <p class="text-base leading-tight mb-2 line-clamp-3 text-gray-700 dark:text-gray-300">
-                      {project.description}
+                    <p class="text-sm md:text-base leading-tight mb-8 line-clamp-3 text-gray-700 dark:text-gray-300">
+                      {industry.description}
                     </p>
                   </div>
                 </CardSkew>
@@ -166,42 +142,57 @@ const projectsWithLoadedImages = loadImages(industryData);
     <!-- Latest Blog Posts Section -->
     <section class="overflow-hidden p-7">
       <div class="container mx-auto">
-        <h2 class="text-4xl font-extrabold mb-7 text-center text-gray-900 dark:text-white">Latest Insights & Innovations</h2>
+        <h2 class="text-4xl font-extrabold mb-7 text-center text-gray-900 dark:text-white">
+          Latest Insights & Innovations
+        </h2>
         <p class="text-2xl font-light mb-7 max-w-4xl mx-auto text-center text-gray-700 dark:text-gray-300">
-          Discover our latest <span class="bg-gradient-to-br from-pink-400 to-orange-600 bg-clip-text text-transparent">blog posts</span> where we share 
+          Discover our latest 
+          <span class="bg-gradient-to-br from-pink-400 to-orange-600 bg-clip-text text-transparent">blog posts</span> where we share 
           <span class="bg-gradient-to-br from-pink-400 to-orange-600 bg-clip-text text-transparent">industry insights</span>, 
           <span class="bg-gradient-to-br from-pink-400 to-orange-600 bg-clip-text text-transparent">cutting-edge research</span>, and the future of 
           <span class="bg-gradient-to-br from-pink-400 to-orange-600 bg-clip-text text-transparent">AI technology</span>.
         </p>
 
+        <!-- Blog posts grid -->
         <div class="xl:container mx-auto px-3">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {blogPostsData.map((post: { shadowColor: string | undefined; link: string | undefined; fromColor: string | undefined; toColor: string | undefined; title: unknown; description: unknown; }) => (
-              <div class="relative z-10">
-                <NoImageCardSkew
-                  shadowColor={post.shadowColor}
-                  contentLink={post.link}
-                  readMoreText="Read More"
-                  fromColor={post.fromColor}
-                  toColor={post.toColor}
-                >
-                  <div class="rounded-lg h-full flex flex-col">
-                    <h3 class="text-2xl font-bold mb-2 text-gray-900 dark:text-white">{post.title}</h3>
-                    <p class="text-lg line-clamp-3 flex-grow text-gray-700 dark:text-gray-300">
-                      {post.description}
-                    </p>
-                  </div>
-                </NoImageCardSkew>
-              </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {latestPosts.map((post) => (
+              <BlogPostCard
+                postTitle={post.data.postTitle}
+                postExcerpt={post.data.postExcerpt}
+                postURL={post.data.postURL}
+                imageURL={post.data.imageURL}
+                imageAlt={post.data.imageAlt || 'Blog Post Image'}
+                postDate={post.data.postDate}
+                categoryName={post.data.categoryName}
+                authorName={post.data.authorName}
+                tags={post.data.tags}
+                shadowColor={post.data.shadowColor}
+                fromColor = {"pink"}
+                toColor = {"orange"}
+                showTags={false}
+                showExcerpt={true}
+              />
             ))}
           </div>
+        </div>
+
+        <!-- Explore More Link -->
+        <div class="text-center mt-10">
+          <a 
+            href="/blog" 
+            class="px-6 py-3 text-lg font-medium text-white bg-gradient-to-br from-pink-400 to-orange-600 rounded-full hover:from-orange-600 hover:to-pink-400 transition-transform transform hover:scale-105"
+          >
+            Explore More Posts
+          </a>
         </div>
       </div>
     </section>
 
-    <section>
+
+    <!-- <section>
       <ProjectCards />
-    </section>
+    </section> -->
 </Layout>
 
 <style>

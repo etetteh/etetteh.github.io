@@ -2,13 +2,13 @@
 layout: "../../layouts/BlogLayout.astro"
 authorName: "Enoch Tetteh"
 postTitle: "AI in Finance"
-postExcerpt: ""
+postExcerpt: "Delve into AI-driven innovations in finance, including automated trading, risk assessment, and personalized financial management."
 postURL: "/blog/ai-in-healthcare"
 tags: ["AI", "Finance"]
-imageURL: "item3.jpeg"  # Provide a valid image URL if applicable
-imageAlt: "AI in Finance"  # Alt text for the image
-postDate: "2024-08-21"  # ISO format for consistency
-categoryName: "Finance"  # Category based on the post topic
+imageURL: "/blog/item3.jpeg"
+imageAlt: "AI in Finance"
+postDate: "2024-08-21"
+categoryName: "Finance"
 shadowColor: "blue"
 ---
 

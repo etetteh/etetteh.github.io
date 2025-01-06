@@ -1,0 +1,73 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
+---
+
+<Layout title="404 - Page Not Found">
+  <main class="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 p-4">
+    <div class="text-center max-w-2xl mx-auto">
+      {/* Creative 404 illustration/animation */}
+      <div class="relative w-64 h-64 mx-auto mb-8">
+        <div class="absolute inset-0 animate-pulse">
+          <Icon 
+            name="mdi:compass-off" 
+            class="w-full h-full text-[#20808D] dark:text-[#2AA1B3] opacity-90"
+          />
+        </div>
+        <div class="absolute -top-4 -right-4 animate-bounce">
+          <Icon 
+            name="mdi:help-circle" 
+            class="w-12 h-12 text-gray-400 dark:text-gray-600"
+          />
+        </div>
+      </div>
+
+      {/* Error message */}
+      <h1 class="text-6xl font-bold text-[#20808D] dark:text-[#2AA1B3] mb-4">
+        404
+      </h1>
+      <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-4">
+        Oops! You've ventured into uncharted territory
+      </h2>
+      <p class="text-gray-600 dark:text-gray-400 mb-8 text-lg">
+        The page you're looking for seems to have drifted off into the digital void. 
+        Let's get you back on course!
+      </p>
+
+      {/* Action buttons */}
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a 
+          href="/" 
+          class="inline-flex items-center justify-center px-6 py-3 bg-[#20808D] text-white rounded-full hover:bg-black hover:text-[#20808D] transition-colors duration-300 group"
+        >
+          <Icon name="mdi:home" class="w-5 h-5 mr-2 transform group-hover:scale-110 transition-transform" />
+          Back to Homepage
+        </a>
+        <button 
+          onclick="history.back()" 
+          class="inline-flex items-center justify-center px-6 py-3 border-2 border-[#20808D] text-[#20808D] rounded-full hover:bg-[#20808D] hover:text-white transition-colors duration-300 group"
+        >
+          <Icon name="mdi:arrow-left" class="w-5 h-5 mr-2 transform group-hover:scale-110 transition-transform" />
+          Go Back
+        </button>
+      </div>
+
+      {/* Fun fact */}
+      <div class="mt-12 p-4 bg-white dark:bg-gray-800 rounded-lg shadow-lg max-w-md mx-auto">
+        <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">
+          Did you know?
+        </h3>
+        <p class="text-gray-600 dark:text-gray-400 text-sm">
+          The term "404" has been around since the early days of the internet. It comes from room 404 at CERN, where the World Wide Web was born. When files weren't found, they were said to be "room 404, not found."
+        </p>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+</style>

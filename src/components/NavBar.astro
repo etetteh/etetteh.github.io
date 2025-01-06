@@ -1,98 +1,107 @@
 ---
+import { Icon } from 'astro-icon/components';
 ---
 
-<nav class="p-2 sticky top-0 z-50 transition-transform duration-300 ease-in-out border-gray-200 bg-gray-50 dark:bg-gray-900 rounded-full shadow-lg" id="navbar">
-    <div class="max-w-screen-xl flex flex-wrap justify-center items-center mx-auto p-4">
-        <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-          <span class="text-black self-center text-2xl font-semibold whitespace-nowrap md:pr-7 lg:pr-12 xl:pr-20 dark:text-white">Enoch Tetteh</span>
+<nav class="sticky top-0 z-50 transition-transform duration-300 ease-in-out bg-gray-50 dark:bg-gray-900 rounded-full shadow-lg" id="navbar">
+  <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <div class="flex-shrink-0">
+        <a href="/" class="text-2xl font-semibold text-gray-900 dark:text-white">
+          Enoch Tetteh
         </a>
-        <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-full md:hidden hover:bg-gray-200 dark:hover:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-700" aria-controls="navbar-default" aria-expanded="false">
-            <span class="sr-only">Open main menu</span>
-            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
-            </svg>
-        </button>
-      
-        <div class="hidden w-full justify-center items-center md:block md:w-auto" id="navbar-default">
-            <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-full bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 dark:bg-gray-900 dark:border-gray-700">
-                <li>
-                    <a href="/" class="nav-link block py-2 px-6 text-gray-700 rounded-full pill hover:bg-gray-200 md:hover:bg-transparent md:border-0 hover:text-[#20808D] md:p-0 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-[#20808D] md:dark:hover:bg-transparent" data-link="/">Home</a>
-                </li>
-                <li>
-                    <a href="/profile" class="nav-link block py-2 px-6 text-gray-700 rounded-full pill hover:bg-gray-200 md:hover:bg-transparent md:border-0 hover:text-[#20808D] md:p-0 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-[#20808D] md:dark:hover:bg-transparent" data-link="/profile">Profile</a>
-                </li>
-                <li>
-                    <a href="/projects" class="nav-link block py-2 px-6 text-gray-700 rounded-full pill hover:bg-gray-200 md:hover:bg-transparent md:border-0 hover:text-[#20808D] md:p-0 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-[#20808D] md:dark:hover:bg-transparent" data-link="/projects">Projects</a>
-                </li>
-                <li>
-                    <a href="/research" class="nav-link block py-2 px-6 text-gray-700 rounded-full pill hover:bg-gray-200 md:hover:bg-transparent md:border-0 hover:text-[#20808D] md:p-0 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-[#20808D] md:dark:hover:bg-transparent" data-link="/research">Research</a>
-                </li>
-                <li>
-                    <a href="/blog" class="nav-link block py-2 px-6 text-gray-700 rounded-full pill hover:bg-gray-200 md:hover:bg-transparent md:border-0 hover:text-[#20808D] md:p-0 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-[#20808D] md:dark:hover:bg-transparent" data-link="/blog">Blog</a>
-                </li>
-            </ul>
+      </div>
+      <div class="hidden md:block">
+        <div class="ml-10 flex items-baseline space-x-4">
+          <a href="/" class="nav-link px-3 py-2 rounded-full text-sm font-medium" data-link="/">Home</a>
+          <a href="/profile" class="nav-link px-3 py-2 rounded-full text-sm font-medium" data-link="/profile">Profile</a>
+          <a href="/projects" class="nav-link px-3 py-2 rounded-full text-sm font-medium" data-link="/projects">Projects</a>
+          <!-- <a href="/research" class="nav-link px-3 py-2 rounded-full text-sm font-medium" data-link="/research">Research</a> -->
+          <a href="/blog" class="nav-link px-3 py-2 rounded-full text-sm font-medium" data-link="/blog">Blog</a>
         </div>
+      </div>
+      <div class="md:hidden">
+        <button type="button" class="bg-gray-200 dark:bg-gray-700 inline-flex items-center justify-center p-2 rounded-full text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 dark:focus:ring-offset-gray-800 focus:ring-gray-500" aria-controls="mobile-menu" aria-expanded="false">
+          <span class="sr-only">Open main menu</span>
+          <button type="button" class="bg-gray-200 dark:bg-gray-700 inline-flex items-center justify-center p-2 rounded-full text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 dark:focus:ring-offset-gray-800 focus:ring-gray-500" aria-controls="mobile-menu" aria-expanded="false">
+            <span class="sr-only">Open main menu</span>
+            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+          
+        </button>
+      </div>
     </div>
+  </div>
+
+  <div class="md:hidden" id="mobile-menu">
+    <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+      <a href="/" class="nav-link block px-3 py-2 rounded-full text-base font-medium" data-link="/">Home</a>
+      <a href="/profile" class="nav-link block px-3 py-2 rounded-full text-base font-medium" data-link="/profile">Profile</a>
+      <a href="/projects" class="nav-link block px-3 py-2 rounded-full text-base font-medium" data-link="/projects">Projects</a>
+      <a href="/research" class="nav-link block px-3 py-2 rounded-full text-base font-medium" data-link="/research">Research</a>
+      <a href="/blog/" class="nav-link block px-3 py-2 rounded-full text-base font-medium" data-link="/blog/">Blog</a>
+    </div>
+  </div>
 </nav>
 
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const links = document.querySelectorAll('.nav-link');
-        let lastScrollTop = 0;
+  const setActiveLink = () => {
+    const links = document.querySelectorAll('.nav-link');
+    const currentPath = window.location.pathname;
 
-        function setActiveLink() {
-            const currentPage = window.location.pathname;
-
-            links.forEach(link => {
-                if (link.getAttribute('data-link') === currentPage) {
-                    link.classList.add('bg-black', 'text-[#20808D]');
-                    link.classList.remove('hover:bg-black', 'hover:text-[#20808D]');
-                } else {
-                    link.classList.remove('bg-black', 'text-[#20808D]');
-                    link.classList.add('hover:bg-black', 'hover:text-[#20808D]');
-                }
-            });
-        }
-
-        // Set active link on page load
-        setActiveLink();
-
-        window.addEventListener('scroll', () => {
-            const scrollTop = window.scrollY || document.documentElement.scrollTop;
-            const navbar = document.querySelector('.navbar') as HTMLElement;
-
-            if (navbar) {
-                if (scrollTop > lastScrollTop) {
-                    // Scrolling down
-                    navbar.style.transform = 'translateY(-100%)'; // Hide navbar
-                } else {
-                    // Scrolling up
-                    navbar.style.transform = 'translateY(0)'; // Show navbar
-                }
-            }
-
-            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
-        });
+    links.forEach(link => {
+      const isActive = link.getAttribute('data-link') === currentPath;
+      link.classList.toggle('bg-black', isActive);
+      link.classList.toggle('text-[#20808D]', isActive);
+      link.classList.toggle('hover:bg-gray-200', !isActive);
+      link.classList.toggle('hover:text-[#20808D]', !isActive);
     });
+  };
+
+  let lastScrollTop = 0;
+  
+  const handleScroll = () => {
+    const navbar = document.getElementById('navbar');
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const isScrollingDown = scrollTop > (lastScrollTop || 0);
+  
+    if (navbar) {
+      navbar.style.transform = isScrollingDown ? 'translateY(-100%)' : 'translateY(0)';
+    }
+    lastScrollTop = scrollTop;
+  };
+
+  document.addEventListener('DOMContentLoaded', () => {
+    setActiveLink();
+    window.addEventListener('scroll', handleScroll);
+  });
+
+  // Handle mobile menu toggle
+  const mobileMenuButton = document.querySelector('[aria-controls="mobile-menu"]');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  if (mobileMenuButton) {
+    mobileMenuButton.addEventListener('click', () => {
+      const expanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+      mobileMenuButton.setAttribute('aria-expanded', String(!expanded));
+      if (mobileMenu) {
+        mobileMenu.classList.toggle('hidden');
+      }
+    });
+  }
 </script>
 
 <style>
-    body {
-        background-color: #1a1a1a; /* Dark mode default background */
-    }
+  body {
+    @apply bg-gray-100 dark:bg-gray-900;
+  }
 
-    #navbar {
-        z-index: 50; /* Ensure navbar is above other content */
-    }
+  .nav-link {
+    @apply text-gray-700 dark:text-gray-300 transition-colors duration-300;
+  }
 
-    .nav-link {
-        transition: color 0.3s, background-color 0.3s; /* Smooth color transition */
-    }
-
-    .nav-link.bg-black {
-    background-color: black; /* Solid black background for active link */
-    color: #20808D; /* Text color for active link */
-    padding: 2px 15px; /* Adjust the values as needed */
-    border-radius: 9999px; /* Ensures the background color forms a pill shape */
-    }
+  .nav-link.bg-black {
+    @apply text-[#20808D] px-3 py-1 rounded-full;
+  }
 </style>

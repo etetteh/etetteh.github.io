@@ -1,0 +1,34 @@
+[
+    {
+        "imageURL": "item1.jpeg",
+        "imageAlt": "AI-Driven Healthcare",
+        "shadowColor": "red",
+        "contentLink": "/projects/healthcare/healthcare",
+        "title": "AI-Driven Healthcare",
+        "description": "Transforming patient care and medical research with cutting-edge artificial intelligence."
+    },
+    {
+        "imageURL": "item2.jpeg",
+        "imageAlt": "Smart Finance",
+        "shadowColor": "yellow",
+        "contentLink": "/projects/finance/finance",
+        "title": "Finance",
+        "description": "Empowering financial institutions with cutting-edge artificial intelligence for smarter decisions and enhanced customer experiences."
+    },
+    {
+        "imageURL": "item3.jpeg",
+        "imageAlt": "AI-Driven Insurance",
+        "shadowColor": "red",
+        "contentLink": "/projects/insurance/insurance",
+        "title": "insurance",
+        "description": "Empowering insurance companies with cutting-edge artificial intelligence for smarter risk assessment and enhanced customer experiences."
+    },
+    {
+        "imageURL": "item4.jpeg",
+        "imageAlt": "Smart Agriculture",
+        "shadowColor": "yellow",
+        "contentLink": "/projects/agriculture/agriculture",
+        "title": "Smart Agriculture",
+        "description": "Empowering farmers with cutting-edge artificial intelligence for smarter, more sustainable farming practices."
+    }
+]

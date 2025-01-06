@@ -1,0 +1,29 @@
+[
+    {
+      "platform": "Google Cloud",
+      "url": "https://www.cloudskillsboost.google/public_profiles/3b19899c-db1e-4ec3-8c3e-8e14502b1c8f",
+      "skills": [
+        "Cloud Architecture",
+        "Machine Learning",
+        "Data Engineering",
+        "Security",
+        "Networking",
+        "DevOps",
+        "Big Data"
+      ]
+    },
+    {
+      "platform": "Microsoft Azure",
+      "url": "https://learn.microsoft.com/en-us/users/enochtetteh-7900/achievements?tab=tab-modules#badges-section",
+      "skills": [
+        "Azure Solutions Architecture",
+        "AI Engineering",
+        "Cloud Security",
+        "Data Analytics",
+        "IoT Solutions",
+        "DevOps",
+        "Database Management"
+      ]
+    }
+  ]
+  

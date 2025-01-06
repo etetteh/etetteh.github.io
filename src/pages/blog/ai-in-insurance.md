@@ -2,14 +2,14 @@
 layout: "../../layouts/BlogLayout.astro"
 authorName: "Enoch Tetteh"
 postTitle: "AI in Insurance"
-postExcerpt: ""
+postExcerpt: "Explore the transformative role of AI in the insurance industry, enabling smarter underwriting, fraud detection, and personalized policy recommendations."
 postURL: "/blog/ai-in-insurance"
 tags: ["AI", "Insurance"]
-imageURL: "item1.jpeg"  # Provide a valid image URL if applicable
-imageAlt: "AI in Insurance"  # Alt text for the image
-postDate: "2024-08-7"  # ISO format for consistency
-categoryName: "Insurance"  # Category based on the post topic
-shadowColor: "blue"  # Optional, for dynamic visual effects
+imageURL: "/blog/item1.jpeg"
+imageAlt: "AI in Insurance"
+postDate: "2024-08-07"
+categoryName: "Insurance"
+shadowColor: "blue"
 ---
 
 Artificial Intelligence (AI) is revolutionizing the insurance industry by enhancing efficiency, accuracy, and customer satisfaction. As the insurance market continues to evolve, AI is playing a pivotal role in transforming traditional processes and introducing innovative solutions.

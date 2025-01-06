@@ -1,0 +1,25 @@
+{
+  "shortBio": [
+    "I'm a deep learning engineer with a passion for computer vision and building enterprise AI solutions.",
+    "My AI journey began in 2014 at Kwame Nkrumah University of Science and Technology, where I pioneered an undergraduate thesis on artificial neural networks.",
+    "I further honed my skills in the African Master's in Machine Intelligence program and conducted groundbreaking research at MILA - Quebec AI Institute under the supervision of Yoshua Bengio.",
+    "My work, presented at Medical Imaging Meets NeurIPS 2021, has been recognized for its innovation in multi out-of-distribution medical image classification.",
+    "Today, I focus on creating scalable AI solutions for industries such as finance, insurance, telecommunications, agriculture, and manufacturing."
+  ],
+  "mediumBio": [
+    "My journey in Artificial Intelligence began in 2014 at Kwame Nkrumah University of Science and Technology, where I developed an undergraduate thesis on artificial neural networks.",
+    "In 2018, I joined the inaugural cohort of the African Master's in Machine Intelligence program, co-sponsored by Facebook and Google. There, I specialized in deep learning and computer vision, creating custom classification models for medical images.",
+    "My research at MILA - Quebec AI Institute, under the guidance of Yoshua Bengio, focused on robust out-of-distribution models for chest x-ray image classification. The novel training methodology I developed was presented at Medical Imaging Meets NeurIPS 2021, receiving excellent reviews.",
+    "Post-MILA, I've worked on generative AI, retrieval-augmented generation applications, and natural language processing. I also developed a scalable low-code image classification solution leveraging Huggingface resources.",
+    "Continuously advancing my skills through Google Cloud and Microsoft Learn certifications, I am committed to building cutting-edge AI solutions for finance, insurance, telecommunications, agriculture, and manufacturing industries."
+  ],
+  "longBio": [
+    "My fascination with Artificial Intelligence started in 2014 during my undergraduate studies at Kwame Nkrumah University of Science and Technology. Inspired by swipe keyboard features, I delved into AI, leading my thesis group to tackle the first AI-focused undergraduate thesis at our university, exploring artificial neural networks as universal function approximators.",
+    "Despite financial constraints, I continued my education through online courses while working as a finance clerk at the Council of Scientific & Industrial Research. In 2018, I joined the African Master's in Machine Intelligence program, a pioneering initiative co-sponsored by Facebook and Google, where I specialized in deep learning and computer vision.",
+    "At MILA - Quebec AI Institute, under the mentorship of Yoshua Bengio, I developed a robust model for chest x-ray image classification. My novel training methodology, co-authored with Bengio and others, was presented at Medical Imaging Meets NeurIPS 2021, earning high praise from reviewers.",
+    "Beyond MILA, I have engaged in projects spanning generative AI, retrieval-augmented generation, and natural language processing. I've published a scalable, low-code image classification solution using Huggingface resources and continuously upgrade my skills through certifications from Google Cloud and Microsoft Learn.",
+    "Currently, my focus is on developing enterprise AI solutions that drive innovation in the finance, insurance, telecommunications, agriculture, and manufacturing sectors. With a commitment to excellence and a track record of impactful research, I aim to push the boundaries of what's possible in AI."
+  ]
+}
+
+  

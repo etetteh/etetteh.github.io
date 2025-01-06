@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+
 export interface Props {
   bios: {
     shortBio: string[];
@@ -10,58 +12,56 @@ export interface Props {
 const { bios } = Astro.props;
 
 const skillsToHighlight = [
-  { term: 'deep learning', gradient: 'from-blue-500 to-purple-500' },
-  { term: 'computer vision', gradient: 'from-green-400 to-blue-500' },
-  { term: 'enterprise AI', gradient: 'from-red-500 to-yellow-500' },
-  { term: 'artificial neural networks', gradient: 'from-indigo-500 to-purple-500' },
-  { term: 'machine intelligence', gradient: 'from-yellow-400 to-orange-500' },
-  { term: 'out-of-distribution', gradient: 'from-pink-500 to-rose-500' },
-  { term: 'generative AI', gradient: 'from-teal-400 to-blue-500' },
-  { term: 'retrieval-augmented generation', gradient: 'from-cyan-500 to-blue-500' },
+  { term: 'deep learning', gradient: 'from-blue-500 to-purple-600' },
+  { term: 'computer vision', gradient: 'from-green-500 to-teal-600' },
+  { term: 'enterprise AI', gradient: 'from-red-500 to-orange-600' },
+  { term: 'artificial neural networks', gradient: 'from-indigo-500 to-pink-600' },
+  { term: 'out-of-distribution', gradient: 'from-pink-400 to-rose-600' },
+  { term: 'generative AI', gradient: 'from-teal-400 to-cyan-600' },
+  { term: 'retrieval-augmented generation', gradient: 'from-cyan-400 to-blue-600' },
   { term: 'natural language processing', gradient: 'from-purple-500 to-pink-500' },
-  { term: 'image classification', gradient: 'from-green-500 to-teal-500' },
-  { term: 'AI', gradient: 'from-blue-600 to-indigo-600' },
-  { term: 'Artificial Intelligence', gradient: 'from-blue-600 to-indigo-600' },
+  { term: 'image classification', gradient: 'from-green-600 to-lime-600' },
+  { term: 'Artificial Intelligence', gradient: 'from-blue-800 to-indigo-800' },
   { term: 'classification models', gradient: 'from-yellow-500 to-orange-500' },
+  { term: 'Yoshua Bengio', gradient: 'from-indigo-600 to-blue-700' }, 
+  { term: 'MILA - Quebec AI Institute', gradient: 'from-red-600 to-pink-700' }, 
 ];
 
 const companiesAndConferences = [
-  { term: 'Kwame Nkrumah University of Science and Technology', gradient: 'from-yellow-400 to-red-500' },
-  { term: 'Council of Scientific & Industrial Research', gradient: 'from-green-400 to-blue-500' },
-  { term: 'MILA - Quebec AI Institute', gradient: 'from-red-400 to-pink-500' },
-  { term: 'Medical Imaging Meets NeurIPS 2021', gradient: 'from-purple-400 to-indigo-500' },
-  { term: 'Google Cloud', gradient: 'from-blue-400 to-green-400' },
-  { term: 'Microsoft Learn', gradient: 'from-blue-500 to-cyan-500' },
-  { term: 'Facebook', gradient: 'from-blue-500 to-indigo-500' },
-  { term: 'Google', gradient: 'from-red-500 to-yellow-500' },
+  { term: 'Kwame Nkrumah University of Science and Technology', gradient: 'from-yellow-500 to-red-600' },
+  { term: "African Master's in Machine Intelligence", gradient: 'from-orange-400 to-yellow-600' },
+  { term: 'Council of Scientific & Industrial Research', gradient: 'from-green-400 to-blue-600' },
+  { term: 'MILA - Quebec AI Institute', gradient: 'from-red-500 to-pink-600' },
+  { term: 'Medical Imaging Meets NeurIPS 2021', gradient: 'from-purple-500 to-indigo-700' },
+  { term: 'Google Cloud', gradient: 'from-blue-400 to-green-500' },
+  { term: 'Microsoft Learn', gradient: 'from-blue-500 to-cyan-400' },
+  { term: 'Facebook', gradient: 'from-blue-600 to-indigo-500' },
 ];
+
 
 function highlightTerms(text: string) {
   let highlightedText = text;
-  
-  // Highlight skills
-  skillsToHighlight.forEach(({ term, gradient }) => {
-    const regex = new RegExp(`\\b${term}\\b`, 'gi');
+
+  [...skillsToHighlight, ...companiesAndConferences].forEach(({ term, gradient }) => {
+    // Escape special characters in the term
+    const escapedTerm = term.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+    const regex = new RegExp(`\\b${escapedTerm}\\b`, 'gi');
     highlightedText = highlightedText.replace(regex, `<span class="bg-gradient-to-r ${gradient} bg-clip-text text-transparent font-semibold">$&</span>`);
   });
-  
-  // Highlight companies and conferences
-  companiesAndConferences.forEach(({ term, gradient }) => {
-    const regex = new RegExp(`\\b${term}\\b`, 'gi');
-    highlightedText = highlightedText.replace(regex, `<span class="bg-gradient-to-r ${gradient} bg-clip-text text-transparent font-semibold">$&</span>`);
-  });
-  
+
   return highlightedText;
 }
+
+
 ---
 
-<section class="mx-9 mb-1 p-6 rounded-lg shadow-xl transition-all duration-300 bg-white dark:bg-gray-800" x-data="{ currentBio: 'shortBio' }">
-  <h2 class="text-3xl font-semibold mb-6 bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">Biography</h2>
+<section class="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8" x-data="{ currentBio: 'shortBio' }">
+  <h2 class="text-3xl font-bold mb-6 bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">Biography</h2>
 
-  <div class="mb-6 flex justify-center space-x-3">
+  <div class="mb-6 flex flex-wrap justify-center gap-3">
     {['shortBio', 'mediumBio', 'longBio'].map((bioType) => (
       <button
-        class="px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        class="px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-blue-500"
         :class={`currentBio === '${bioType}' ? 'bg-gradient-to-r from-blue-500 to-purple-500 shadow-lg' : 'bg-gray-100 text-gray-700 border border-gray-300 shadow-sm hover:bg-gray-200'`}
         @click={`currentBio = '${bioType}'`}
         aria-label={`Switch to ${bioType.replace('Bio', '')} biography`}
@@ -71,7 +71,7 @@ function highlightTerms(text: string) {
     ))}
   </div>
 
-  <div class="bg-gray-200 dark:bg-gray-700 p-6 mx-1 rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105">
+  <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl">
     {Object.entries(bios).map(([bioType, paragraphs]) => (
       <div 
         x-show={`currentBio === '${bioType}'`}
@@ -79,11 +79,11 @@ function highlightTerms(text: string) {
         x-transition:enter-start="opacity-0 transform scale-95"
         x-transition:enter-end="opacity-100 transform scale-100"
         x-transition:leave="transition ease-in duration-200"
-        x-transition:leave-start="opacity-100 transform scale-100"
-        x-transition:leave-end="opacity-0 transform scale-95"
+        x-transition:leave-start="opacity-100 transform scale=100"
+        x-transition:leave-end="opacity=0 transform scale=95"
       >
         {paragraphs.map((paragraph) => (
-          <p class="mb-4 text-gray-800 dark:text-gray-300 leading-relaxed" set:html={highlightTerms(paragraph)}></p>
+          <p class="mb=4 text-gray=800 dark:text-gray=300 leading-relaxed" set:html={highlightTerms(paragraph)}></p>
         ))}
       </div>
     ))}
@@ -91,14 +91,14 @@ function highlightTerms(text: string) {
 </section>
 
 <style>
-  @keyframes gradientShift {
+@keyframes gradientShift {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
-  }
+}
 
-  .bg-gradient-to-r {
+.bg-gradient-to-r {
     background-size: 200% 200%;
     animation: gradientShift 5s ease infinite;
-  }
+}
 </style>

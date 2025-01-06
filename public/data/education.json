@@ -1,0 +1,17 @@
+[
+    {
+      "degree": "African Master’s in Machine Intelligence (AMMI)",
+      "institution": "African Institute for Mathematical Sciences (AIMS)",
+      "year": 2019,
+      "url": "https://aimsammi.org/",
+      "thesis": "ChestREx: Out-of-Distribution Generalization of Chest X-ray Pathologies Using Risk Extrapolation."
+    },
+    {
+      "degree": "BSc. in Mathematics",
+      "institution": "Kwame Nkrumah University of Science and Technology (KNUST)",
+      "year": 2016,
+      "url": "https://www.knust.edu.gh/",
+      "thesis": "Function Approximation Using Artificial Neural Network."
+    }
+  ]
+  

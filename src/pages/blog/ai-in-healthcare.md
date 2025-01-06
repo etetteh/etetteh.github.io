@@ -2,13 +2,13 @@
 layout: "../../layouts/BlogLayout.astro"
 authorName: "Enoch Tetteh"
 postTitle: "AI in Healthcare"
-postExcerpt: ""
+postExcerpt: "Unveil the potential of AI in healthcare, from predictive diagnostics to precision treatments, revolutionizing patient care and medical research."
 postURL: "/blog/ai-in-healthcare"
 tags: ["AI", "Healthcare"]
-imageURL: "item2.jpeg"  # Provide a valid image URL if applicable
-imageAlt: "AI in Healthcare"  # Alt text for the image
-postDate: "2024-08-14"  # ISO format for consistency
-categoryName: "Healthcare"  # Category based on the post topic
+imageURL: "/blog/item2.jpeg"
+imageAlt: "AI in Healthcare"
+postDate: "2024-08-14"
+categoryName: "Healthcare"
 shadowColor: "green"
 ---
 

@@ -1,0 +1,71 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import { slugify } from '../../utils/utils.js';
+
+const blogPosts = await getCollection("blog");
+const categories = blogPosts.reduce((acc, post) => {
+  const category = post.data.categoryName;
+  acc[category] = (acc[category] || 0) + 1;
+  return acc;
+}, {} as Record<string, number>);
+
+const sortedCategories = Object.entries(categories)
+  .sort(([a], [b]) => a.localeCompare(b))
+  .map(([name, count]) => ({
+    name,
+    count,
+    slug: slugify(name),
+  }));
+
+const metadata = {
+  title: "All Categories",
+  description: "Browse all blog categories and discover our content organized by topic",
+};
+---
+
+<Layout title={metadata.title} description={metadata.description}>
+  <section class="container mx-auto px-4 py-10">
+    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 animate-fade-in">
+      Browse by Category
+    </h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {sortedCategories.map(({ name, count, slug }) => (
+        <a
+          href={`/category/${slug}`}
+          class="relative group p-6 rounded-xl
+          bg-gradient-to-b from-amber-300 to-amber-500 dark:from-amber-400 dark:to-amber-600
+          text-white dark:text-white
+          hover:from-amber-400 hover:to-amber-600 dark:hover:from-amber-500 dark:hover:to-amber-700
+          focus:ring-4 focus:outline-none focus:ring-amber-300 dark:focus:ring-amber-800
+          shadow-lg shadow-amber-500/30 dark:shadow-amber-800/30
+          transform hover:-translate-y-0.5 active:translate-y-0
+          transition-all duration-150 ease-in-out
+          hover:shadow-xl hover:shadow-amber-500/40 dark:hover:shadow-amber-800/40
+          before:absolute before:inset-0 before:bg-white/20 dark:before:bg-black/20 before:rounded-xl before:opacity-0 hover:before:opacity-100 before:transition-opacity"
+        >
+          <div class="relative">
+            <h2 class="text-xl font-semibold mb-2">
+              {name}
+            </h2>
+            <div class="inline-flex items-center bg-white/20 dark:bg-black/20 px-3 py-1 rounded-full text-sm">
+              {count} {count === 1 ? 'post' : 'posts'}
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .animate-fade-in {
+    animation: fadeIn 1s ease forwards;
+    opacity: 0;
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+</style>

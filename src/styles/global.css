@@ -1,0 +1,128 @@
+/* Global Styles for Blog Post Layout */
+
+/* Title Styling */
+h1 {
+    font-size: 2.25rem; /* 3xl */
+    font-weight: 700;   /* bold */
+    color: #1f2937;     /* gray-800 */
+    line-height: 1.25;  /* tight */
+    margin-top: 1rem;   /* mt-4 */
+    margin-bottom: 1.5rem; /* mb-6 */
+}
+
+h1.sm\:text-4xl {
+    font-size: 2.5rem;
+}
+h1.lg\:text-5xl {
+    font-size: 3rem;
+}
+
+/* Category Badge */
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.875rem; /* text-sm */
+    font-weight: 600;
+    color: #fff; /* text-white */
+    background-color: #3b82f6; /* blue-500 */
+    border-radius: 9999px; /* rounded-full */
+    transition: background-color 0.3s ease;
+}
+
+.badge:hover {
+    background-color: #2563eb; /* blue-600 */
+}
+
+/* Paragraph Styling */
+p {
+    font-size: 1rem; /* base */
+    color: #374151; /* gray-700 */
+    line-height: 1.75; /* leading-relaxed */
+    margin-bottom: 1.5rem; /* mb-6 */
+}
+
+p.sm\:text-lg {
+    font-size: 1.125rem;
+}
+
+/* Headers Styling (H2, H3) */
+h2 {
+    font-size: 1.5rem; /* 2xl */
+    font-weight: 600;
+    color: #1f2937; /* gray-800 */
+    margin-top: 2rem; /* mt-8 */
+    margin-bottom: 1rem; /* mb-4 */
+}
+h2.sm\:text-3xl {
+    font-size: 1.875rem;
+}
+
+h3 {
+    font-size: 1.25rem; /* xl */
+    font-weight: 500;
+    color: #1f2937; /* gray-800 */
+    margin-top: 1.5rem; /* mt-6 */
+    margin-bottom: 1rem; /* mb-4 */
+}
+h3.sm\:text-2xl {
+    font-size: 1.5rem;
+}
+
+/* Link Styling */
+a {
+    color: #2563eb; /* blue-600 */
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #1d4ed8; /* blue-800 */
+}
+
+/* Blockquote Styling */
+blockquote {
+    border-left: 4px solid #3b82f6; /* border-blue-500 */
+    font-style: italic;
+    color: #4b5563; /* text-gray-600 */
+    padding-left: 1rem;
+    margin: 1.5rem 0; /* my-6 */
+}
+
+/* List Styling */
+ul, ol {
+    padding-left: 1.25rem; /* pl-4 */
+    margin-bottom: 1.5rem; /* mb-6 */
+}
+
+ul {
+    list-style-type: disc;
+}
+ol {
+    list-style-type: decimal;
+}
+
+/* Code Block Styling */
+pre {
+    background-color: #f3f4f6; /* bg-gray-100 */
+    font-size: 0.875rem; /* text-sm */
+    color: #111827; /* text-gray-900 */
+    border-radius: 0.5rem; /* rounded-lg */
+    padding: 1rem; /* p-4 */
+    overflow-x: auto;
+}
+
+/* Button Styling */
+.button {
+    display: inline-block;
+    background-color: #3b82f6; /* bg-blue-500 */
+    color: #fff;
+    font-weight: 700; /* font-bold */
+    padding: 0.5rem 1rem; /* py-2 px-4 */
+    border-radius: 0.5rem; /* rounded-lg */
+    transition: background-color 0.3s ease;
+    margin-top: 1rem; /* mt-4 */
+}
+
+.button:hover {
+    background-color: #2563eb; /* bg-blue-600 */
+}
