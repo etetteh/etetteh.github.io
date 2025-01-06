@@ -17,7 +17,6 @@ export default defineConfig({
         mode: 'standalone'
     }),
     image: {
-        // Used for all `<Image />` and `<Picture />` components unless overridden
         experimentalLayout: 'responsive',
     },
     experimental: {
