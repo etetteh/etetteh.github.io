@@ -8,6 +8,8 @@ import react from '@astrojs/react';
 import mdx from '@astrojs/mdx';
 import vue from '@astrojs/vue';
 import icon from 'astro-icon';
+
+
 import preact from '@astrojs/preact';
 
 
@@ -22,11 +24,20 @@ export default defineConfig({
     experimental: {
         responsiveImages: true,
     },
-    integrations: [tailwind({nesting: true}), alpinejs(), react({include: ['**/react/*']}), mdx({
-        optimize: true,
-    }), vue({ jsx: true }), icon({
-        include: {
-          mdi: ["*"],
-        },
-      }), preact({ compat: true })]
+    integrations: [
+      tailwind({nesting: true}),
+      alpinejs(),
+      react({include: ['**/react/*']}),
+      mdx({
+          optimize: true,
+      }),
+      vue({ jsx: true }),
+      icon({
+          include: {
+              mdi: ["*"],
+            //   fa: ["*"],
+          },
+          }),
+      preact({ compat: true })
+    ]
 });
