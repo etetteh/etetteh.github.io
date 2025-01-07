@@ -15,9 +15,6 @@ import preact from '@astrojs/preact';
 
 export default defineConfig({
     site: 'https://etetteh.github.io',
-    adapter: node({
-        mode: 'standalone'
-    }),
     image: {
         experimentalLayout: 'responsive',
     },
