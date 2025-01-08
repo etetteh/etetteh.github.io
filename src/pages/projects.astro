@@ -412,9 +412,11 @@ const initialData = await loadJsonData('projects');
                 <style>
                     .custom-border {
                         --ball-color: ${ball.ballColor};
+                        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
                     }
                     .custom-border:hover {
                         border-color: var(--ball-color);
+                        box-shadow: 0 0 20px var(--ball-color);
                     }
                     .custom-button {
                         background-color: var(--ball-color);
