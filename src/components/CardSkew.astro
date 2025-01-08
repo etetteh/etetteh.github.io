@@ -23,7 +23,17 @@ const {
 
 <div class="flex justify-center items-center w-full">
   <div class="w-full m-3 max-w-md xl:max-w-full">
-    <card-skew class={`overflow-hidden border rounded-2xl hover:border-${shadowColor}-500 hover:shadow-lg hover:shadow-${shadowColor}-500 transition-shadow duration-300`} data-perspective="700">
+      <card-skew 
+          class={`overflow-hidden border-2 rounded-2xl border-gray-200 dark:border-gray-700 
+          ${shadowColor === 'blue' 
+              ? 'hover:border-blue-500 dark:hover:border-blue-400 hover:shadow-lg hover:shadow-blue-500/50 dark:hover:shadow-blue-400/50'
+              : shadowColor === 'green'
+              ? 'hover:border-green-500 dark:hover:border-green-400 hover:shadow-lg hover:shadow-green-500/50 dark:hover:shadow-green-400/50'
+              : 'hover:border-purple-500 dark:hover:border-purple-400 hover:shadow-lg hover:shadow-purple-500/50 dark:hover:shadow-purple-400/50'
+          }
+          transition-all duration-300`}
+          data-perspective="700"
+      >  
       <div class="bg-white overflow-hidden shadow-md transform transition-transform duration-300">
         <div class="relative overflow-hidden">
           <Picture
