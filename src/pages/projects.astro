@@ -220,68 +220,6 @@ const initialData = await loadJsonData('projects');
             });
         }
 
-        // function drawOrbit(nodes) {
-        //     if (!nodes) return;
-
-        //     const orbitRadius = 135;
-        //     const ballRadius = 37;
-        //     const angleStep = (Math.PI * 2) / nodes.length;
-
-        //     // Get the current theme
-        //     const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-        //     // Set text color based on theme
-        //     const textColor = isDarkMode ? '#E2E8F0' : '#2D3748';
-
-        //     for (let i = 0; i < nodes.length; i++) {
-        //         const angle = i * angleStep;
-        //         const ballX = centerX + orbitRadius * Math.cos(angle);
-        //         const ballY = centerY + orbitRadius * Math.sin(angle);
-
-        //         // Infer ball color from nodes[i].ballColor or use a default color
-        //         const ballColor = nodes[i].ballColor || (isDarkMode ? '#2C7A7B' : '#4FD1C5'); // Fallback color
-
-        //         // Draw ball
-        //         ctx.beginPath();
-        //         ctx.arc(ballX, ballY, ballRadius, 0, Math.PI * 2);
-        //         ctx.fillStyle = ballColor;
-        //         ctx.fill();
-
-        //         // Add subtle shadow for depth
-        //         ctx.shadowColor = isDarkMode ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 0, 0, 0.1)';
-        //         ctx.shadowBlur = 5;
-        //         ctx.shadowOffsetX = 2;
-        //         ctx.shadowOffsetY = 2;
-
-        //         // Draw text
-        //         ctx.fillStyle = textColor;
-        //         ctx.textAlign = 'center';
-        //         ctx.font = "11px Arial";
-        //         ctx.fillText(nodes[i].name, ballX, ballY + ballRadius + 15);
-
-        //         // Reset shadow
-        //         ctx.shadowColor = 'transparent';
-        //         ctx.shadowBlur = 0;
-        //         ctx.shadowOffsetX = 0;
-        //         ctx.shadowOffsetY = 0;
-
-        //         balls.push({
-        //             x: ballX,
-        //             y: ballY,
-        //             radius: ballRadius,
-        //             name: nodes[i].name,
-        //             postTitle: nodes[i].postTitle,
-        //             description: nodes[i].description,
-        //             imageURL: nodes[i].imageURL,
-        //             postURL: nodes[i].postURL,
-        //             ballColor,
-        //             industry: nodes[i].industry,
-        //             children: nodes[i].children || [],
-        //             isCentral: false
-        //         });
-        //     }
-        // }
-
         function drawOrbit(nodes) {
             if (!nodes) return;
 
@@ -289,18 +227,16 @@ const initialData = await loadJsonData('projects');
             const ballRadius = 37;
             const angleStep = (Math.PI * 2) / nodes.length;
 
-            // Get the current theme
-            const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-            // Set text color based on theme
-            const textColor = isDarkMode ? '#E2E8F0' : '#2D3748';
+            // Gradient colors
+            const gradientColors = ['#F59E0B', '#EF4444', '#EC4899'];
 
             for (let i = 0; i < nodes.length; i++) {
                 const angle = i * angleStep;
                 const ballX = centerX + orbitRadius * Math.cos(angle);
                 const ballY = centerY + orbitRadius * Math.sin(angle);
 
-                const ballColor = nodes[i].ballColor || (isDarkMode ? '#2C7A7B' : '#4FD1C5');
+                // Infer ball color from nodes[i].ballColor or use a default color
+                const ballColor = nodes[i].ballColor
 
                 // Draw ball
                 ctx.beginPath();
@@ -308,31 +244,24 @@ const initialData = await loadJsonData('projects');
                 ctx.fillStyle = ballColor;
                 ctx.fill();
 
-                // Add subtle shadow for depth
-                ctx.shadowColor = isDarkMode ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 0, 0, 0.1)';
-                ctx.shadowBlur = 5;
-                ctx.shadowOffsetX = 2;
-                ctx.shadowOffsetY = 2;
-
-                // Draw text background
-                const text = nodes[i].name;
-                ctx.font = "11px Arial";
-                const textWidth = ctx.measureText(text).width;
-                const padding = 4;
-                const bgHeight = 16;
-
-                ctx.fillStyle = isDarkMode ? 'rgba(0, 0, 0, 0.7)' : 'rgba(255, 255, 255, 0.9)';
-                ctx.fillRect(
-                    ballX - textWidth/2 - padding, 
-                    ballY + ballRadius + 15 - bgHeight/2,
-                    textWidth + padding * 2,
-                    bgHeight
+                // Create text gradient
+                const textWidth = ctx.measureText(nodes[i].name).width;
+                const textGradient = ctx.createLinearGradient(
+                    ballX - textWidth/2,  // x0
+                    ballY + ballRadius + 15,  // y0
+                    ballX + textWidth/2,  // x1
+                    ballY + ballRadius + 15   // y1
                 );
 
-                // Draw text
-                ctx.fillStyle = textColor;
+                // Add color stops for text gradient
+                textGradient.addColorStop(0, gradientColors[0]);
+                textGradient.addColorStop(0.5, gradientColors[1]);
+                textGradient.addColorStop(1, gradientColors[2]);
+
+                // Draw text with gradient
+                ctx.fillStyle = textGradient;
                 ctx.textAlign = 'center';
-                ctx.font = "11px Arial";
+                ctx.font = "bold 12px Arial";
                 ctx.fillText(nodes[i].name, ballX, ballY + ballRadius + 15);
 
                 // Reset shadow
@@ -356,7 +285,7 @@ const initialData = await loadJsonData('projects');
                     isCentral: false
                 });
             }
-        }
+            }
 
         const offset = 15; // Hover information offset from cursor
 
