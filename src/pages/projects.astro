@@ -291,7 +291,7 @@ const initialData = await loadJsonData('projects');
 
             const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-            const textColor = isDarkMode ? '#E2E8F0' : '#000000'; 
+            const textColor = isDarkMode ? '#E2E8F0' : 'teal'; 
 
             for (let i = 0; i < nodes.length; i++) {
                 const angle = i * angleStep;
