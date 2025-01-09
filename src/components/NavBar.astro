@@ -46,27 +46,66 @@ import { Icon } from 'astro-icon/components';
 </nav>
 
 <script>
+  // const setActiveLink = () => {
+  //   const links = document.querySelectorAll('.nav-link');
+  //   let currentPath = window.location.pathname;
+    
+  //   // Handle trailing slash consistency
+  //   if (currentPath.endsWith('/') && currentPath !== '/') {
+  //     currentPath = currentPath.slice(0, -1);
+  //   }
+
+  //   links.forEach(link => {
+  //     let linkPath = link.getAttribute('data-link');
+  //     if (linkPath && linkPath.endsWith('/') && linkPath !== '/') {
+  //       linkPath = linkPath.slice(0, -1);
+  //     }
+
+  //     const isActive = linkPath === currentPath;
+      
+  //     // Remove all possible classes first
+  //     link.classList.remove('bg-black', 'text-[#20808D]', 'hover:bg-gray-200', 'hover:text-[#20808D]');
+      
+  //     // Then add appropriate classes based on active state
+  //     if (isActive) {
+  //       link.classList.add('bg-black', 'text-[#20808D]');
+  //     } else {
+  //       link.classList.add('hover:bg-gray-200', 'hover:text-[#20808D]', 'text-gray-700', 'dark:text-gray-300');
+  //     }
+  //   });
+  // };
+
   const setActiveLink = () => {
     const links = document.querySelectorAll('.nav-link');
     let currentPath = window.location.pathname;
     
-    // Handle trailing slash consistency
+    // If site is deployed to a subdirectory (like GitHub Pages username.github.io/repo-name)
+    const baseUrl = '/your-repo-name'; // Replace with your actual repo name
+    if (currentPath.startsWith(baseUrl)) {
+      currentPath = currentPath.slice(baseUrl.length);
+    }
+    
+    // Handle trailing slash and root path
     if (currentPath.endsWith('/') && currentPath !== '/') {
       currentPath = currentPath.slice(0, -1);
     }
+    
+    console.log('Current path:', currentPath); // Debug log
 
     links.forEach(link => {
       let linkPath = link.getAttribute('data-link');
-      if (linkPath && linkPath.endsWith('/') && linkPath !== '/') {
+      if (linkPath.endsWith('/') && linkPath !== '/') {
         linkPath = linkPath.slice(0, -1);
       }
-
-      const isActive = linkPath === currentPath;
       
-      // Remove all possible classes first
+      console.log('Link path:', linkPath); // Debug log
+      
+      const isActive = currentPath === linkPath;
+      console.log('Is active:', isActive); // Debug log
+      
+      // Remove existing classes
       link.classList.remove('bg-black', 'text-[#20808D]', 'hover:bg-gray-200', 'hover:text-[#20808D]');
       
-      // Then add appropriate classes based on active state
       if (isActive) {
         link.classList.add('bg-black', 'text-[#20808D]');
       } else {
@@ -75,9 +114,27 @@ import { Icon } from 'astro-icon/components';
     });
   };
 
+  // Call setActiveLink on page load and route changes
+  document.addEventListener('DOMContentLoaded', () => {
+    setActiveLink();
+    console.log('Initial page load'); // Debug log
+  });
+
+  // Add listener for navigation events
+  window.addEventListener('popstate', () => {
+    setActiveLink();
+    console.log('Navigation occurred'); // Debug log
+  });
+
+  // Add listener for hash changes
+  window.addEventListener('hashchange', () => {
+    setActiveLink();
+    console.log('Hash changed'); // Debug log
+  });
+
   // Call setActiveLink on page load and when navigating
-  document.addEventListener('DOMContentLoaded', setActiveLink);
-  window.addEventListener('popstate', setActiveLink);
+  // document.addEventListener('DOMContentLoaded', setActiveLink);
+  // window.addEventListener('popstate', setActiveLink);
   
   // const setActiveLink = () => {
   //   const links = document.querySelectorAll('.nav-link');
