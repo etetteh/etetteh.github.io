@@ -44,7 +44,7 @@ const initialData = await loadJsonData('projects');
         <Header />
     </div>
       
-    <div class="flex flex-col-reverse md:flex-row gap-4 items-center justify-center">
+    <div class="flex flex-col-reverse md:flex-row gap-7 items-center justify-center">
         <div class="relative w-full md:w-1/2 aspect-cover">
             <canvas id="orbitCanvas" class="w-full h-[400px] bg-gray-0 dark:bg-gray-700"></canvas>
             <div id="hoverInfo" class="absolute hidden"></div>
@@ -220,72 +220,168 @@ const initialData = await loadJsonData('projects');
             });
         }
 
-        function drawOrbit(nodes) {
-            if (!nodes) return;
+        const styles = `
+            .orbit-text {
+                background-clip: text;
+                -webkit-background-clip: text;
+                color: transparent;
+                transition: opacity 0.5s ease-in-out, transform 0.3s ease;
+                opacity: 1;
+                font-weight: bold;
+                font-family: Arial;
+                font-size: 12px;
+                z-index: 1000;
+                position: absolute;
+                text-align: center;
+                width: auto;
+                white-space: nowrap;
+            }
 
-            const orbitRadius = 135;
-            const ballRadius = 37;
-            const angleStep = (Math.PI * 2) / nodes.length;
+            .orbit-text.fade-out {
+                opacity: 0;
+                transform: scale(1.1);
+            }
 
-            // Gradient colors
-            const gradientColors = ['#F59E0B', '#EF4444', '#EC4899'];
+            #orbit-text-container {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                z-index: 1000;
+            }
+            `;
 
-            for (let i = 0; i < nodes.length; i++) {
-                const angle = i * angleStep;
-                const ballX = centerX + orbitRadius * Math.cos(angle);
-                const ballY = centerY + orbitRadius * Math.sin(angle);
+            // Add styles to document
+            const styleSheet = document.createElement("style");
+            styleSheet.textContent = styles;
+            document.head.appendChild(styleSheet);
 
-                // Infer ball color from nodes[i].ballColor or use a default color
-                const ballColor = nodes[i].ballColor
+            // Global gradient state
+            const gradientSets = [
+                ['#6366F1', '#8B5CF6', '#D946EF'], // Purple theme
+                ['#14B8A6', '#0EA5E9', '#6366F1'], // Blue theme
+                ['#22C55E', '#10B981', '#14B8A6'], // Green theme
+                ['#F59E0B', '#EF4444', '#EC4899']  // Orange-Red theme
+            ];
+            let currentGradientIndex = 0;
+            let textElements = [];
 
-                // Draw ball
-                ctx.beginPath();
-                ctx.arc(ballX, ballY, ballRadius, 0, Math.PI * 2);
-                ctx.fillStyle = ballColor;
-                ctx.fill();
-
-                // Create text gradient
-                const textWidth = ctx.measureText(nodes[i].name).width;
-                const textGradient = ctx.createLinearGradient(
-                    ballX - textWidth/2,  // x0
-                    ballY + ballRadius + 15,  // y0
-                    ballX + textWidth/2,  // x1
-                    ballY + ballRadius + 15   // y1
-                );
-
-                // Add color stops for text gradient
-                textGradient.addColorStop(0, gradientColors[0]);
-                textGradient.addColorStop(0.5, gradientColors[1]);
-                textGradient.addColorStop(1, gradientColors[2]);
-
-                // Draw text with gradient
-                ctx.fillStyle = textGradient;
-                ctx.textAlign = 'center';
-                ctx.font = "bold 12px Arial";
-                ctx.fillText(nodes[i].name, ballX, ballY + ballRadius + 15);
-
-                // Reset shadow
-                ctx.shadowColor = 'transparent';
-                ctx.shadowBlur = 0;
-                ctx.shadowOffsetX = 0;
-                ctx.shadowOffsetY = 0;
-
-                balls.push({
-                    x: ballX,
-                    y: ballY,
-                    radius: ballRadius,
-                    name: nodes[i].name,
-                    postTitle: nodes[i].postTitle,
-                    description: nodes[i].description,
-                    imageURL: nodes[i].imageURL,
-                    postURL: nodes[i].postURL,
-                    ballColor,
-                    industry: nodes[i].industry,
-                    children: nodes[i].children || [],
-                    isCentral: false
+            function updateAllTextGradients() {
+                const currentSet = gradientSets[currentGradientIndex];
+                textElements.forEach(element => {
+                    element.classList.add('fade-out');
                 });
+                
+                setTimeout(() => {
+                    const gradient = `linear-gradient(135deg, ${currentSet[0]}, ${currentSet[1]}, ${currentSet[2]})`;
+                    textElements.forEach(element => {
+                        element.style.backgroundImage = gradient;
+                        element.classList.remove('fade-out');
+                    });
+                    currentGradientIndex = (currentGradientIndex + 1) % gradientSets.length;
+                }, 500);
             }
+
+            function drawOrbit(nodes) {
+                if (!nodes) return;
+                const orbitRadius = 135;
+                const ballRadius = 37;
+                const angleStep = (Math.PI * 2) / nodes.length;
+
+                // Get canvas container position
+                const canvasContainer = ctx.canvas.parentElement;
+                const canvasRect = ctx.canvas.getBoundingClientRect();
+
+                // Create text container div if it doesn't exist
+                let textContainer = document.getElementById('orbit-text-container');
+                if (!textContainer) {
+                    textContainer = document.createElement('div');
+                    textContainer.id = 'orbit-text-container';
+                    canvasContainer.style.position = 'relative';
+                    canvasContainer.appendChild(textContainer);
+                }
+
+                // Clear existing text elements
+                textContainer.innerHTML = '';
+                textElements = []; // Reset global text elements array
+
+                for (let i = 0; i < nodes.length; i++) {
+                    const angle = i * angleStep;
+                    const ballX = centerX + orbitRadius * Math.cos(angle);
+                    const ballY = centerY + orbitRadius * Math.sin(angle);
+                    const ballColor = nodes[i].ballColor;
+
+                    // Draw ball
+                    ctx.beginPath();
+                    ctx.arc(ballX, ballY, ballRadius, 0, Math.PI * 2);
+                    ctx.fillStyle = ballColor;
+                    ctx.fill();
+
+                    // Create text element
+                    const textElement = document.createElement('div');
+                    textElement.className = 'orbit-text';
+                    textElement.textContent = nodes[i].name;
+                    
+                    // Position text relative to canvas
+                    const textX = ballX;
+                    const textY = ballY + ballRadius + 15;
+                    
+                    textElement.style.left = `${textX}px`;
+                    textElement.style.top = `${textY}px`;
+                    textElement.style.transform = 'translate(-50%, -50%)';
+
+                    // Set initial gradient
+                    const initialGradient = `linear-gradient(135deg, ${gradientSets[currentGradientIndex][0]}, ${gradientSets[currentGradientIndex][1]}, ${gradientSets[currentGradientIndex][2]})`;
+                    textElement.style.backgroundImage = initialGradient;
+
+                    textContainer.appendChild(textElement);
+                    textElements.push(textElement);
+
+                    // Store ball data
+                    balls.push({
+                        x: ballX,
+                        y: ballY,
+                        radius: ballRadius,
+                        name: nodes[i].name,
+                        postTitle: nodes[i].postTitle,
+                        description: nodes[i].description,
+                        imageURL: nodes[i].imageURL,
+                        postURL: nodes[i].postURL,
+                        ballColor,
+                        industry: nodes[i].industry,
+                        children: nodes[i].children || [],
+                        isCentral: false,
+                        textElement
+                    });
+                }
+
+                // Start gradient animation if it's not already running
+                if (!window.gradientInterval) {
+                    window.gradientInterval = setInterval(updateAllTextGradients, 3000);
+                }
             }
+
+            // Clean up function
+            function cleanupOrbit() {
+                const container = document.getElementById('orbit-text-container');
+                if (container) {
+                    container.remove();
+                }
+                if (window.gradientInterval) {
+                    clearInterval(window.gradientInterval);
+                    window.gradientInterval = null;
+                }
+                textElements = [];
+            }
+
+            // Add window resize handler
+            window.addEventListener('resize', () => {
+                if (typeof redrawOrbit === 'function') {
+                    redrawOrbit();
+                }
+            });
 
         const offset = 15; // Hover information offset from cursor
 
