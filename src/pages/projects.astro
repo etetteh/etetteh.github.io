@@ -57,47 +57,6 @@ const initialData = await loadJsonData('projects');
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"></script>
     <script is:inline define:vars={{ initialData }}>
-        
-        // const canvas = document.getElementById('orbitCanvas');
-        // const ctx = canvas.getContext('2d');
-        // const hoverInfo = document.getElementById('hoverInfo');
-
-        // function resizeCanvas() {
-        //     // Set canvas width to full parent width
-        //     canvas.width = canvas.parentElement.clientWidth;
-        //     canvas.height = canvas.parentElement.clientHeight;
-
-            
-        //     // Center coordinates based on the new canvas dimensions
-        //     centerX = canvas.width / 2;
-        //     centerY = canvas.height / 2;
-        // }
-        
-        // // Function to get accurate mouse position relative to the canvas
-        // function getMousePos(canvas, event) {
-        //     const rect = canvas.getBoundingClientRect(); // Get canvas position relative to the viewport
-        //     return {
-        //         x: (event.clientX - rect.left) * (canvas.width / rect.width), // Scale x-coordinate
-        //         y: (event.clientY - rect.top) * (canvas.height / rect.height) // Scale y-coordinate
-        //     };
-        // }
-
-        // // Initial setup and dynamic resizing
-        // let centerX, centerY;
-        // resizeCanvas();
-        // window.addEventListener('resize', resizeCanvas);
-
-        // let currentNode = initialData;
-        // let balls = [];
-        // let hoveredBall = null;
-
-        // function draw() {
-        //     ctx.clearRect(0, 0, canvas.width, canvas.height);
-        //     balls = [];
-        //     drawCentralBall(currentNode);
-        //     drawOrbit(currentNode.children);
-        //     requestAnimationFrame(draw);
-        // }
 
         const canvas = document.getElementById('orbitCanvas');
         const ctx = canvas.getContext('2d');
@@ -261,6 +220,68 @@ const initialData = await loadJsonData('projects');
             });
         }
 
+        // function drawOrbit(nodes) {
+        //     if (!nodes) return;
+
+        //     const orbitRadius = 135;
+        //     const ballRadius = 37;
+        //     const angleStep = (Math.PI * 2) / nodes.length;
+
+        //     // Get the current theme
+        //     const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        //     // Set text color based on theme
+        //     const textColor = isDarkMode ? '#E2E8F0' : '#2D3748';
+
+        //     for (let i = 0; i < nodes.length; i++) {
+        //         const angle = i * angleStep;
+        //         const ballX = centerX + orbitRadius * Math.cos(angle);
+        //         const ballY = centerY + orbitRadius * Math.sin(angle);
+
+        //         // Infer ball color from nodes[i].ballColor or use a default color
+        //         const ballColor = nodes[i].ballColor || (isDarkMode ? '#2C7A7B' : '#4FD1C5'); // Fallback color
+
+        //         // Draw ball
+        //         ctx.beginPath();
+        //         ctx.arc(ballX, ballY, ballRadius, 0, Math.PI * 2);
+        //         ctx.fillStyle = ballColor;
+        //         ctx.fill();
+
+        //         // Add subtle shadow for depth
+        //         ctx.shadowColor = isDarkMode ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 0, 0, 0.1)';
+        //         ctx.shadowBlur = 5;
+        //         ctx.shadowOffsetX = 2;
+        //         ctx.shadowOffsetY = 2;
+
+        //         // Draw text
+        //         ctx.fillStyle = textColor;
+        //         ctx.textAlign = 'center';
+        //         ctx.font = "11px Arial";
+        //         ctx.fillText(nodes[i].name, ballX, ballY + ballRadius + 15);
+
+        //         // Reset shadow
+        //         ctx.shadowColor = 'transparent';
+        //         ctx.shadowBlur = 0;
+        //         ctx.shadowOffsetX = 0;
+        //         ctx.shadowOffsetY = 0;
+
+        //         balls.push({
+        //             x: ballX,
+        //             y: ballY,
+        //             radius: ballRadius,
+        //             name: nodes[i].name,
+        //             postTitle: nodes[i].postTitle,
+        //             description: nodes[i].description,
+        //             imageURL: nodes[i].imageURL,
+        //             postURL: nodes[i].postURL,
+        //             ballColor,
+        //             industry: nodes[i].industry,
+        //             children: nodes[i].children || [],
+        //             isCentral: false
+        //         });
+        //     }
+        // }
+
         function drawOrbit(nodes) {
             if (!nodes) return;
 
@@ -268,43 +289,41 @@ const initialData = await loadJsonData('projects');
             const ballRadius = 37;
             const angleStep = (Math.PI * 2) / nodes.length;
 
-            // Get the current theme
             const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-            // Set text color based on theme
-            const textColor = isDarkMode ? '#E2E8F0' : '#2D3748';
+            const textColor = isDarkMode ? '#E2E8F0' : '#000000'; 
 
             for (let i = 0; i < nodes.length; i++) {
                 const angle = i * angleStep;
                 const ballX = centerX + orbitRadius * Math.cos(angle);
                 const ballY = centerY + orbitRadius * Math.sin(angle);
 
-                // Infer ball color from nodes[i].ballColor or use a default color
-                const ballColor = nodes[i].ballColor || (isDarkMode ? '#2C7A7B' : '#4FD1C5'); // Fallback color
+                const ballColor = nodes[i].ballColor || (isDarkMode ? '#2C7A7B' : '#4FD1C5');
 
-                // Draw ball
                 ctx.beginPath();
                 ctx.arc(ballX, ballY, ballRadius, 0, Math.PI * 2);
                 ctx.fillStyle = ballColor;
                 ctx.fill();
 
-                // Add subtle shadow for depth
-                ctx.shadowColor = isDarkMode ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 0, 0, 0.1)';
-                ctx.shadowBlur = 5;
-                ctx.shadowOffsetX = 2;
-                ctx.shadowOffsetY = 2;
+                ctx.shadowColor = isDarkMode ? 'rgba(0, 0, 0, 0.5)' : 'rgba(255, 255, 255, 0.8)';
+                ctx.shadowBlur = 3;
+                ctx.shadowOffsetX = 0;
+                ctx.shadowOffsetY = 0;
 
-                // Draw text
                 ctx.fillStyle = textColor;
                 ctx.textAlign = 'center';
-                ctx.font = "11px Arial";
+                ctx.font = "12px Arial";
                 ctx.fillText(nodes[i].name, ballX, ballY + ballRadius + 15);
 
-                // Reset shadow
                 ctx.shadowColor = 'transparent';
                 ctx.shadowBlur = 0;
                 ctx.shadowOffsetX = 0;
                 ctx.shadowOffsetY = 0;
+
+                ctx.shadowColor = isDarkMode ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 0, 0, 0.1)';
+                ctx.shadowBlur = 5;
+                ctx.shadowOffsetX = 2;
+                ctx.shadowOffsetY = 2;
 
                 balls.push({
                     x: ballX,
