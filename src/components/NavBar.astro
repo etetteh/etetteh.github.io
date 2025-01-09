@@ -48,34 +48,67 @@ import { Icon } from 'astro-icon/components';
 <script>
   const setActiveLink = () => {
     const links = document.querySelectorAll('.nav-link');
-    const currentPath = window.location.pathname;
+    let currentPath = window.location.pathname;
+    
+    // Handle trailing slash consistency
+    if (currentPath.endsWith('/') && currentPath !== '/') {
+      currentPath = currentPath.slice(0, -1);
+    }
 
     links.forEach(link => {
-      const isActive = link.getAttribute('data-link') === currentPath;
-      link.classList.toggle('bg-black', isActive);
-      link.classList.toggle('text-[#20808D]', isActive);
-      link.classList.toggle('hover:bg-gray-200', !isActive);
-      link.classList.toggle('hover:text-[#20808D]', !isActive);
+      let linkPath = link.getAttribute('data-link');
+      if (linkPath && linkPath.endsWith('/') && linkPath !== '/') {
+        linkPath = linkPath.slice(0, -1);
+      }
+
+      const isActive = linkPath === currentPath;
+      
+      // Remove all possible classes first
+      link.classList.remove('bg-black', 'text-[#20808D]', 'hover:bg-gray-200', 'hover:text-[#20808D]');
+      
+      // Then add appropriate classes based on active state
+      if (isActive) {
+        link.classList.add('bg-black', 'text-[#20808D]');
+      } else {
+        link.classList.add('hover:bg-gray-200', 'hover:text-[#20808D]', 'text-gray-700', 'dark:text-gray-300');
+      }
     });
   };
 
-  let lastScrollTop = 0;
+  // Call setActiveLink on page load and when navigating
+  document.addEventListener('DOMContentLoaded', setActiveLink);
+  window.addEventListener('popstate', setActiveLink);
   
-  const handleScroll = () => {
-    const navbar = document.getElementById('navbar');
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    const isScrollingDown = scrollTop > (lastScrollTop || 0);
-  
-    if (navbar) {
-      navbar.style.transform = isScrollingDown ? 'translateY(-100%)' : 'translateY(0)';
-    }
-    lastScrollTop = scrollTop;
-  };
+  // const setActiveLink = () => {
+  //   const links = document.querySelectorAll('.nav-link');
+  //   const currentPath = window.location.pathname;
 
-  document.addEventListener('DOMContentLoaded', () => {
-    setActiveLink();
-    window.addEventListener('scroll', handleScroll);
-  });
+  //   links.forEach(link => {
+  //     const isActive = link.getAttribute('data-link') === currentPath;
+  //     link.classList.toggle('bg-black', isActive);
+  //     link.classList.toggle('text-[#20808D]', isActive);
+  //     link.classList.toggle('hover:bg-gray-200', !isActive);
+  //     link.classList.toggle('hover:text-[#20808D]', !isActive);
+  //   });
+  // };
+
+  // let lastScrollTop = 0;
+  
+  // const handleScroll = () => {
+  //   const navbar = document.getElementById('navbar');
+  //   const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  //   const isScrollingDown = scrollTop > (lastScrollTop || 0);
+  
+  //   if (navbar) {
+  //     navbar.style.transform = isScrollingDown ? 'translateY(-100%)' : 'translateY(0)';
+  //   }
+  //   lastScrollTop = scrollTop;
+  // };
+
+  // document.addEventListener('DOMContentLoaded', () => {
+  //   setActiveLink();
+  //   window.addEventListener('scroll', handleScroll);
+  // });
 
   // Handle mobile menu toggle
   const mobileMenuButton = document.querySelector('[aria-controls="mobile-menu"]');
