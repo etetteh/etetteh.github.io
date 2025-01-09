@@ -289,9 +289,11 @@ const initialData = await loadJsonData('projects');
             const ballRadius = 37;
             const angleStep = (Math.PI * 2) / nodes.length;
 
+            // Get the current theme
             const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-            const textColor = isDarkMode ? '#E2E8F0' : 'teal'; 
+            // Set text color based on theme
+            const textColor = isDarkMode ? '#E2E8F0' : '#2D3748';
 
             for (let i = 0; i < nodes.length; i++) {
                 const angle = i * angleStep;
@@ -300,30 +302,44 @@ const initialData = await loadJsonData('projects');
 
                 const ballColor = nodes[i].ballColor || (isDarkMode ? '#2C7A7B' : '#4FD1C5');
 
+                // Draw ball
                 ctx.beginPath();
                 ctx.arc(ballX, ballY, ballRadius, 0, Math.PI * 2);
                 ctx.fillStyle = ballColor;
                 ctx.fill();
 
-                ctx.shadowColor = isDarkMode ? 'rgba(0, 0, 0, 0.5)' : 'rgba(255, 255, 255, 0.8)';
-                ctx.shadowBlur = 3;
-                ctx.shadowOffsetX = 0;
-                ctx.shadowOffsetY = 0;
-
-                ctx.fillStyle = textColor;
-                ctx.textAlign = 'center';
-                ctx.font = "12px Arial";
-                ctx.fillText(nodes[i].name, ballX, ballY + ballRadius + 15);
-
-                ctx.shadowColor = 'transparent';
-                ctx.shadowBlur = 0;
-                ctx.shadowOffsetX = 0;
-                ctx.shadowOffsetY = 0;
-
+                // Add subtle shadow for depth
                 ctx.shadowColor = isDarkMode ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 0, 0, 0.1)';
                 ctx.shadowBlur = 5;
                 ctx.shadowOffsetX = 2;
                 ctx.shadowOffsetY = 2;
+
+                // Draw text background
+                const text = nodes[i].name;
+                ctx.font = "11px Arial";
+                const textWidth = ctx.measureText(text).width;
+                const padding = 4;
+                const bgHeight = 16;
+
+                ctx.fillStyle = isDarkMode ? 'rgba(0, 0, 0, 0.7)' : 'rgba(255, 255, 255, 0.9)';
+                ctx.fillRect(
+                    ballX - textWidth/2 - padding, 
+                    ballY + ballRadius + 15 - bgHeight/2,
+                    textWidth + padding * 2,
+                    bgHeight
+                );
+
+                // Draw text
+                ctx.fillStyle = textColor;
+                ctx.textAlign = 'center';
+                ctx.font = "11px Arial";
+                ctx.fillText(nodes[i].name, ballX, ballY + ballRadius + 15);
+
+                // Reset shadow
+                ctx.shadowColor = 'transparent';
+                ctx.shadowBlur = 0;
+                ctx.shadowOffsetX = 0;
+                ctx.shadowOffsetY = 0;
 
                 balls.push({
                     x: ballX,
