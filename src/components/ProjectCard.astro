@@ -1,13 +1,11 @@
 ---
-import { Icon } from 'astro-icon/components'
-
 // ProjectCard.astro
 interface Project {
   name: string;
   postTitle: string;
   description: string;
   icon: string;
-  imageURL: string;
+  imageURL: any;
   postURL: string;
   shadowColor: string;
   ballColor: string;
@@ -37,15 +35,18 @@ const { projects, sectionTitle } = Astro.props;
                         style={{ '--card-color': project.ballColor }}
                     >
                     <div class="card-skew relative bg-white dark:bg-gray-800 rounded-2xl overflow-hidden h-full flex flex-col"> {/* Add flex and flex-col */}
-                        <div class="aspect-w-16 aspect-h-9 flex-shrink-0">
-                            <img
-                                src={project.imageURL}
-                                alt={project.name}
-                                class="w-full h-full object-cover"
-                            />
+                        <div class="aspect-w-16 aspect-h-9 h-[240px] flex-shrink-0">
+                          <img
+                            src={project.imageURL}
+                            alt={project.name}
+                            class="w-full h-full object-cover"
+                            loading="lazy"
+                            decoding="async"
+                          />
+                            
                         </div>
                         <div class="p-6 flex flex-col flex-grow">
-                            <div class="flex items-center mb-3">
+                            <div class="flex items-center mb-2">
                                 <div 
                                     class="w-8 h-8 rounded-full flex items-center justify-center mr-3"
                                 >
@@ -64,7 +65,7 @@ const { projects, sectionTitle } = Astro.props;
                                 <p class="text-base line-clamp-2 text-gray-700 dark:text-gray-300 mb-4">
                                     {project.description}
                                 </p>
-                            <div class="mt-auto flex items-center text-[color:var(--card-color)] dark:text-[color:var(--card-color)] hover:text-[color:var(--card-color)] dark:hover:text-[color:var(--card-color)]"
+                            <div class="mt-auto mb-auto flex items-center text-[color:var(--card-color)] dark:text-[color:var(--card-color)] hover:text-[color:var(--card-color)] dark:hover:text-[color:var(--card-color)]"
                                 style={{ '--card-color': project.ballColor }}
                             >
                                 <span>Learn More</span>
