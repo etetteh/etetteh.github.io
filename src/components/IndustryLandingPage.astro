@@ -1,10 +1,8 @@
 ---
 import ExploreMore from "./ExploreMore.astro";
-import NoImageCardSkew from "./NoImageCardSkew.astro";
 import ProjectCard from "./ProjectCard.astro";
-import CardSkew from "./CardSkew1.astro";
 import Layout from "../layouts/Layout.astro";
-import { Icon } from 'astro-icon/components';
+import RealWorldImpact from "./RealWorldImpact.astro";
 
 interface ResearchHighlight {
  title: string;
@@ -80,44 +78,7 @@ const { industryData, researchHighlights, gradientStart, gradientMiddle, gradien
     sectionTitle={industryData.postTitle.split('|')[0].trim()}
   />
 
-  <section class="mb-10 sm:pb-16 md:pb-20 lg:pb-20 xl:pb-40">
-    <div class="container mx-auto">
-      <h2 class="text-3xl sm:text-4xl md:text-5xl mb-8 sm:mb-12 md:mb-16 text-center text-gray-900 dark:text-white">
-        Real-World Impact
-      </h2>
-      <div class="xl:container mt-4 sm:mt-5">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mx-6 xl:mx-10 2xl:mx-28">
-          {researchHighlights.map((highlight, index) => (
-            <div class={`relative ${index % 2 === 1 ? "sm:top-16 xl:top-36" : ""}`}>
-              <a href={highlight.contentLink} class="block">
-                <CardSkew
-                  imageUrl={highlight.imageUrl}
-                  imageAlt={highlight.imageAlt}
-                  shadowColor={highlight.shadowColor}
-                  cardHeight={{
-                    default: "400px",
-                    sm: "450px",
-                    md: "540px",
-                    lg: "700px",
-                    xl: "800px",
-                  }}
-                >
-                  <div class="relative flex-col p-4 sm:p-6">
-                    <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 sm:mb-3">
-                      {highlight.title}
-                    </h3>
-                    <p class="text-xs sm:text-sm md:text-base text-gray-300 line-clamp-3 sm:line-clamp-4 md:line-clamp-5">
-                      {highlight.description}
-                    </p>
-                  </div>
-                </CardSkew>
-              </a>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
+  <RealWorldImpact highlights={researchHighlights} />
 </Layout>
 
 <style is:global>
