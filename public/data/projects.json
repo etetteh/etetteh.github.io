@@ -75,7 +75,7 @@
         "industry": "healthcare"
       },
       {
-        "name": "AutoAdmin Tasks",
+        "name": "Auto Admin Tasks",
         "postTitle": "AI in Healthcare Administration",
         "description": "Improving efficiency with AI-automated workflows in hospitals.",
         "icon": "fa-tasks",
@@ -177,7 +177,7 @@
         "industry": "finance"
       },
       {
-        "name": "Chatbots for Customer Service",
+        "name": "Chatbots for CS",
         "postTitle": "AI Chatbots in Finance",
         "description": "Implementing AI-powered chatbots for efficient customer service in banking and finance.",
         "icon": "fa-comments",
@@ -235,7 +235,7 @@
         "industry": "agriculture"
       },
       {
-        "name": "Pest and Disease Management",
+        "name": "Pest & Disease Mgmt",
         "postTitle": "AI for Pest and Disease Management",
         "description": "AI solutions for managing pests and diseases in agriculture.",
         "icon": "fa-bug",
@@ -338,7 +338,7 @@
         "industry": "insurance"
       },
       {
-        "name": "Insurance Fraud Detection",
+        "name": "Fraud Detection",
         "postTitle": "AI in Insurance Fraud Detection",
         "description": "Detecting fraudulent insurance claims using AI.",
         "icon": "fa-shield-alt",
@@ -371,7 +371,7 @@
         "industry": "insurance"
       },
       {
-        "name": "Chatbots for Customer Service",
+        "name": "Chatbots for CS",
         "postTitle": "AI Chatbots in Insurance",
         "description": "Implementing AI-powered chatbots for efficient customer service in insurance.",
         "icon": "fa-comments",
