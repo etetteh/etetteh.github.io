@@ -1,10 +1,10 @@
 ---
 import ExploreMore from "./ExploreMore.astro";
 import NoImageCardSkew from "./NoImageCardSkew.astro";
+import ProjectCard from "./ProjectCard.astro";
 import CardSkew from "./CardSkew1.astro";
 import Layout from "../layouts/Layout.astro";
-
-import type { ImageMetadata } from 'astro';
+import { Icon } from 'astro-icon/components';
 
 interface ResearchHighlight {
  title: string;
@@ -50,9 +50,7 @@ interface Props {
 }
 
 const { industryData, researchHighlights, gradientStart, gradientMiddle, gradientEnd } = Astro.props;
- 
-// const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/**/*.{jpeg,jpg,png,gif}');
----
+ ---
 
 <Layout title={industryData.postTitle}>
   <section class="relative text-gray-900 min-h-screen flex items-center justify-center overflow-hidden bg-white">
@@ -77,39 +75,10 @@ const { industryData, researchHighlights, gradientStart, gradientMiddle, gradien
     </div>
   </section>
 
-  <section id="features" class="overflow-hidden py-12 sm:py-16 md:py-20 mb-8 sm:mb-12 md:mb-16">
-    <div class="container mx-auto">
-      <h2 class="text-3xl sm:text-4xl md:text-5xl mb-8 sm:mb-12 md:mb-16 text-center text-gray-900 dark:text-white">
-        {industryData.postTitle.split('|')[0].trim()}
-      </h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mx-6 xl:mx-10 2xl:mx-28">
-        {industryData.children.map((feature) => (
-          <div class="relative">
-            <NoImageCardSkew
-              shadowColor={feature.shadowColor}
-              contentLink={feature.postURL}
-              readMoreText="Learn More"
-            >
-              <div class="bg-gray-0 transition duration-300 h-full flex flex-col min-h-[120px]">
-                <div class="flex items-center mb-3 sm:mb-4">
-                  <i class={`fas ${feature.icon} text-2xl sm:text-3xl text-blue-500 mr-3`} />
-                  <h4 class="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 dark:text-white">
-                    {feature.name}
-                  </h4>
-                </div>
-                <p class="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 mb-2">
-                  {feature.postTitle}
-                </p>
-                <p class="text-sm sm:text-base md:text-lg mb-4 sm:mb-6 text-gray-700 dark:text-gray-300">
-                  {feature.description}
-                </p>
-              </div>
-            </NoImageCardSkew>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+  <ProjectCard 
+    projects={industryData.children}
+    sectionTitle={industryData.postTitle.split('|')[0].trim()}
+  />
 
   <section class="mb-10 sm:pb-16 md:pb-20 lg:pb-20 xl:pb-40">
     <div class="container mx-auto">
@@ -178,18 +147,5 @@ const { industryData, researchHighlights, gradientStart, gradientMiddle, gradien
 
   .feature-card:hover::before {
     opacity: 1;
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-  }
-
-  .group:hover {
-    animation: float 3s ease-in-out infinite;
-  }
-
-  .animate-float {
-    animation: float 3s ease-in-out infinite;
   }
 </style>
