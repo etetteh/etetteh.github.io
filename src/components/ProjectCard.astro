@@ -36,7 +36,7 @@ const { projects, sectionTitle } = Astro.props;
                         className="rounded-2xl border-2 shadow-md hover:border-[color:var(--card-color)] hover:shadow-[color:var(--card-color)] h-full"
                         style={{ '--card-color': project.ballColor }}
                     >
-                    <div class="card-skew relative bg-white dark:bg-gray-800 rounded-xl overflow-hidden h-full flex flex-col"> {/* Add flex and flex-col */}
+                    <div class="card-skew relative bg-white dark:bg-gray-800 rounded-2xl overflow-hidden h-full flex flex-col"> {/* Add flex and flex-col */}
                         <div class="aspect-w-16 aspect-h-9 flex-shrink-0">
                             <img
                                 src={project.imageURL}
