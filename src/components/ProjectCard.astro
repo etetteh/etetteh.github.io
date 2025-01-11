@@ -1,0 +1,125 @@
+---
+import { Icon } from 'astro-icon/components'
+
+// ProjectCard.astro
+interface Project {
+  name: string;
+  postTitle: string;
+  description: string;
+  icon: string;
+  imageURL: string;
+  postURL: string;
+  shadowColor: string;
+  ballColor: string;
+  industry: string;
+}
+
+interface Props {
+  projects: Project[];
+  sectionTitle: string;
+}
+
+const { projects, sectionTitle } = Astro.props;
+---
+
+<section id="features" class="overflow-hidden py-12 sm:py-16 md:py-20 mb-8 sm:mb-12 md:mb-16">
+  <div class="container mx-auto">
+    <h2 class="text-3xl sm:text-4xl md:text-5xl mb-8 sm:mb-12 md:mb-16 text-center text-gray-900 dark:text-white">
+      {sectionTitle}
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mx-6 xl:mx-10 2xl:mx-28">
+      {
+        projects.map((project) => (
+            <div class="relative group h-[430px] shadow-2xl">
+                <a href={project.postURL} class="block h-full">
+                    <card-skew 
+                        className="rounded-2xl border-2 shadow-md hover:border-[color:var(--card-color)] hover:shadow-[color:var(--card-color)] h-full"
+                        style={{ '--card-color': project.ballColor }}
+                    >
+                    <div class="card-skew relative bg-white dark:bg-gray-800 rounded-xl overflow-hidden h-full flex flex-col"> {/* Add flex and flex-col */}
+                        <div class="aspect-w-16 aspect-h-9 flex-shrink-0">
+                            <img
+                                src={project.imageURL}
+                                alt={project.name}
+                                class="w-full h-full object-cover"
+                            />
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="flex items-center mb-3">
+                                <div 
+                                    class="w-8 h-8 rounded-full flex items-center justify-center mr-3"
+                                >
+                                    <i 
+                                    class={`fas ${project.icon} text-2xl text-[color:var(--card-color)] hover:brightness-75`}
+                                    style={{ '--card-color': project.ballColor }}
+                                    ></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                                    {project.name}
+                                </h3>
+                            </div>
+                                <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                    {project.postTitle}
+                                </p>
+                                <p class="text-base line-clamp-2 text-gray-700 dark:text-gray-300 mb-4">
+                                    {project.description}
+                                </p>
+                            <div class="mt-auto flex items-center text-[color:var(--card-color)] dark:text-[color:var(--card-color)] hover:text-[color:var(--card-color)] dark:hover:text-[color:var(--card-color)]"
+                                style={{ '--card-color': project.ballColor }}
+                            >
+                                <span>Learn More</span>
+                                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    </card-skew>
+                </a>
+            </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+    card-skew {
+      display: block;
+      transition: transform 0.07s ease-in-out;
+      transform-style: preserve-3d;
+    }
+</style>
+
+<script>
+  const initializeCardSkew = () => {
+    const cards = document.querySelectorAll('card-skew');
+    const perspective = 700;
+    const maxRotation = 5;
+
+    cards.forEach((card) => {
+      const handleMouseMove = (e: MouseEvent) => {
+        const cardElement = card as HTMLElement;
+        const rect = cardElement.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+
+        const rotateX = (y / (rect.height / 2)) * maxRotation;
+        const rotateY = (-x / (rect.width / 2)) * maxRotation;
+
+        cardElement.style.transform = `perspective(${perspective}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      };
+
+      card.addEventListener('mousemove', handleMouseMove as EventListener);
+      card.addEventListener('mouseleave', () => {
+        (card as HTMLElement).style.transform = `perspective(${perspective}px) rotateX(0) rotateY(0)`;
+      });
+    });
+  };
+
+  // Initialize on page load
+  document.addEventListener('DOMContentLoaded', initializeCardSkew);
+
+  // Re-initialize when the page content updates (useful for SPAs and dynamic content)
+  document.addEventListener('astro:page-load', initializeCardSkew);
+</script>
