@@ -1,0 +1,40 @@
+---
+import IndustryLandingPage from '../../../components/IndustryLandingPage.astro';
+import { loadJsonData } from '../../../utils/loadJsonData';
+
+const data = await loadJsonData('projects');
+
+if (!data) {
+  throw new Error('Failed to load projects data');
+}
+
+// Find the insurance object in the children array
+const insuranceData = data.children.find((child: { name: string; }) => child.name === "Insurance");
+
+const researchHighlights = [
+  {
+    title: "AI-Powered Fraud Prevention",
+    description: "Our AI system detected 99.5% of fraudulent insurance claims, saving the industry over $1 billion in potential losses.",
+    imageUrl: "/insurance/item4.jpeg",
+    imageAlt: "AI Fraud Prevention in Insurance",
+    shadowColor: "from-red-500 to-orange-500",
+    contentLink: "/research/ai-insurance-fraud-prevention",
+  },
+  {
+    title: "Personalized Risk Assessment",
+    description: "Using machine learning algorithms, our AI improved risk assessment accuracy by 40%, leading to more precise policy pricing and reduced losses.",
+    imageUrl: "/insurance/item4.jpeg",
+    imageAlt: "AI Risk Assessment in Insurance",
+    shadowColor: "from-blue-500 to-indigo-500",
+    contentLink: "/research/personalized-risk-assessment",
+  },
+];
+---
+
+<IndustryLandingPage
+    industryData={insuranceData}
+    researchHighlights={researchHighlights}
+    gradientStart="red-500"
+    gradientMiddle="teal-500"
+    gradientEnd="green-700"
+/>

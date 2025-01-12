@@ -1,0 +1,41 @@
+---
+import IndustryLandingPage from '../../../components/IndustryLandingPage.astro';
+import { loadJsonData } from '../../../utils/loadJsonData';
+
+const data = await loadJsonData('projects');
+
+if (!data) {
+  throw new Error('Failed to load projects data');
+}
+
+// Find the finance object in the children array
+const financeData = data.children.find((child: { name: string; }) => child.name === "Finance");
+
+const researchHighlights = [
+  {
+    title: "AI-Driven Fraud Prevention",
+    description: "Our AI system detected 99.7% of fraudulent transactions, saving financial institutions over $500 million in potential losses.",
+    imageUrl: "/finance/item2.jpeg",
+    imageAlt: "AI Fraud Prevention Visualization",
+    shadowColor: "from-red-500 to-orange-500",
+    contentLink: "/research/ai-fraud-prevention",
+  },
+  {
+    title: "Predictive Market Analysis",
+    description: "Using deep learning algorithms, our AI predicted market trends with 87% accuracy, outperforming traditional forecasting methods by 35%.",
+    imageUrl: "/finance/item2.jpeg",
+    imageAlt: "AI Market Prediction Graph",
+    shadowColor: "from-blue-500 to-indigo-500",
+    contentLink: "/research/predictive-market-analysis",
+  },
+];
+---
+
+<IndustryLandingPage
+  industryData={financeData}
+  researchHighlights={researchHighlights}
+  researchHighlights={researchHighlights}
+  gradientStart="red-400"
+  gradientMiddle="teal-400"
+  gradientEnd="green-700"
+/>
