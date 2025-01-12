@@ -1,0 +1,40 @@
+---
+import IndustryLandingPage from '../../../components/IndustryLandingPage.astro';
+import { loadJsonData } from '../../../utils/loadJsonData';
+
+const data = await loadJsonData('projects');
+if (!data) {
+  throw new Error('Failed to load projects data');
+}
+
+// Find the healthcare object in the children array
+const healthcareData = data.children.find((child: { name: string; }) => child.name === "Healthcare");
+
+
+const researchHighlights = [
+	{
+		title: "Early Cancer Detection",
+		description: "Our AI algorithms detected early-stage lung cancer with 94% accuracy, potentially saving thousands of lives through early intervention.",
+		imageUrl: "/healthcare/item3.jpeg",
+		imageAlt: "AI-powered cancer detection",
+		shadowColor: "from-blue-500 to-blue-600",
+		contentLink: "/research/early-cancer-detection",
+	},
+	{
+		title: "Precision Medicine",
+		description: "By analyzing genetic data, our AI system recommended personalized treatment plans that increased efficacy by 40% for patients with rare genetic disorders.",
+		imageUrl: "/healthcare/item3.jpeg",
+		imageAlt: "Precision medicine visualization",
+		shadowColor: "from-green-500 to-green-600",
+		contentLink: "/research/precision-medicine",
+	},
+];
+---
+
+<IndustryLandingPage
+	industryData={healthcareData}
+	researchHighlights={researchHighlights}
+	gradientStart="blue-500"
+	gradientMiddle="cyan-600"
+	gradientEnd="blue-700"
+/>
