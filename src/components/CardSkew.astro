@@ -21,7 +21,7 @@ const {
 ---
 
 
-<div class="flex justify-center items-center w-full">
+<div class="flex justify-center items-center w-full object-fit">
   <div class="w-full m-3 max-w-md xl:max-w-full">
       <card-skew 
           className="rounded-2xl border-2 shadow-md hover:border-[color:var(--card-color)] hover:shadow-[color:var(--card-color)]"
@@ -29,7 +29,7 @@ const {
           data-perspective="700"
       >  
       <div class="bg-white overflow-hidden shadow-md transform rounded-2xl transition-transform duration-300">
-        <div class="relative overflow-hidden object-fit">
+        <div class="relative overflow-hidden object-fill">
           <Picture
               formats={['avif', 'webp']}
               src={imageUrl}
@@ -61,7 +61,7 @@ const {
               decoding="async"
               loading="lazy"
               fit="auto"
-              class="object-fill w-full h-[320px] sm:h-[320px] md:h-[350px] lg:h-[370px] xl:h-[370px] 2xl:h-[390px] 4k:h-[400px] rounded-t-xl"
+              class="object-fill w-full h-[320px] sm:h-[320px] md:h-[350px] lg:h-[370px] xl:h-[370px] 2xl:h-[390px] 4k:h-[400px]"
               layout="responsive"
           />
         </div>
